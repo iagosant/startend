@@ -54,6 +54,14 @@ require 'date'
     time = separated[2]
     @shift << time
 
+    on_shift = separated[5].split(":")[0]
+    on_off = on_shift.split(" ")[0].downcase
+    if on_off == "start"
+      @on_off = true
+    else
+      @on_off = false
+    end
+
     @all_shifts << @shift
 
     Site.create(name: site_name)
@@ -61,7 +69,9 @@ require 'date'
     User.create(first_name: first_name, last_name: last_name)
     Shift.create(user_id: User.find_by(first_name: first_name).id,
                  site_id: Site.find_by(name: site_name).id,
-                 schedule_id: Schedule.find_by(date: date).id)
+                 schedule_id: Schedule.find_by(date: date).id,
+                 on_shift: @on_off)
+                 byebug
 
   end
 
