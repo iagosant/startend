@@ -1,12 +1,13 @@
 require 'csv'
-require 'byebug'
+require 'date'
+
 # data_year = 2012
 # department_data = []
 # job_data = []
 # employee_data = []
 # gender = GenderDetector.new
 # while data_year <= 2016
-  csv_text = File.read("export.csv")
+  csv_text = File.open(Rails.root.join('lib', 'seeds', 'export.csv'))
   csv = CSV.parse(csv_text) #, :headers => true)
   #  Site;Date/Time;Date/Time;Device User;Activity;Addl. Information
 
@@ -44,21 +45,28 @@ require 'byebug'
 
     date = separated[1]
     date.split("/")[1]
+    date = DateTime.strptime(date, "%m/%d/%Y")
     @shift << date
 
+# my_date = Date.strptime("12/22/2011", "%m/%d/%Y")
+    # formatted_date = d.strftime('%a %b %d %H:%M:%S %Z %Y')
 
     time = separated[2]
     @shift << time
 
-
     @all_shifts << @shift
 
+    Site.create(name: site_name)
+    Schedule.create(date: date)
+    User.create(first_name: first_name, last_name: last_name)
+    Shift.create(user_id: User.find_by(first_name: first_name).id,
+                 site_id: Site.find_by(name: site_name).id,
+                 schedule_id: Schedule.find_by(date: date).id)
 
   end
 
   p @all_shifts[0]
-
-
+  #
   # Employee => name, location, start_shift, end_shift
   # puts "processing department and job title data....."
   # csv1.each do |row|
