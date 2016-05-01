@@ -28,6 +28,11 @@ require 'date'
     site_name = separated.first
     @shift << site_name
 
+    @all_sites = []
+    Site.all.each do |site|
+      @all_sites << site.name
+    end
+
     format_name = separated.last.split(":")[1].to_s.strip!
     full_name = format_name.to_s.downcase.split.map(&:capitalize).join(' ')
     last_name = full_name.split.first
@@ -48,9 +53,6 @@ require 'date'
     date = DateTime.strptime(date, "%m/%d/%Y")
     @shift << date
 
-# my_date = Date.strptime("12/22/2011", "%m/%d/%Y")
-    # formatted_date = d.strftime('%a %b %d %H:%M:%S %Z %Y')
-
     time = separated[2]
     @shift << time
 
@@ -64,18 +66,18 @@ require 'date'
 
     @all_shifts << @shift
 
-    Site.create(name: site_name)
+    if @all_sites.exclude?(site_name)
+      Site.create(name: site_name)
+    end
     Schedule.create(date: date)
     User.create(first_name: first_name, last_name: last_name)
     Shift.create(user_id: User.find_by(first_name: first_name).id,
                  site_id: Site.find_by(name: site_name).id,
                  schedule_id: Schedule.find_by(date: date).id,
                  on_shift: @on_off)
-                 byebug
 
   end
 
-  p @all_shifts[0]
   #
   # Employee => name, location, start_shift, end_shift
   # puts "processing department and job title data....."
