@@ -58,6 +58,7 @@ class SchedulesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to schedules_url, notice: 'Schedule was successfully destroyed.' }
       format.json { head :no_content }
+      Schedules.reset_pk_sequence
     end
   end
 

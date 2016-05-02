@@ -58,6 +58,7 @@ class ShiftsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to shifts_url, notice: 'Shift was successfully destroyed.' }
       format.json { head :no_content }
+      Shift.reset_pk_sequence
     end
   end
 

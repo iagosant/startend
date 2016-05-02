@@ -18,6 +18,7 @@ require 'date'
     sorted_csv.pop
 
     @all_shifts = []
+    @all_sites = []
 
     sorted_csv.each do |row|
 
@@ -28,18 +29,22 @@ require 'date'
     site_name = separated.first
     @shift << site_name
 
-    @all_sites = []
     Site.all.each do |site|
       @all_sites << site.name
     end
+
+    @all_users = []
 
     format_name = separated.last.split(":")[1].to_s.strip!
     full_name = format_name.to_s.downcase.split.map(&:capitalize).join(' ')
     last_name = full_name.split.first
     first_name = full_name.split.last
-    guard_name = "#{first_name} #{last_name}"
-    @shift << guard_name
+    guard_name = { "first_name" => first_name, "last_name" => last_name }
 
+    @all_users << guard_name
+
+    @shift << guard_name
+byebug
     startend = separated.last.split(":")[0]
     if startend.split[0] == "Start"
       shift = "STARTED shift"
@@ -69,8 +74,9 @@ require 'date'
     if @all_sites.exclude?(site_name)
       Site.create(name: site_name)
     end
-    Schedule.create(date: date)
+
     User.create(first_name: first_name, last_name: last_name)
+    Schedule.create(date: date)
     Shift.create(user_id: User.find_by(first_name: first_name).id,
                  site_id: Site.find_by(name: site_name).id,
                  schedule_id: Schedule.find_by(date: date).id,

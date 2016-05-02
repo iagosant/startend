@@ -58,6 +58,7 @@ class SitesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to sites_url, notice: 'Site was successfully destroyed.' }
       format.json { head :no_content }
+      Site.reset_pk_sequence
     end
   end
 
