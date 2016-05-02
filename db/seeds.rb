@@ -17,8 +17,10 @@ require 'date'
 
     sorted_csv.pop
 
-    @all_shifts = []
     @all_sites = []
+    @all_users = []
+    @all_schedules = []
+    @all_shifts = []
 
     sorted_csv.each do |row|
 
@@ -33,18 +35,18 @@ require 'date'
       @all_sites << site.name
     end
 
-    @all_users = []
-
     format_name = separated.last.split(":")[1].to_s.strip!
     full_name = format_name.to_s.downcase.split.map(&:capitalize).join(' ')
-    last_name = full_name.split.first
-    first_name = full_name.split.last
-    guard_name = { "first_name" => first_name, "last_name" => last_name }
+    @last_name = full_name.split.first
+    @first_name = full_name.split.last
+    guard_name = "#{@first_name} #{@last_name}"
 
+    if @all_users.exclude?(guard_name)
     @all_users << guard_name
+    end
 
     @shift << guard_name
-byebug
+
     startend = separated.last.split(":")[0]
     if startend.split[0] == "Start"
       shift = "STARTED shift"
@@ -75,14 +77,26 @@ byebug
       Site.create(name: site_name)
     end
 
-    User.create(first_name: first_name, last_name: last_name)
+    if User.first == nil
+      @new_user = User.create(first_name: @first_name, last_name: @last_name)
+    end
+
+    @all_users.each do |name|
+      n = name.split(" ")
+        if User.find_by(first_name: n[0], last_name: n[1]) == nil
+          @new_user = User.create(first_name: n[0], last_name: n[1])
+        end
+    end
+
     Schedule.create(date: date)
-    Shift.create(user_id: User.find_by(first_name: first_name).id,
+
+    Shift.create(user_id: User.find_by(first_name: @first_name).id,
                  site_id: Site.find_by(name: site_name).id,
                  schedule_id: Schedule.find_by(date: date).id,
                  on_shift: @on_off)
 
   end
+
 
   #
   # Employee => name, location, start_shift, end_shift
