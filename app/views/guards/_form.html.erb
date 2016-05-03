@@ -1,0 +1,25 @@
+<%= form_for(@guard) do |f| %>
+  <% if @guard.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@guard.errors.count, "error") %> prohibited this guard from being saved:</h2>
+
+      <ul>
+      <% @guard.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :first_name %><br>
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br>
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

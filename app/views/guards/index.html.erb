@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Guards</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @guards.each do |guard| %>
+      <tr>
+        <td><%= guard.first_name %></td>
+        <td><%= guard.last_name %></td>
+        <td><%= link_to 'Show', guard %></td>
+        <td><%= link_to 'Edit', edit_guard_path(guard) %></td>
+        <td><%= link_to 'Destroy', guard, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Guard', new_guard_path %>

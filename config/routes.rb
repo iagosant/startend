@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :guards
   resources :shifts
   resources :users
   resources :schedules
