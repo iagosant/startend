@@ -4,11 +4,4 @@ class Shift < ActiveRecord::Base
   belongs_to :schedule
   belongs_to :guard
 
-  def self.shift_info
-     Shift.all.each do |shift|
-     @day = shift.datetime.strftime("%A")
-     @clock = shift.datetime.strftime('%H:%M')
-   end
-  end
-
 end
