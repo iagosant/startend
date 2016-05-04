@@ -62,3 +62,12 @@
       border-collapse: collapse;
       border-spacing: 0;
   }
+.se-table-th th{
+  padding: 5px 0px;
+  text-align: center;
+
+}
+.se-table-total{
+  background-color: rgba(214, 228, 238, 0.35);
+
+}
