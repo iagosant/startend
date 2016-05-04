@@ -4,7 +4,15 @@ class ShiftsController < ApplicationController
   # GET /shifts
   # GET /shifts.json
   def index
+    # Shift.shift_info
     @shifts = Shift.all
+    @guards = Guard.all
+
+    @guards.each do |guard|
+  
+      hash = {:first_name => guard.first_name, :last_name => guard.last_name }
+    end
+    byebug
   end
 
   # GET /shifts/1

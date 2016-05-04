@@ -2,24 +2,202 @@
 
 <h1>Listing Shifts</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @shifts.each do |shift| %>
-      <tr>
-        <td><%= link_to 'Show', shift %></td>
-        <td><%= link_to 'Edit', edit_shift_path(shift) %></td>
-        <td><%= link_to 'Destroy', shift, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<div class="col s12 m9 l10">
+  <table class="striped">
+    <thead>
+      <tr class="col s12 m12 l12">
+        <th data-field="name" class="col s3 m3 l3" rowspan="3">Guard </th>
+        <th data-field="post" class="col s2 m2 l2" rowspan="3">Post</th>
+        <th data-field="monday" class="col s2 m1 l1" colspan="2">Monday</th>
+        <th data-field="tuesday" class="col s2 m1 l1" colspan="2">Tuesday</th>
+        <th data-field="wednesday" class="col s2 m1 l1" colspan="2">Wednesday</th>
+        <th data-field="thursday" class="col s2 m1 l1" colspan="2">Thursday</th>
+        <th data-field="friday" class="col s2 m1 l1" colspan="2">Friday</th>
+        <th data-field="saturday" class="col s2 m1 l1" colspan="2">Saturday</th>
+        <th data-field="sunday" class="col s2 m1 l1" colspan="2">Sunday</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      <tr>
+        <th class="col s1 m1 l1">In</th>
+        <th class="col s1 m1 l1">Out</th>
+        <th class="col s1 m1 l1">In</th>
+        <th class="col s1 m1 l1">Out</th>
+        <th class="col s1 m1 l1">In</th>
+        <th class="col s1 m1 l1">Out</th>
+        <th class="col s1 m1 l1">In</th>
+        <th class="col s1 m1 l1">Out</th>
+        <th class="col s1 m1 l1">In</th>
+        <th class="col s1 m1 l1">Out</th>
+        <th class="col s1 m1 l1">In</th>
+        <th class="col s1 m1 l1">Out</th>
+        <th class="col s1 m1 l1">In</th>
+        <th class="col s1 m1 l1">Out</th>
+      </tr>
+    </thead>
 
+    <tbody>
+      <% @guards.each do |guard| %>
+        <% shifts = Shift.where(guard_id: guard.id).order(:datetime) %>
+
+        <tr>
+          <td><%= guard.first_name + guard.last_name %></td>
+          <td><%= "VWA" %></td>
+          <% shifts.each do |shift| %>
+
+            <% day_of_shift = shift.datetime.strftime('%A') %>
+            <% clock = shift.datetime.strftime('%H:%M') %>
+
+            <!--  Monday shifts  -->
+            <% if day_of_shift != "Monday" %>
+              <td></td>
+              <td></td>
+              <% elsif day_of_shift == "Monday" && shift.on_shift == true %>
+              <td><%= day_of_shift + clock %></td>
+              <td></td>
+              <% elsif day_of_shift == "Monday" && shift.on_shift == false %>
+              <td></td>
+              <td><%= day_of_shift + clock %></td>
+
+            <!--  Tuesday shifts  -->
+            <% elsif day_of_shift != "Tuesday" %>
+              <td></td>
+              <td></td>
+              <% elsif day_of_shift == "Tuesday" && shift.on_shift == true %>
+              <td><%= day_of_shift + clock %></td>
+              <td></td>
+              <% elsif day_of_shift == "Tuesday" && shift.on_shift == false %>
+              <td></td>
+              <td><%= day_of_shift + clock %></td>
+
+            <!--  Wednesday shifts  -->
+            <% elsif day_of_shift != "Wednesday" %>
+              <td></td>
+              <td></td>
+              <% elsif day_of_shift == "Wednesday" && shift.on_shift == true %>
+              <td><%= day_of_shift + clock %></td>
+              <td></td>
+              <% elsif day_of_shift == "Wednesday" && shift.on_shift == false %>
+              <td></td>
+              <td><%= day_of_shift + clock %></td>
+
+            <!--  Thursday shifts  -->
+            <% elsif day_of_shift != "Thursday" %>
+              <td></td>
+              <td></td>
+              <% elsif day_of_shift == "Thursday" && shift.on_shift == true %>
+              <td><%= day_of_shift + clock %></td>
+              <td></td>
+              <% elsif day_of_shift == "Thursday" && shift.on_shift == false %>
+              <td></td>
+              <td><%= day_of_shift + clock %></td>
+
+            <!--  Friday shifts  -->
+            <% elsif day_of_shift != "Friday" %>
+              <td></td>
+              <td></td>
+              <% elsif day_of_shift == "Friday" && shift.on_shift == true %>
+              <td><%= day_of_shift + clock %></td>
+              <td></td>
+              <% elsif day_of_shift == "Friday" && shift.on_shift == false %>
+              <td></td>
+              <td><%= day_of_shift + clock %></td>
+
+            <!--  Saturday shifts  -->
+            <% elsif day_of_shift != "Saturday" %>
+              <td></td>
+              <td></td>
+              <% elsif day_of_shift == "Saturday" && shift.on_shift == true %>
+              <td><%= day_of_shift + clock %></td>
+              <td></td>
+              <% elsif day_of_shift == "Saturday" && shift.on_shift == false %>
+              <td></td>
+              <td><%= day_of_shift + clock %></td>
+
+            <!--  Sunday shifts  -->
+            <% elsif day_of_shift != "Sunday" %>
+              <td></td>
+              <td></td>
+              <% elsif day_of_shift == "Sunday" && shift.on_shift == true %>
+              <td><%= day_of_shift + clock %></td>
+              <td></td>
+              <% elsif day_of_shift == "Sunday" && shift.on_shift == false %>
+              <td></td>
+              <td><%= day_of_shift + clock %></td>
+            <% end %>
+          <% end %>
+
+
+          <!-- <td><#%= link_to 'Show', shift %></td>
+          <td><#%= link_to 'Edit', edit_shift_path(shift) %></td>
+          <td><#%= link_to 'Destroy', shift, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 <br>
 
 <%= link_to 'New Shift', new_shift_path %>
+
+<!-- <tbody>
+  <% @guards.each do |guard| %>
+    <% shifts = Shift.where(guard_id: guard.id).order(:datetime) %>
+    <tr>
+
+      <td><%= guard.first_name + guard.last_name %></td>
+      <td><%= "VWA" %></td>
+
+      <% monday = [] %>
+      <% tuesday = [] %>
+      <% wednesday = [] %>
+      <% thursday = [] %>
+      <% friday = [] %>
+      <% saturday = [] %>
+      <% sunday = [] %>
+
+      <% shifts.each do |shift| %>
+
+      <% day_of_shift = shift.datetime.strftime('%A') %>
+      <% clock = shift.datetime.strftime('%H:%M') %>
+
+      <% if day_of_shift == "Monday" %>
+      <% monday << shift %>
+
+      <% elsif day_of_shift == "Tuesday" %>
+      <% tuesday << shift %>
+
+      <% elsif day_of_shift == "Wednesday" %>
+      <% wednesday << shift %>
+
+      <% elsif day_of_shift == "Thursday" %>
+      <% thursday << shift %>
+
+      <% elsif day_of_shift == "Friday" %>
+      <% friday << shift %>
+
+      <% elsif day_of_shift == "Saturday" %>
+      <% saturday << shift %>
+
+      <% elsif day_of_shift == "Sunday" %>
+      <% sunday << shift %>
+
+      <% end %>  -->
+
+        <!--  Monday shifts -->
+
+        <!--  Tuesday shifts  -->
+
+        <!--  Wednesday shifts  -->
+
+        <!--  Thursday shifts  -->
+
+        <!--  Friday shifts  -->
+
+        <!--  Saturday shifts  -->
+
+        <!--  Sunday shifts  -->
+
+    <!-- </tr>
+  <% end %>
+  <% end %>
+
+</tbody> -->

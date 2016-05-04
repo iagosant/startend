@@ -32,7 +32,7 @@ sorted_csv.each do |row|
   shift_check = on_shift.split(" ")[0].downcase
   shift_check == "start" ? on_off = true : on_off = false
 
-  Shift.create(user_id: Guard.find_by(first_name: first_name).id,
+  Shift.create(guard_id: Guard.find_by(first_name: first_name).id,
   site_id: Site.find_by(name: site_name).id,
   datetime: datetime, on_shift: on_off)
 
