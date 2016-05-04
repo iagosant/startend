@@ -4,5 +4,5 @@ class Shift < ActiveRecord::Base
   belongs_to :schedule
   belongs_to :guard
 
-  
+
 end
