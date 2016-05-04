@@ -1,47 +1,17 @@
 class ShiftsController < ApplicationController
   before_action :set_shift, only: [:show, :edit, :update, :destroy]
-
+  helper ShiftsHelper
   # GET /shifts
   # GET /shifts.json
   def index
-    find_shifts
+
     # Shift.shift_info
     @shifts = Shift.all
     @guards = Guard.all
+  
   end
 
-  def find_shifts(guard)
 
-    all_shifts = Shift.where(guard_id: guard.id)
-
-    @week = Hash.new
-    all_shifts.each do |shift|
-
-      time = shift.datetime.strftime('%H:%M')
-      case(shift.datetime.strftime('%A'))
-      when 'Monday'
-        if shift.on_shift == true
-          @week['monday_on'] = time
-        else
-          @week['monday_off'] = time
-        end
-      when 'Saturday'
-        if shift.on_shift == true
-          @week['saturday_on'] = time
-        else
-          @week['saturday_off'] = time
-        end
-        when 'Wednesday'
-          if shift.on_shift == true
-        @week['tuesday_on'] = time
-        else
-        @week['tuesday_off'] = time
-      end
-      end
-
-    end
-
-  end
 
   # GET /shifts/1
   # GET /shifts/1.json
