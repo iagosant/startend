@@ -1,7 +1,8 @@
 module ShiftsHelper
   def find_shifts(guard)
 
-    all_shifts = Shift.where(guard_id: Guard.first.id)
+
+    all_shifts = Shift.where(guard_id: guard.id)
 
     @week = Hash.new
     all_shifts.each do |shift|
@@ -14,6 +15,7 @@ module ShiftsHelper
         else
           @week['monday_off'] = time
         end
+
       when 'Tuesday'
         if shift.on_shift == true
           @week['tuesday_on'] = time
@@ -56,5 +58,6 @@ module ShiftsHelper
           end
       end
     end
+
   end
 end

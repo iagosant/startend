@@ -4,10 +4,14 @@ class ShiftsController < ApplicationController
   # GET /shifts
   # GET /shifts.json
   def index
+
+
+    # Shift.shift_info
     @shifts = Shift.all
     @guards = Guard.all
-    # Shift.shift_info
+
   end
+
 
   # GET /shifts/1
   # GET /shifts/1.json

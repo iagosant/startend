@@ -36,94 +36,33 @@
 
     <tbody>
       <% @guards.each do |guard| %>
-        <% shifts = Shift.where(guard_id: guard.id).order(:datetime) %>
-
+        <% find_shifts(guard) %>
         <tr>
           <td><%= guard.first_name + guard.last_name %></td>
-          <td><%= "VWA" %></td>
-          <% shifts.each do |shift| %>
+          <td><% "WSE" %> </td>
+          <!--  Monday shifts  -->
+          <td ><%= @week["monday_on"]%></td>
+          <td ><%= @week["monday_off"]%></td>
+          <!--  Tuesday shifts  -->
+          <td><%= @week["tuesday_on"]%></td>
+          <td><%= @week["tuesday_off"]%></td>
+          <!--  Wednesday shifts  -->
+          <td><%= @week["wednesday_on"]%></td>
+          <td><%= @week["wednesday_off"]%></td>
+          <!--  Thursday shifts  -->
+          <td><%= @week["thursday_on"]%></td>
+          <td><%= @week["thursday_off"]%></td>
+          <!--  Friday shifts  -->
+          <td><%= @week["Friday_on"]%></td>
+          <td><%= @week["Friday_off"]%></td>
+          <!--  Saturday shifts  -->
+          <td><%= @week["saturday_on"]%></td>
+          <td><%= @week["saturday_off"]%></td>
+          <!--  Sunday shifts  -->
+          <td><%= @week["sunday_on"]%></td>
+          <td><%= @week["sunday_off"]%></td>
+        </tr>
 
-            <% day_of_shift = shift.datetime.strftime('%A') %>
-            <% clock = shift.datetime.strftime('%H:%M') %>
-
-            <!--  Monday shifts  -->
-            <% if day_of_shift != "Monday" %>
-              <td></td>
-              <td></td>
-              <% elsif day_of_shift == "Monday" && shift.on_shift == true %>
-              <td><%= day_of_shift + clock %></td>
-              <td></td>
-              <% elsif day_of_shift == "Monday" && shift.on_shift == false %>
-              <td></td>
-              <td><%= day_of_shift + clock %></td>
-
-            <!--  Tuesday shifts  -->
-            <% elsif day_of_shift != "Tuesday" %>
-              <td></td>
-              <td></td>
-              <% elsif day_of_shift == "Tuesday" && shift.on_shift == true %>
-              <td><%= day_of_shift + clock %></td>
-              <td></td>
-              <% elsif day_of_shift == "Tuesday" && shift.on_shift == false %>
-              <td></td>
-              <td><%= day_of_shift + clock %></td>
-
-            <!--  Wednesday shifts  -->
-            <% elsif day_of_shift != "Wednesday" %>
-              <td></td>
-              <td></td>
-              <% elsif day_of_shift == "Wednesday" && shift.on_shift == true %>
-              <td><%= day_of_shift + clock %></td>
-              <td></td>
-              <% elsif day_of_shift == "Wednesday" && shift.on_shift == false %>
-              <td></td>
-              <td><%= day_of_shift + clock %></td>
-
-            <!--  Thursday shifts  -->
-            <% elsif day_of_shift != "Thursday" %>
-              <td></td>
-              <td></td>
-              <% elsif day_of_shift == "Thursday" && shift.on_shift == true %>
-              <td><%= day_of_shift + clock %></td>
-              <td></td>
-              <% elsif day_of_shift == "Thursday" && shift.on_shift == false %>
-              <td></td>
-              <td><%= day_of_shift + clock %></td>
-
-            <!--  Friday shifts  -->
-            <% elsif day_of_shift != "Friday" %>
-              <td></td>
-              <td></td>
-              <% elsif day_of_shift == "Friday" && shift.on_shift == true %>
-              <td><%= day_of_shift + clock %></td>
-              <td></td>
-              <% elsif day_of_shift == "Friday" && shift.on_shift == false %>
-              <td></td>
-              <td><%= day_of_shift + clock %></td>
-
-            <!--  Saturday shifts  -->
-            <% elsif day_of_shift != "Saturday" %>
-              <td></td>
-              <td></td>
-              <% elsif day_of_shift == "Saturday" && shift.on_shift == true %>
-              <td><%= day_of_shift + clock %></td>
-              <td></td>
-              <% elsif day_of_shift == "Saturday" && shift.on_shift == false %>
-              <td></td>
-              <td><%= day_of_shift + clock %></td>
-
-            <!--  Sunday shifts  -->
-            <% elsif day_of_shift != "Sunday" %>
-              <td></td>
-              <td></td>
-              <% elsif day_of_shift == "Sunday" && shift.on_shift == true %>
-              <td><%= day_of_shift + clock %></td>
-              <td></td>
-              <% elsif day_of_shift == "Sunday" && shift.on_shift == false %>
-              <td></td>
-              <td><%= day_of_shift + clock %></td>
-            <% end %>
-          <% end %>
 
 
           <!-- <td><#%= link_to 'Show', shift %></td>
