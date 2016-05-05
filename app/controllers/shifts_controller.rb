@@ -5,8 +5,6 @@ class ShiftsController < ApplicationController
   # GET /shifts.json
   def index
 
-
-    # Shift.shift_info
     @shifts = Shift.all
     @guards = Guard.all
 
@@ -20,6 +18,7 @@ class ShiftsController < ApplicationController
 
   # GET /shifts/new
   def new
+
     @shift = Shift.new
   end
 
@@ -30,17 +29,12 @@ class ShiftsController < ApplicationController
   # POST /shifts
   # POST /shifts.json
   def create
+
+  #import redirects to import method in this(shifts) controller
+    import
+
     @shift = Shift.new(shift_params)
 
-    respond_to do |format|
-      if @shift.save
-        format.html { redirect_to @shift, notice: 'Shift was successfully created.' }
-        format.json { render :show, status: :created, location: @shift }
-      else
-        format.html { render :new }
-        format.json { render json: @shift.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PATCH/PUT /shifts/1
@@ -68,6 +62,23 @@ class ShiftsController < ApplicationController
     end
   end
 
+  def remove_all
+
+    Shift.delete_all
+    Shift.reset_pk_sequence
+    Guard.delete_all
+    Guard.reset_pk_sequence
+    Site.delete_all
+    Site.reset_pk_sequence
+    flash[:notice] = "All shift data has been cleared!"
+    redirect_to shifts_path
+  end
+
+  def import
+    Shift.import(params[:file])
+      redirect_to shifts_path, notice: "Shifts uploaded succesfully"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_shift
@@ -77,7 +88,7 @@ class ShiftsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shift_params
-      params.fetch(:shift, {})
+      params.fetch(:shift, {}).permit(:file)
     end
 
 end
