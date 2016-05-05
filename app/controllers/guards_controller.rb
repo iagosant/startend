@@ -3,6 +3,7 @@ class GuardsController < ApplicationController
 
   # GET /guards
   # GET /guards.json
+  @shift= Shift.all
   def index
     @guards = Guard.all
   end
