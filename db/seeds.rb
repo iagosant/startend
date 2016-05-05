@@ -2,13 +2,14 @@ require 'csv'
 require 'date'
 
 csv_text = File.read('export.csv')
+
 csv = CSV.parse(csv_text)
 
 sorted_csv = csv.sort
-
 sorted_csv.pop
 
 sorted_csv.each do |row|
+  byebug
 
   separated = row[0].split(";")
 

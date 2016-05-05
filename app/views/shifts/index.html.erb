@@ -72,8 +72,10 @@
 </div>
 <br>
 
-<%= link_to 'New Shift', new_shift_path %>
-<%= form_tag('/startend') do %>
+<%= link_to 'Destroy', shifts_path, method: :delete %>
+
+<h3>Upload shifts</h3>
+<%= form_tag shifts_path, multipart: true do %>
   <%= file_field_tag :file %>
-  <%= submit_tag %>
+  <%= submit_tag "Upload shifts"%>
 <% end %>
