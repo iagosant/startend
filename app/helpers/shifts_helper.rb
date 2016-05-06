@@ -7,6 +7,9 @@ module ShiftsHelper
     all_shifts.each do |shift|
 
     time = shift.datetime.strftime('%H:%M')
+
+    @week['site'] = shift.site.codename
+
     case(shift.datetime.strftime('%A'))
 
       when 'Monday'

@@ -22,13 +22,9 @@ class Shift < ActiveRecord::Base
 
       site_name = separated.first
 
+      short = site_name.gsub(/(\w)\w+\W*/, '\1').upcase
 
-      def short_name(site_name)
-        short_name = site_name.gsub(/(\w)\w+\W*/, '\1').upcase
-      end
-byebug
-      Site.create(name: site_name)
-
+      Site.create(name: site_name, codename: short)
 
       format_name = separated.last.split(":")[1].to_s.strip!
       full_name = format_name.to_s.downcase.split.map(&:capitalize).join(' ')

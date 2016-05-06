@@ -50,7 +50,7 @@
         <% find_shifts(guard) %>
         <tr>
           <td><%= guard.first_name + " " + guard.last_name %></td>
-          <td><%= "VWA" %> </td>
+          <td><%= @week["site"] %> </td>
           <!--  Monday shifts  -->
           <td ><%= @week["monday_on"]%></td>
           <td ><%= @week["monday_off"]%></td>
