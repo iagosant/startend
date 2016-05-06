@@ -10,7 +10,6 @@ class ShiftsController < ApplicationController
 
   end
 
-
   # GET /shifts/1
   # GET /shifts/1.json
   def show

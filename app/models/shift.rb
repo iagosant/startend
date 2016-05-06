@@ -17,12 +17,18 @@ class Shift < ActiveRecord::Base
     sorted_csv.pop
 
     sorted_csv.each do |row|
-  
+
       separated = row[0].split(";")
 
       site_name = separated.first
 
+
+      def short_name(site_name)
+        short_name = site_name.gsub(/(\w)\w+\W*/, '\1').upcase
+      end
+byebug
       Site.create(name: site_name)
+
 
       format_name = separated.last.split(":")[1].to_s.strip!
       full_name = format_name.to_s.downcase.split.map(&:capitalize).join(' ')

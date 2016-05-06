@@ -6,14 +6,9 @@ module ShiftsHelper
     @week = Hash.new
     all_shifts.each do |shift|
 
-<<<<<<< HEAD
-      time = shift.datetime.strftime('%H:%M')
-      case(shift.datetime.strftime('%A'))
-
-=======
     time = shift.datetime.strftime('%H:%M')
     case(shift.datetime.strftime('%A'))
->>>>>>> misley-changes
+
       when 'Monday'
         if shift.on_shift
           @week['monday_on'] = time
