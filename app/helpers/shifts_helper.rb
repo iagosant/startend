@@ -60,7 +60,6 @@ module ShiftsHelper
           else
             @week['sunday_off'] = time
           end
-
         end
       end
     end

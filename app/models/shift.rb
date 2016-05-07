@@ -4,6 +4,31 @@ class Shift < ActiveRecord::Base
   belongs_to :schedule
   belongs_to :guard
 
+  def self.to_csv
+    att_site = %w{ site datetime guard_id  }
+    att_guard = %w{ first_name last_name }
+    CSV.generate( headers: true ) do |csv|
+      csv << att_site
+
+
+      all.each do |shift|
+        csv = shift.attributes.values_at(*att_site)
+        csv = shift.attributes.values_at(*att_guard)
+byebug
+        site = shift.site.attributes.values_at("codename")
+        first_name = shift.guard.attributes.values_at("first_name")
+        last_name = shift.guard.attributes.values_at("first_name")
+
+        shift_attributes[0] = site
+        shift_attributes[3] = first_name
+        shift_attributes[4] = last_name
+        csv = shift_attributes
+        byebug
+
+      end
+    end
+  end
+
   def self.import(file)
 
     csv_path = file.path
