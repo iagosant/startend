@@ -5,6 +5,7 @@ class ShiftsController < ApplicationController
   # GET /shifts.json
   def index
 
+
     @shifts = Shift.all
     @guards = Guard.all
 
