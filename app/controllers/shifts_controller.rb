@@ -5,14 +5,15 @@ class ShiftsController < ApplicationController
   # GET /shifts.json
   def index
 
-
     @shifts = Shift.all
     @guards = Guard.all
 
     respond_to do |format|
       format.html
-      format.csv { send_data text: @shifts.to_csv}
+      format.csv { send_data @shifts.to_csv }
+      format.xls #{ send_data @shifts.to_csv(col_sep: "\t") }
     end
+
   end
 
   # GET /shifts/1

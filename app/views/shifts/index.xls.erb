@@ -86,14 +86,3 @@
   </table>
 
 <br>
-
-<%= link_to 'Wipe clean', shifts_path, method: :delete %>
-
-<h3>Upload shifts</h3>
-<%= form_tag shifts_path, multipart: true do %>
-  <%= file_field_tag :file %>
-  <%= submit_tag 'Upload shifts'%>
-<% end %><br>
-
-<%= link_to 'Download csv', shifts_path(@shifts, format: :csv) %>
-<%= link_to 'Download xls', shifts_path(@shifts, format: :xls) %>
