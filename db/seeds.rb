@@ -9,7 +9,6 @@ sorted_csv = csv.sort
 sorted_csv.pop
 
 sorted_csv.each do |row|
-  byebug
 
   separated = row[0].split(";")
 
