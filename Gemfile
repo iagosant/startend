@@ -7,6 +7,7 @@ gem 'rails', '4.2.6'
 
   group :production do
     gem 'pg'
+    gem 'activerecord-reset-pk-sequence'
   end
 
   group :development do

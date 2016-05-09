@@ -71,9 +71,9 @@ class Shift < ActiveRecord::Base
       Guard.create(first_name: first_name, last_name: last_name)
 
       date = separated[1]
-      time = separated[2].split.first
+      time = separated[2]
       dt = "#{date} #{time}"
-      datetime = DateTime.strptime(dt, '%m/%d/%Y %H:%M')
+      datetime = DateTime.strptime(dt, '%m/%d/%Y %H:%M %p')
 
       on_shift = separated[5].split(":")[0]
       shift_check = on_shift.split(" ")[0].downcase
