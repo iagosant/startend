@@ -3,86 +3,99 @@
 
  <h3>Listing Shifts</h3>
 
-  <table class="striped">
-    <thead>
+ <table class="striped" id="listing-shifts">
+   <thead>
+     <% find_date_week %>
+     <tr class="se-table-th ">
+       <th data-field="name"  colspan=""></th>
+       <th data-field="post"  rowspan=""></th>
+       <th data-field="monday"  colspan="3">Monday  <%= @date_week[1] %></th>
+       <th data-field="tuesday"  colspan="3">Tuesday <%= @date_week[2] %></th>
+       <th data-field="wednesday"  colspan="3">Wednesday <%= @date_week[3] %></th>
+       <th data-field="thursday"  colspan="3">Thursday <%= @date_week[4] %></th>
+       <th data-field="friday" colspan="3">Friday <%= @date_week[5] %></th>
+       <th data-field="saturday"  colspan="3">Saturday <%= @date_week[6] %></th>
+       <th data-field="sunday"  colspan="3">Sunday <%= @date_week[0] %></th>
+       <th ></th>
 
-      <tr class="se-table-th ">
-        <th data-field="name"  rowspan=""></th>
-        <th data-field="post"  rowspan=""></th>
-        <th data-field="monday"  colspan="3">Monday</th>
-        <th data-field="tuesday"  colspan="3">Tuesday</th>
-        <th data-field="wednesday"  colspan="3">Wednesday</th>
-        <th data-field="thursday"  colspan="3">Thursday</th>
-        <th data-field="friday" colspan="3">Friday</th>
-        <th data-field="saturday"  colspan="3">Saturday</th>
-        <th data-field="sunday"  colspan="3">Sunday</th>
+     </tr>
+     <tr >
+       <th colspan="">Guard </th>
+       <th >Post</th>
+       <th class="center-align">In</th>
+       <th class="center-align">Out</th>
+       <th class="center-align se-table-total">Total</th>
+       <th class="center-align">In</th>
+       <th class="center-align">Out</th>
+       <th class="center-align se-table-total">Total</th>
+       <th class="center-align">In</th>
+       <th class="center-align">Out</th>
+       <th class="center-align se-table-total">Total</th>
+       <th class="center-align">In</th>
+       <th class="center-align">Out</th>
+       <th class="center-align se-table-total">Total</th>
+       <th class="center-align">In</th>
+       <th class="center-align">Out</th>
+       <th class="center-align se-table-total">Total</th>
+       <th class="center-align">In</th>
+       <th class="center-align">Out</th>
+       <th class="center-align se-table-total" >Total</th>
+       <th class="center-align">In</th>
+       <th class="center-align">Out</th>
+       <th class="center-align  se-table-total">Total</th>
+       <th class="center-align  se-table-total">W.Total</th>
+     </tr>
+   </thead>
 
-      </tr>
-      <tr >
-        <th >Guard </th>
-        <th >Post</th>
-        <th class="center-align">In</th>
-        <th class="center-align">Out</th>
-        <th class="center-align se-table-total">Total</th>
-        <th class="center-align">In</th>
-        <th class="center-align">Out</th>
-        <th class="center-align se-table-total">Total</th>
-        <th class="center-align">In</th>
-        <th class="center-align">Out</th>
-        <th class="center-align se-table-total">Total</th>
-        <th class="center-align">In</th>
-        <th class="center-align">Out</th>
-        <th class="center-align se-table-total">Total</th>
-        <th class="center-align">In</th>
-        <th class="center-align">Out</th>
-        <th class="center-align se-table-total">Total</th>
-        <th class="center-align">In</th>
-        <th class="center-align">Out</th>
-        <th class="center-align se-table-total" >Total</th>
-        <th class="center-align">In</th>
-        <th class="center-align">Out</th>
-        <th class="center-align  se-table-total">Total</th>
-      </tr>
-    </thead>
+   <tbody>
+     <% index = 0 %>
+     <% @guards.each do |guard| %>
+       <% find_shifts(guard) %>
 
-    <tbody>
-      <% @guards.each do |guard| %>
-        <% find_shifts(guard) %>
-        <tr>
-          <td><%= guard.first_name + " " + guard.last_name %></td>
-          <td><%= @week["site"] %> </td>
-          <!--  Monday shifts  -->
-          <td ><%= @week["monday_on"]%></td>
-          <td ><%= @week["monday_off"]%></td>
-          <td class="se-table-total"></td>
-          <!--  Tuesday shifts  -->
-          <td><%= @week["tuesday_on"]%></td>
-          <td><%= @week["tuesday_off"]%></td>
-          <td class="se-table-total"></td>
-          <!--  Wednesday shifts  -->
-          <td><%= @week["wednesday_on"]%></td>
-          <td><%= @week["wednesday_off"]%></td>
-          <td class="se-table-total"></td>
-          <!--  Thursday shifts  -->
-          <td><%= @week["thursday_on"]%></td>
-          <td><%= @week["thursday_off"]%></td>
-          <td class="se-table-total"></td>
-          <!--  Friday shifts  -->
-          <td><%= @week["Friday_on"]%></td>
-          <td><%= @week["Friday_off"]%></td>
-          <td class="se-table-total"></td>
-          <!--  Saturday shifts  -->
-          <td><%= @week["saturday_on"]%></td>
-          <td><%= @week["saturday_off"]%></td>
-          <td class="se-table-total"></td>
-          <!--  Sunday shifts  -->
-          <td><%= @week["sunday_on"]%></td>
-          <td><%= @week["sunday_off"]%></td>
-          <td class="se-table-total"></td>
-        </tr>
+       <tr id=<%= "tr-" + index.to_s  %> >
+         <td colspan=""><% if guard.first_name != nil %>
+           <% name = guard.first_name + " " + guard.last_name %>
+           <%= name %></td>
+           <% end %>
+         <td><%= "VWA" %> </td>
+         <!--  Monday shifts  <%= text_field_tag(:q) %>-->
 
-      <% end %>
-    </tbody>
-  </table>
+         <td id= "1-on"><%= @week["monday_on"]%> </td>
+         <td id="1-off"><%= @week["monday_off"]%></td>
+         <td class="se-table-total" id="1-total"> </td>
+
+
+         <!--  Tuesday shifts  -->
+         <td id= "2-on"><%= @week["tuesday_on"]%></td>
+         <td id= "2-off"><%= @week["tuesday_off"]%></td>
+         <td id= "2-total" class="se-table-total"></td>
+         <!--  Wednesday shifts  -->
+         <td id= "3-on"><%= @week["wednesday_on"]%></td>
+         <td id= "3-off"><%= @week["wednesday_off"]%></td>
+         <td id= "3-total" class="se-table-total"></td>
+         <!--  Thursday shifts  -->
+         <td id= "4-on"><%= @week["thursday_on"]%></td>
+         <td id= "4-off"><%= @week["thursday_off"]%></td>
+         <td id= "4-total" class="se-table-total"></td>
+         <!--  Friday shifts  -->
+         <td id= "5-on"><%= @week["Friday_on"]%></td>
+         <td id= "5-off"><%= @week["Friday_off"]%></td>
+         <td id= "5-total" class="se-table-total"></td>
+         <!--  Saturday shifts  -->
+         <td id= "6-on"><%= @week["saturday_on"]%></td>
+         <td id= "6-off"><%= @week["saturday_off"]%></td>
+         <td id= "6-total"class="se-table-total"></td>
+         <!--  Sunday shifts  -->
+         <td id= "7-on"><%= @week["sunday_on"]%></td>
+         <td id= "7-off"><%= @week["sunday_off"]%></td>
+         <td id= "7-total" class="se-table-total"></td>
+         <td> </td>
+       </tr>
+
+         <% index = index + 1 %>
+
+     <% end %>
+   </tbody>
+ </table>
 
 <br>
