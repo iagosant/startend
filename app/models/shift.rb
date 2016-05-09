@@ -50,6 +50,7 @@ class Shift < ActiveRecord::Base
     csv_text = File.read(csv_path)
 
     csv = CSV.parse(csv_text)
+    csv.shift
 
     csv.shift
 
@@ -73,6 +74,7 @@ class Shift < ActiveRecord::Base
       date = separated[1]
       time = separated[2]
       dt = "#{date} #{time}"
+
       datetime = DateTime.strptime(dt, '%m/%d/%Y %H:%M %p')
 
       on_shift = separated[5].split(":")[0]
