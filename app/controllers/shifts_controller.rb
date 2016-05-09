@@ -25,6 +25,7 @@ class ShiftsController < ApplicationController
   def new
 
     @shift = Shift.new
+
   end
 
   # GET /shifts/1/edit

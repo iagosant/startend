@@ -75,6 +75,7 @@ class Shift < ActiveRecord::Base
       date = separated[1]
       time = separated[2].split.first
       dt = "#{date} #{time}"
+      byebug
       datetime = DateTime.strptime(dt, '%m/%d/%Y %H:%M')
 
       on_shift = separated[5].split(":")[0]
