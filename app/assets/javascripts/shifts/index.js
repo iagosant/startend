@@ -12,14 +12,16 @@ function calculate_date_hours(){
 }
 function calculate_hours(day,index){
   var text_on = $("#tr-"+index+" #"+day+"-on").text(),
-      text_off = $("#tr-"+index+" #"+day+"-off").text(),
+      text_off = $("#tr-"+index+" #"+day+"-off").text();
 
   //function restarHoras(inicio,fin) {
 
     var day_on = new Date(),
         day_off = new Date();
-
-    d.setHours(15, 35, 1);
+    text_on = text_on.split(":");
+    text_off = text_off.split(":");
+    day_on.setHours(text_on[0], text_on[1].split[" "], 0);
+    day_off.setHours(text_off[0], text_off[1].split[" "], 0);
     var dif= day_off - day_on; // diferencia en milisegundos
 
     var difSeg = Math.floor(dif/1000); //diferencia en segundos

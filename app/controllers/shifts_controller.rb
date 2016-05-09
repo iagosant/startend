@@ -9,8 +9,13 @@ class ShiftsController < ApplicationController
     @shifts = Shift.all
     @guards = Guard.all
 
-  end
+    respond_to do |format|
+      format.html
+      format.xls 
+      format.csv { send_data @shifts.to_csv }
+    end
 
+  end
 
   # GET /shifts/1
   # GET /shifts/1.json
@@ -33,10 +38,10 @@ class ShiftsController < ApplicationController
 
   #import redirects to import method in this(shifts) controller
     import
-
     @shift = Shift.new(shift_params)
 
   end
+
 
   # PATCH/PUT /shifts/1
   # PATCH/PUT /shifts/1.json
@@ -48,6 +53,7 @@ class ShiftsController < ApplicationController
       else
         format.html { render :edit }
         format.json { render json: @shift.errors, status: :unprocessable_entity }
+        redirect_to shifts_path
       end
     end
   end

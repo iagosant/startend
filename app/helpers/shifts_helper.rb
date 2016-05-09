@@ -21,10 +21,12 @@ module ShiftsHelper
 
     @week = Hash.new
     all_shifts.each do |shift|
-      time = shift.datetime.strftime('%H:%M%p')
+
+      time = shift.datetime.strftime('%I:%M%p')
       case(shift.datetime.strftime('%A'))
 
         when 'Monday'
+
           if shift.on_shift
             @week['monday_on'] = time
           else

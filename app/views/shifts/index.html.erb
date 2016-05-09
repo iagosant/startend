@@ -63,6 +63,8 @@
           <td id= "1-on"><%= @week["monday_on"]%> </td>
           <td id="1-off"><%= @week["monday_off"]%></td>
           <td class="se-table-total" id="1-total"> </td>
+
+
           <!--  Tuesday shifts  -->
           <td id= "2-on"><%= @week["tuesday_on"]%></td>
           <td id= "2-off"><%= @week["tuesday_off"]%></td>
@@ -89,22 +91,26 @@
           <td id= "7-total" class="se-table-total"></td>
           <td> </td>
         </tr>
-          <!-- <td><#%= link_to 'Show', shift %></td>
-          <td><#%= link_to 'Edit', edit_shift_path(shift) %></td>
-          <td><#%= link_to 'Destroy', shift, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+
           <% index = index + 1 %>
+
       <% end %>
     </tbody>
   </table>
 
 <br>
 
-<%= link_to 'Destroy', shifts_path, method: :delete %>
+<%= link_to 'Wipe clean', shifts_path, method: :delete %>
 
 <h5>Upload shifts</h5>
   <%= form_tag shifts_path, multipart: true do %>
   <%= file_field_tag :file %>
-  <%= submit_tag "Upload shifts"%>
-<% end %>
-<p><button value="calculate" onclick="calculate_date_hours()">calculate</button></p>
+
 <%= javascript_include_tag "shifts/index" %>
+
+  <%= submit_tag 'Upload shifts'%>
+<% end %><br>
+
+<%= link_to 'Download csv', shifts_path(@shifts, format: :csv) %>
+<%= link_to 'Download xls', shifts_path(@shifts, format: :xls) %>
+<p><button value="calculate" onclick="calculate_date_hours()">calculate</button></p>
