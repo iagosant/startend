@@ -51,11 +51,9 @@ class Shift < ActiveRecord::Base
 
     csv = CSV.parse(csv_text)
 
-    sorted_csv = csv.sort
+    csv.shift
 
-    sorted_csv.pop
-
-    sorted_csv.each do |row|
+    csv.each do |row|
 
       separated = row[0].split(";")
 
@@ -75,7 +73,6 @@ class Shift < ActiveRecord::Base
       date = separated[1]
       time = separated[2].split.first
       dt = "#{date} #{time}"
-      byebug
       datetime = DateTime.strptime(dt, '%m/%d/%Y %H:%M')
 
       on_shift = separated[5].split(":")[0]
