@@ -59,37 +59,35 @@
             <% end %>
           <td><%= "VWA" %> </td>
           <!--  Monday shifts  <%= text_field_tag(:q) %>-->
-
-          <td id= "1-on"><%= @week["monday_on"]%> </td>
-          <td id="1-off"><%= @week["monday_off"]%></td>
+          <td id= "1-on">
+            <%= (@week["monday_on"]==nil && @week["monday_off"]!= nil) ? (text_field_tag 'time1-on', nil, id: 'time', class: 'time') : @week["monday_on"] %> </td>
+          <td id="1-off"><%= (@week["monday_off"]==nil && @week["monday_on"]!= nil) ? (text_field_tag 'time1-off', nil, id: 'time', class: 'time')  : @week["monday_off"] %></td>
           <td class="se-table-total" id="1-total"> </td>
-
-
           <!--  Tuesday shifts  -->
-          <td id= "2-on"><%= @week["tuesday_on"]%></td>
-          <td id= "2-off"><%= @week["tuesday_off"]%></td>
+          <td id= "2-on"><%= (@week["tuesday_on"]==nil && @week["tuesday_off"]!= nil) ? (text_field_tag 'time2-on', nil, id: 'time', class: 'time')  : @week["tuesday_on"] %> </td>
+          <td id= "2-off"><%= (@week["tuesday_off"]==nil && @week["tuesday_on"]!= nil) ? (text_field_tag 'time2-off', nil, id: 'time', class: 'time')  : @week["tuesday_off"] %></td>
           <td id= "2-total" class="se-table-total"></td>
           <!--  Wednesday shifts  -->
-          <td id= "3-on"><%= @week["wednesday_on"]%></td>
-          <td id= "3-off"><%= @week["wednesday_off"]%></td>
+          <td id= "3-on"><%= (@week["wednesday_on"]==nil && @week["wednesday_off"]!= nil) ? (text_field_tag 'time3-on', nil, id: 'time', class: 'time')  : @week["wednesday_on"] %></td>
+          <td id= "3-off"><%= (@week["wednesday_off"]==nil && @week["wednesday_on"]!= nil) ? (text_field_tag 'time3-off', nil, id: 'time', class: 'time')  : @week["wednesday_off"] %></td>
           <td id= "3-total" class="se-table-total"></td>
           <!--  Thursday shifts  -->
-          <td id= "4-on"><%= @week["thursday_on"]%></td>
-          <td id= "4-off"><%= @week["thursday_off"]%></td>
+          <td id= "4-on"><%= (@week["thursday_on"]==nil && @week["thursday_off"]!= nil) ? (text_field_tag 'time4-on', nil, id: 'time', class: 'time') : @week["thursday_on"] %></td>
+          <td id= "4-off"><%= (@week["thursday_off"]==nil && @week["thursday_on"]!= nil) ? (text_field_tag 'time4-off', nil, id: 'time', class: 'time') : @week["thursday_off"] %></td>
           <td id= "4-total" class="se-table-total"></td>
           <!--  Friday shifts  -->
-          <td id= "5-on"><%= @week["Friday_on"]%></td>
-          <td id= "5-off"><%= @week["Friday_off"]%></td>
+          <td id= "5-on"><%= (@week["friday_on"]==nil && @week["friday_off"]!= nil) ? (text_field_tag 'time5-on', nil, id: 'time', class: 'time') : @week["friday_on"] %></td>
+          <td id= "5-off"><%= (@week["friday_off"]==nil && @week["friday_on"]!= nil) ? (text_field_tag 'time5-off', nil, id: 'time', class: 'time') : @week["friday_off"] %></td>
           <td id= "5-total" class="se-table-total"></td>
           <!--  Saturday shifts  -->
-          <td id= "6-on"><%= @week["saturday_on"]%></td>
-          <td id= "6-off"><%= @week["saturday_off"]%></td>
+          <td id= "6-on"><%= (@week["saturday_on"]==nil && @week["saturday_off"]!= nil) ? (text_field_tag 'time6-on', nil, id: 'time', class: 'time') : @week["saturday_on"] %></td>
+          <td id= "6-off"><%= (@week["saturday_off"]==nil && @week["saturday_on"]!= nil) ? (text_field_tag 'time6-off', nil, id: 'time', class: 'time') : @week["saturday_off"] %></td>
           <td id= "6-total"class="se-table-total"></td>
           <!--  Sunday shifts  -->
-          <td id= "7-on"><%= @week["sunday_on"]%></td>
-          <td id= "7-off"><%= @week["sunday_off"]%></td>
+          <td id= "7-on"><%= @week["sunday_on"]==nil && @week["sunday_off"]!= nil ? (text_field_tag 'time7-on', nil, id: 'time', class: 'time')  : @week["sunday_on"] %></td>
+          <td id= "7-off"><%= @week["sunday_off"]==nil && @week["sunday_on"]!= nil ? (text_field_tag 'time7-off', nil, id: 'time', class: 'time')  : @week["sunday_off"] %></td>
           <td id= "7-total" class="se-table-total"></td>
-          <td> </td>
+          <td id="total_week"> </td>
         </tr>
 
           <% index = index + 1 %>
