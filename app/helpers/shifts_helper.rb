@@ -4,17 +4,40 @@ module ShiftsHelper
     shift = Shift.first
 
     @date_week = Hash.new
-    if shift!= nil
-      day_0   = shift.datetime.strftime('%d').to_i - shift.datetime.strftime('%w').to_i
-      7.times do |num|
 
+    if shift!= nil
+
+      day_0   = shift.datetime.strftime('%d').to_i - (shift.datetime.strftime('%w').to_i-1)
+      
+      7.times do |num|
         day = day_0 + num
         date = shift.datetime.strftime('%m/') + day.to_s + shift.datetime.strftime('/%y')
         @date_week[num] = date
       end
     end
   end
+  def time_round(time)
+    time = time.split(":")
+    hours = time[0].to_i
+    min = time[1].to_i
 
+    if min >=51 || min <=5
+      min  = 0
+      if min >= 51 && min <= 59
+         hours =  (hours < 23)? hours + 1: 0
+      end
+    elsif min >= 6 && min <= 20
+      min = 15
+    elsif min >= 21 && min <= 35
+      min = 30
+    elsif min >= 36 && min <= 50
+      min = 45
+    end
+    hours = hours < 10 ? "0" + hours.to_s : hours.to_s
+    min = min < 10 ? "0" + min.to_s : min.to_s
+    return  hours + ":" + min
+
+  end
   def find_shifts(guard)
 
     all_shifts = Shift.where(guard_id: guard.id)
@@ -22,7 +45,7 @@ module ShiftsHelper
     @week = Hash.new
     all_shifts.each do |shift|
 
-      time = shift.datetime.strftime('%H:%M')
+      time = time_round(shift.datetime.strftime('%H:%M'))
       case(shift.datetime.strftime('%A'))
 
         when 'Monday'
