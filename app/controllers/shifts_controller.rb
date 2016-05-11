@@ -26,6 +26,7 @@ class ShiftsController < ApplicationController
   def new
 
     @shift = Shift.new
+
   end
 
   # GET /shifts/1/edit
@@ -79,6 +80,7 @@ class ShiftsController < ApplicationController
     Site.reset_pk_sequence
     flash[:notice] = "All shift data has been cleared!"
     redirect_to shifts_path
+
   end
 
   def import
