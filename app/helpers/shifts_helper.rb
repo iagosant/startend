@@ -22,7 +22,7 @@ module ShiftsHelper
     @week = Hash.new
     all_shifts.each do |shift|
 
-      time = shift.datetime.strftime('%I:%M%p')
+      time = shift.datetime.strftime('%H:%M')
       case(shift.datetime.strftime('%A'))
 
         when 'Monday'
