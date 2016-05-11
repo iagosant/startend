@@ -1,5 +1,5 @@
 class Shift < ActiveRecord::Base
-  validates_uniqueness_of :datetime, scope: [:guard_id]
+  validates_uniqueness_of :datetime, scope: [:guard_id, :on_shift]
   belongs_to :site
   belongs_to :schedule
   belongs_to :guard
@@ -11,8 +11,6 @@ class Shift < ActiveRecord::Base
       csv << att_site
 
       all.each do |shift|
-        # if shift.nil?
-        # end
 
         shift_info = shift.attributes.values_at(*att_site)
         site = shift.site.codename
@@ -50,11 +48,12 @@ class Shift < ActiveRecord::Base
     csv_text = File.read(csv_path)
 
     csv = CSV.parse(csv_text)
+
     csv.shift
 
+    csv_first_to_last = csv.sort
 
-    csv.each do |row|
-
+    csv_first_to_last.each do |row|
 
       separated = row[0].split(";")
 
@@ -74,7 +73,7 @@ class Shift < ActiveRecord::Base
       date = separated[1]
       time = separated[2]
       dt = "#{date} #{time}"
-    
+
       datetime = DateTime.strptime(dt, '%m/%d/%Y %H:%M %p')
 
       on_shift = separated[5].split(":")[0]
@@ -85,5 +84,6 @@ class Shift < ActiveRecord::Base
       site_id: Site.find_by(name: site_name).id,
       datetime: datetime, on_shift: on_off)
     end
+
   end
 end

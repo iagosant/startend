@@ -57,9 +57,11 @@
             <% name = guard.first_name + " " + guard.last_name %>
             <%= name %></td>
             <% end %>
-          <td><%= "VWA" %> </td>
+          <td><%= @week["site"] %> </td>
           <!--  Monday shifts  <%= text_field_tag(:q) %>-->
+
           <td id="1-on"><%= (@week["monday_on"]==nil && @week["monday_off"]!= nil) ? (text_field_tag 'time1-on'," ", id: 'time', class: 'time') : @week["monday_on"] %> </td>
+
           <td id="1-off"><%= (@week["monday_off"]==nil && @week["monday_on"]!= nil) ? (text_field_tag 'time1-off'," ", id: 'time', class: 'time')  : @week["monday_off"] %></td>
           <td id="1-total" class="se-table-total"></td>
           <!--  Tuesday shifts  -->
@@ -97,7 +99,10 @@
 
 <br>
 
-<%= link_to 'Wipe clean', shifts_path, method: :delete %>
+  <div class="col s12 offset-s6">
+    <button class="col s6" value="calculate" onclick="calculate_date_hours()">calculate</button>
+    <button class="col s6"><%= link_to 'Wipe clean', shifts_path, method: :delete %></button>
+  </div>
 
 <h5>Upload shifts</h5>
   <%= form_tag shifts_path, multipart: true do %>
@@ -110,4 +115,3 @@
 
 <%= link_to 'Download csv', shifts_path(@shifts, format: :csv) %>
 <%= link_to 'Download xls', shifts_path(@shifts, format: :xls) %>
-<p><button value="calculate" onclick="calculate_date_hours()">calculate</button></p>
