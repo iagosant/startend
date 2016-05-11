@@ -22,6 +22,8 @@ module ShiftsHelper
     @week = Hash.new
     all_shifts.each do |shift|
 
+      # byebug
+
       @week['site'] = shift.site.codename
 
       time = shift.datetime.strftime('%H:%M')
@@ -60,7 +62,7 @@ module ShiftsHelper
          if shift.on_shift
            @week['friday_on'] = time
           else
-           @week['friday_off'] = time
+            @week['friday_off'] = time
           end
 
         when 'Saturday'
@@ -78,6 +80,8 @@ module ShiftsHelper
           end
 
       end
+# byebug
     end
   end
+
 end

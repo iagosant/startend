@@ -59,8 +59,7 @@
             <% end %>
           <td><%= @week["site"] %> </td>
           <!--  Monday shifts  <%= text_field_tag(:q) %>-->
-          <td id= "1-on">
-            <%= (@week["monday_on"]==nil && @week["monday_off"]!= nil) ? (text_field_tag 'time1-on'," ", id: 'time', class: 'time') : @week["monday_on"] %> </td>
+          <td id= "1-on"><%= (@week["monday_on"]==nil && @week["monday_off"]!= nil) ? (text_field_tag 'time1-on'," ", id: 'time', class: 'time') : @week["monday_on"] %> </td>
           <td id="1-off"><%= (@week["monday_off"]==nil && @week["monday_on"]!= nil) ? (text_field_tag 'time1-off'," ", id: 'time', class: 'time')  : @week["monday_off"] %></td>
           <td class="se-table-total" id="1-total"> </td>
           <!--  Tuesday shifts  -->

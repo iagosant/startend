@@ -11,8 +11,6 @@ class Shift < ActiveRecord::Base
       csv << att_site
 
       all.each do |shift|
-        # if shift.nil?
-        # end
 
         shift_info = shift.attributes.values_at(*att_site)
         site = shift.site.codename
@@ -54,7 +52,11 @@ class Shift < ActiveRecord::Base
 
     csv.shift
 
-    csv.each do |row|
+    csv_first_to_last = csv.sort
+
+    csv_first_to_last.each do |row|
+
+      byebug
 
       separated = row[0].split(";")
 
@@ -85,5 +87,6 @@ class Shift < ActiveRecord::Base
       site_id: Site.find_by(name: site_name).id,
       datetime: datetime, on_shift: on_off)
     end
+    byebug
   end
 end
