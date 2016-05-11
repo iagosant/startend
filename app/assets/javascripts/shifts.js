@@ -1,12 +1,8 @@
-$(document).ready(
-    function(){
-        $('input:file').change(
-            function(){
-                if ($(this).val()) {
-                    $('input:submit').attr('disabled',false);
-                    // or, as has been pointed out elsewhere:
-                    // $('input:submit').removeAttr('disabled');
-                }
-            }
-            );
-    });
+$(document).ready(function() {
+     $('input[type="submit"]').attr('disabled','disabled');
+     $('input[type="file"]').keyup(function() {
+        if($(this).val() != '') {
+           $('input[type="submit"]').removeAttr('disabled');
+        }
+     });
+ });
