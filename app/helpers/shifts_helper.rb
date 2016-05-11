@@ -22,6 +22,8 @@ module ShiftsHelper
     @week = Hash.new
     all_shifts.each do |shift|
 
+      @week['site'] = shift.site.codename
+
       time = shift.datetime.strftime('%H:%M')
       case(shift.datetime.strftime('%A'))
 
@@ -76,7 +78,6 @@ module ShiftsHelper
           end
 
       end
+    end
   end
- end
-
 end
