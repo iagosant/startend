@@ -25,6 +25,7 @@ Rails.application.configure do
   config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
   # RAILS_ENV=production rake assets:clean assets:precompile
   # Compress JavaScripts and CSS.
+  # config.assets.precompile += ['blueprint/screen.css', 'pdf.css', 'jquery.ui.datepicker.js', 'pdf.js', ...etc...]
   config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
 
