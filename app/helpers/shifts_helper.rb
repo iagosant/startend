@@ -18,11 +18,8 @@ module ShiftsHelper
   def find_shifts(guard)
 
     all_shifts = Shift.where(guard_id: guard.id)
-
     @week = Hash.new
     all_shifts.each do |shift|
-
-      # byebug
 
       @week['site'] = shift.site.codename
 
@@ -80,7 +77,7 @@ module ShiftsHelper
           end
 
       end
-# byebug
+
     end
   end
 
