@@ -52,11 +52,9 @@ class Shift < ActiveRecord::Base
 
     csv.shift
 
-    csv_first_to_last = csv.sort
+    csv_first_to_last = csv.order
 
-    csv_first_to_last.each do |row|
-
-      byebug
+    csv.each do |row|
 
       separated = row[0].split(";")
 
@@ -87,6 +85,5 @@ class Shift < ActiveRecord::Base
       site_id: Site.find_by(name: site_name).id,
       datetime: datetime, on_shift: on_off)
     end
-    byebug
   end
 end

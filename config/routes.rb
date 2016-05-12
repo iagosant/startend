@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   resources :guards
   resources :shifts do
     collection { post :import }
+    get :download_shifts
   end
+
   resources :users
   resources :schedules
   resources :sites
