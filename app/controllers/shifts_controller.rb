@@ -19,6 +19,7 @@ class ShiftsController < ApplicationController
         render_to_string('shifts/index.html.erb', layout: false))
       end
     end
+
   end
 
   # GET /shifts/1
