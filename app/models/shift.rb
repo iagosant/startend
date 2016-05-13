@@ -36,7 +36,7 @@ class Shift < ActiveRecord::Base
       end
     end
   end
-  
+
   def self.import(file)
 
     csv_path = file.path
@@ -57,12 +57,20 @@ class Shift < ActiveRecord::Base
 
       Site.create(name: site_name, codename: short)
 
+      sup_device = ['353756072585664', '353756074063306']
+      device_number = separated.last.split(" ").last
+      if sup_device.include?(device_number)
+        role = 'supervisor'
+      else
+        role = 'guard'
+      end
+
       clean_name = separated[3]
       full_name = clean_name.to_s.downcase.split.map(&:capitalize).join(' ')
       last_name = full_name.split.first
       first_name = full_name.split.last
 
-      Guard.create(first_name: first_name, last_name: last_name)
+      Guard.create(first_name: first_name, last_name: last_name, role: role)
 
       date = separated[1]
       time = separated[2]
