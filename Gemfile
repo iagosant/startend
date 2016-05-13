@@ -15,6 +15,7 @@ gem 'rails', '4.2.6'
     gem 'sqlite3'
     gem 'wicked_pdf'
     gem 'wkhtmltopdf-binary'
+    gem 'activerecord-reset-pk-sequence'
   end
 
 # Use SCSS for stylesheets

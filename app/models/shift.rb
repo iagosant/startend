@@ -36,11 +36,7 @@ class Shift < ActiveRecord::Base
       end
     end
   end
-
-  def inout (shift)
-
-  end
-
+  
   def self.import(file)
 
     csv_path = file.path
@@ -48,11 +44,8 @@ class Shift < ActiveRecord::Base
     csv_text = File.read(csv_path)
 
     csv = CSV.parse(csv_text)
-    csv.shift
 
     csv.shift
-
-    csv_first_to_last = csv.order
 
     csv.each do |row|
 
@@ -64,8 +57,8 @@ class Shift < ActiveRecord::Base
 
       Site.create(name: site_name, codename: short)
 
-      format_name = separated.last.split(":")[1].to_s.strip!
-      full_name = format_name.to_s.downcase.split.map(&:capitalize).join(' ')
+      clean_name = separated[3]
+      full_name = clean_name.to_s.downcase.split.map(&:capitalize).join(' ')
       last_name = full_name.split.first
       first_name = full_name.split.last
 
@@ -78,12 +71,13 @@ class Shift < ActiveRecord::Base
       datetime = DateTime.strptime(dt, '%m/%d/%Y %H:%M %p')
 
       on_shift = separated[5].split(":")[0]
-      shift_check = on_shift.split(" ")[0].downcase
-      shift_check == "start" ? on_off = true : on_off = false
+      shift_check = on_shift.split(" ")[1].downcase
+      shift_check == "assigned" ? on_off = true : on_off = false
 
       Shift.create(guard_id: Guard.find_by(first_name: first_name).id,
       site_id: Site.find_by(name: site_name).id,
       datetime: datetime, on_shift: on_off)
+
     end
   end
 end
