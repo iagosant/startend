@@ -1,5 +1,5 @@
 class Shift < ActiveRecord::Base
-  validates_uniqueness_of :datetime, scope: [:guard_id]
+  validates_uniqueness_of :datetime, scope: [:guard_id, :on_shift]
   belongs_to :site
   belongs_to :schedule
   belongs_to :guard
@@ -87,5 +87,6 @@ class Shift < ActiveRecord::Base
       datetime: datetime, on_shift: on_off)
 
     end
+
   end
 end
