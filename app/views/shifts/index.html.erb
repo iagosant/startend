@@ -50,7 +50,7 @@
     <tbody>
       <% index = 0 %>
       <% @guards.each do |guard| %>
-        <% find_shifts(guard) %>
+        <% find_shifts(guard, @week_number) %>
 
         <tr id=<%= "tr-" + index.to_s  %> >
           <td colspan=""><% if guard.first_name != nil %>
