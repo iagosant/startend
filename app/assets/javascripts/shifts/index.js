@@ -38,16 +38,10 @@ function calculate_hours(day,index){
   var h_on = 00,m_on =00,h_off= 00,m_off =00,
       day_on = new Date(),
       day_off = new Date(),
-  textOn = ($("#tr-"+index+" input[name='time"+day+"-on']").length > 0 ) ? $("#tr-"+index+" input[name='time"+day+"-on']").val() : $("#tr-"+index+" #"+day+"-on").text(),
-  textOff = ($("#tr-"+index+" input[name='time"+day+"-off']").length > 0) ? $("#tr-"+index+" input[name='time"+day+"-off']").val() : $("#tr-"+index+" #"+day+"-off").text();
-//  alert($("#tr-"+index+" input[name='time"+day+"-on']").val() );
-  //alert(textOff);
-  /*
-  textOn = $("#tr-"+index+" #"+day+"-on").text(),
-  textOff = $("#tr-"+index+" #"+day+"-off").text();
-  */
+      textOn = ($("#tr-"+index+" input[name='time"+day+"-on']").length > 0 ) ? $("#tr-"+index+" input[name='time"+day+"-on']").val() : $("#tr-"+index+" #"+day+"-on").text(),
+      textOff = ($("#tr-"+index+" input[name='time"+day+"-off']").length > 0) ? $("#tr-"+index+" input[name='time"+day+"-off']").val() : $("#tr-"+index+" #"+day+"-off").text();
 
-   if (textOn != " ") {
+  if (textOn != " ") {
      h_on = textOn.substr(0, 2);
      m_on = textOn.substr(3, 2);
    }
@@ -55,13 +49,9 @@ function calculate_hours(day,index){
      h_off = textOff.substr(0, 2);
      m_off = textOff.substr(3, 2);
    }
-
-
     day_on.setHours(h_on, m_on, 0);
     day_off.setHours(h_off, m_off, 0);
     var diff = day_off - day_on;
-    //diff_time(day_on, day_off)
-//convert_time_msecond(diff)
     $("#tr-"+index+" #"+day+"-total").text(convert_time_msecond(diff));
      return diff;
 
@@ -71,9 +61,6 @@ function convert_time_msecond(msecond){
     var msecPerMinute = 1000 * 60;
     var msecPerHour = msecPerMinute * 60;
     var msecPerDay = msecPerHour * 24;
-
-    // Get the difference in milliseconds.
-
     // Calculate how many days the dif contains. Subtract that
     var days = Math.floor(msecond / msecPerDay );
     msecond = msecond - (days * msecPerDay );
