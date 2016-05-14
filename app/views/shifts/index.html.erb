@@ -97,22 +97,21 @@
     </tbody>
   </table>
 
-<br>
+</br>
 
   <div class="col s12 offset-s6">
-    <button class="col s6" value="calculate" onclick="calculate_date_hours()">calculate</button>
-    <button class="col s6"><%= link_to 'Wipe clean', shifts_path, method: :delete %></button>
-  </div>
+    <%= form_tag shifts_path, multipart: true do %>
+    <%= file_field_tag :file, class: 'upload_button' %>
+    <a class="waves-effect waves-light btn left_buttons first_button"><i class="material-icons left">note_add</i><label for="file">Choose file</label></a>
+    <%= javascript_include_tag "shifts/index" %>
+    <a class="waves-effect waves-light btn left_buttons"><i class="material-icons left">call_made</i><%= submit_tag 'Upload shifts'%></a>
+    <% end %>
+    <a class="waves-effect waves-light btn right_buttons" rel="nofollow" data-method="delete" href="/shifts"><i class="material-icons left">clear_all</i>Clear table</a>
+    <a class="col s6 waves-effect waves-light btn right_buttons first_button" value="calculate" onclick="calculate_date_hours()"><i class="material-icons left">schedule</i>calculate Hrs</a>
+  </div></br>
 
-<h5>Upload shifts</h5>
-  <%= form_tag shifts_path, multipart: true do %>
-  <%= file_field_tag :file %>
-
-<%= javascript_include_tag "shifts/index" %>
-
-  <%= submit_tag 'Upload shifts'%>
-<% end %><br>
-
+<div class="download_links">
 <%#= link_to 'Download csv', shifts_path(@shifts, format: :csv) %>
 <%= link_to 'Excel', shifts_path(@shifts, format: :xls) %>
 <%= link_to 'PDF', shifts_path(@shifts, format: :pdf) %>
+</div>

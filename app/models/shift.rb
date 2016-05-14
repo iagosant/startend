@@ -38,7 +38,6 @@ class Shift < ActiveRecord::Base
   end
 
   def self.import(file)
-
     csv_path = file.path
 
     csv_text = File.read(csv_path)
@@ -48,6 +47,7 @@ class Shift < ActiveRecord::Base
     csv.shift
 
     csv.each do |row|
+
 
       separated = row[0].split(";")
 
