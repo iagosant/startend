@@ -37,10 +37,6 @@ class Shift < ActiveRecord::Base
     end
   end
 
-  def inout (shift)
-
-  end
-
   def self.import(file)
 
     csv_path = file.path
@@ -51,9 +47,7 @@ class Shift < ActiveRecord::Base
 
     csv.shift
 
-    csv_first_to_last = csv.sort
-
-    csv_first_to_last.each do |row|
+    csv.each do |row|
 
       separated = row[0].split(";")
 
@@ -63,12 +57,20 @@ class Shift < ActiveRecord::Base
 
       Site.create(name: site_name, codename: short)
 
-      format_name = separated.last.split(":")[1].to_s.strip!
-      full_name = format_name.to_s.downcase.split.map(&:capitalize).join(' ')
+      sup_device = ['353756072585664', '353756074063306']
+      device_number = separated.last.split(" ").last
+      if sup_device.include?(device_number)
+        role = 'supervisor'
+      else
+        role = 'guard'
+      end
+
+      clean_name = separated[3]
+      full_name = clean_name.to_s.downcase.split.map(&:capitalize).join(' ')
       last_name = full_name.split.first
       first_name = full_name.split.last
 
-      Guard.create(first_name: first_name, last_name: last_name)
+      Guard.create(first_name: first_name, last_name: last_name, role: role)
 
       date = separated[1]
       time = separated[2]
@@ -77,12 +79,13 @@ class Shift < ActiveRecord::Base
       datetime = DateTime.strptime(dt, '%m/%d/%Y %H:%M %p')
 
       on_shift = separated[5].split(":")[0]
-      shift_check = on_shift.split(" ")[0].downcase
-      shift_check == "start" ? on_off = true : on_off = false
+      shift_check = on_shift.split(" ")[1].downcase
+      shift_check == "assigned" ? on_off = true : on_off = false
 
       Shift.create(guard_id: Guard.find_by(first_name: first_name).id,
       site_id: Site.find_by(name: site_name).id,
       datetime: datetime, on_shift: on_off)
+
     end
 
   end

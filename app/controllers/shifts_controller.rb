@@ -15,6 +15,11 @@ class ShiftsController < ApplicationController
       format.html
       format.xls
       format.csv { send_data @shifts.to_csv }
+      format.pdf do
+        render :pdf => 'shifts_index'
+        pdf = WickedPdf.new.pdf_from_string(
+        render_to_string('shifts/index.html.erb', layout: false))
+      end
     end
 
   end

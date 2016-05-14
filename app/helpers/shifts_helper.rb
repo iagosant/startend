@@ -108,16 +108,18 @@ module ShiftsHelper
   #   byebug
   # end   # def END
 
-  def find_shifts(guard,week_number)
+  def find_shifts(guard,week_number, id)
 
     a = []
-    all_shifts = Shift.where(guard_id: guard.id) # SUGESTION: return all shift per guard and site
+    all_shifts = Shift.where(guard_id: guard.id, site_id: id) # SUGESTION: return all shift per guard and site
 
     @week = Hash.new
     monday = Hash.new
     count = 0
+  if all_shifts.length != 0
 
     all_shifts.each do |shift|
+
       @week['site'] = shift.site.codename
       time = time_round(shift.datetime.strftime('%H:%M'))
       date = shift.datetime.strftime('%m/%d/%Y')
@@ -179,7 +181,8 @@ module ShiftsHelper
           @week['sunday_off'] = time
         end
       end # IF END
-
-    end
+      
+    end # all_shifts bucle
+  end # End if
   end
 end

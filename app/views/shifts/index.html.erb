@@ -51,53 +51,53 @@
       <% index = 0 %>
       <% i = Site.all.length %>
       <% i.times do |num|%>
-      <% id = num + 1%>
-      <% guards = Site.find(1).guards %>
-      <% guards.each do |guard| %>
-        <% find_shifts(guard, @week_number) %>
+        <% id = num + 1%>
+        <% guards = Site.find(id).guards.uniq %>
+        <% guards.each do |guard| %>
+          <% find_shifts(guard, @week_number, id) %>
 
-        <tr id=<%= "tr-" + index.to_s  %> >
-          <td colspan=""><% if guard.first_name != nil %>
-            <% name = guard.first_name + " " + guard.last_name %>
-            <%= name %></td>
-            <% end %>
-          <td><%= @week["site"] %> </td>
-          <!--  Monday shifts  <%= text_field_tag(:q) %>-->
+          <tr id=<%= "tr-" + index.to_s  %> >
+              <td colspan=""><% if guard.first_name != nil %>
+                <% name = guard.first_name + " " + guard.last_name %>
+                <%= name %></td>
+                <% end %>
+              <td><%= @week["site"] %> </td>
+              <!--  Monday shifts  <%= text_field_tag(:q) %>-->
 
-          <td id="1-on"><%= (@week["monday_on"]==nil && @week["monday_off"]!= nil) ? (text_field_tag 'time1-on'," ", id: 'time', class: 'time') : @week["monday_on"] %> </td>
+              <td id="1-on"><%= (@week["monday_on"]==nil && @week["monday_off"]!= nil) ? (text_field_tag 'time1-on'," ", id: 'time', class: 'time') : @week["monday_on"] %> </td>
 
-          <td id="1-off"><%= (@week["monday_off"]==nil && @week["monday_on"]!= nil) ? (text_field_tag 'time1-off'," ", id: 'time', class: 'time')  : @week["monday_off"] %></td>
-          <td id="1-total" class="se-table-total"></td>
-          <!--  Tuesday shifts  -->
-          <td id= "2-on"><%= (@week["tuesday_on"]==nil && @week["tuesday_off"]!= nil) ? (text_field_tag 'time2-on'," ", id: 'time', class: 'time')  : @week["tuesday_on"] %> </td>
-          <td id= "2-off"><%= (@week["tuesday_off"]==nil && @week["tuesday_on"]!= nil) ? (text_field_tag 'time2-off'," ",id: 'time', class: 'time')  : @week["tuesday_off"] %></td>
-          <td id= "2-total" class="se-table-total"></td>
-          <!--  Wednesday shifts  -->
-          <td id= "3-on"><%= (@week["wednesday_on"]==nil && @week["wednesday_off"]!= nil) ? (text_field_tag 'time3-on'," ", id: 'time', class: 'time')  : @week["wednesday_on"] %></td>
-          <td id= "3-off"><%= (@week["wednesday_off"]==nil && @week["wednesday_on"]!= nil) ? (text_field_tag 'time3-off'," ", id: 'time', class: 'time')  : @week["wednesday_off"] %></td>
-          <td id= "3-total" class="se-table-total"></td>
-          <!--  Thursday shifts  -->
-          <td id= "4-on"><%= (@week["thursday_on"]==nil && @week["thursday_off"]!= nil) ? (text_field_tag 'time4-on'," ", id: 'time', class: 'time') : @week["thursday_on"] %></td>
-          <td id= "4-off"><%= (@week["thursday_off"]==nil && @week["thursday_on"]!= nil) ? (text_field_tag 'time4-off'," ", id: 'time', class: 'time') : @week["thursday_off"] %></td>
-          <td id= "4-total" class="se-table-total"></td>
-          <!--  Friday shifts  -->
-          <td id= "5-on"><%= (@week["friday_on"]==nil && @week["friday_off"]!= nil) ? (text_field_tag 'time5-on'," ", id: 'time', class: 'time') : @week["friday_on"] %></td>
-          <td id= "5-off"><%= (@week["friday_off"]==nil && @week["friday_on"]!= nil) ? (text_field_tag 'time5-off'," ", id: 'time', class: 'time') : @week["friday_off"] %></td>
-          <td id= "5-total" class="se-table-total"></td>
-          <!--  Saturday shifts  -->
-          <td id= "6-on"><%= (@week["saturday_on"]==nil && @week["saturday_off"]!= nil) ? (text_field_tag 'time6-on'," ", id: 'time', class: 'time') : @week["saturday_on"] %></td>
-          <td id= "6-off"><%= (@week["saturday_off"]==nil && @week["saturday_on"]!= nil) ? (text_field_tag 'time6-off'," ", id: 'time', class: 'time') : @week["saturday_off"] %></td>
-          <td id= "6-total"class="se-table-total"></td>
-          <!--  Sunday shifts  -->
-          <td id= "7-on"><%= @week["sunday_on"]==nil && @week["sunday_off"]!= nil ? (text_field_tag 'time7-on'," ", id: 'time', class: 'time')  : @week["sunday_on"] %></td>
-          <td id= "7-off"><%= @week["sunday_off"]==nil && @week["sunday_on"]!= nil ? (text_field_tag 'time7-off'," ", id: 'time', class: 'time')  : @week["sunday_off"] %></td>
-          <td id= "7-total" class="se-table-total"></td>
-          <td id="total_week"> </td>
-        </tr>
+              <td id="1-off"><%= (@week["monday_off"]==nil && @week["monday_on"]!= nil) ? (text_field_tag 'time1-off'," ", id: 'time', class: 'time')  : @week["monday_off"] %></td>
+              <td id="1-total" class="se-table-total"></td>
+              <!--  Tuesday shifts  -->
+              <td id= "2-on"><%= (@week["tuesday_on"]==nil && @week["tuesday_off"]!= nil) ? (text_field_tag 'time2-on'," ", id: 'time', class: 'time')  : @week["tuesday_on"] %> </td>
+              <td id= "2-off"><%= (@week["tuesday_off"]==nil && @week["tuesday_on"]!= nil) ? (text_field_tag 'time2-off'," ",id: 'time', class: 'time')  : @week["tuesday_off"] %></td>
+              <td id= "2-total" class="se-table-total"></td>
+              <!--  Wednesday shifts  -->
+              <td id= "3-on"><%= (@week["wednesday_on"]==nil && @week["wednesday_off"]!= nil) ? (text_field_tag 'time3-on'," ", id: 'time', class: 'time')  : @week["wednesday_on"] %></td>
+              <td id= "3-off"><%= (@week["wednesday_off"]==nil && @week["wednesday_on"]!= nil) ? (text_field_tag 'time3-off'," ", id: 'time', class: 'time')  : @week["wednesday_off"] %></td>
+              <td id= "3-total" class="se-table-total"></td>
+              <!--  Thursday shifts  -->
+              <td id= "4-on"><%= (@week["thursday_on"]==nil && @week["thursday_off"]!= nil) ? (text_field_tag 'time4-on'," ", id: 'time', class: 'time') : @week["thursday_on"] %></td>
+              <td id= "4-off"><%= (@week["thursday_off"]==nil && @week["thursday_on"]!= nil) ? (text_field_tag 'time4-off'," ", id: 'time', class: 'time') : @week["thursday_off"] %></td>
+              <td id= "4-total" class="se-table-total"></td>
+              <!--  Friday shifts  -->
+              <td id= "5-on"><%= (@week["friday_on"]==nil && @week["friday_off"]!= nil) ? (text_field_tag 'time5-on'," ", id: 'time', class: 'time') : @week["friday_on"] %></td>
+              <td id= "5-off"><%= (@week["friday_off"]==nil && @week["friday_on"]!= nil) ? (text_field_tag 'time5-off'," ", id: 'time', class: 'time') : @week["friday_off"] %></td>
+              <td id= "5-total" class="se-table-total"></td>
+              <!--  Saturday shifts  -->
+              <td id= "6-on"><%= (@week["saturday_on"]==nil && @week["saturday_off"]!= nil) ? (text_field_tag 'time6-on'," ", id: 'time', class: 'time') : @week["saturday_on"] %></td>
+              <td id= "6-off"><%= (@week["saturday_off"]==nil && @week["saturday_on"]!= nil) ? (text_field_tag 'time6-off'," ", id: 'time', class: 'time') : @week["saturday_off"] %></td>
+              <td id= "6-total"class="se-table-total"></td>
+              <!--  Sunday shifts  -->
+              <td id= "7-on"><%= @week["sunday_on"]==nil && @week["sunday_off"]!= nil ? (text_field_tag 'time7-on'," ", id: 'time', class: 'time')  : @week["sunday_on"] %></td>
+              <td id= "7-off"><%= @week["sunday_off"]==nil && @week["sunday_on"]!= nil ? (text_field_tag 'time7-off'," ", id: 'time', class: 'time')  : @week["sunday_off"] %></td>
+              <td id= "7-total" class="se-table-total"></td>
+              <td id="total_week"> </td>
+          </tr>
 
-          <% index = index + 1 %>
+            <% index = index + 1 %>
 
-      <% end %>
+        <% end %>
 
       <% end %><!-- END SITES BUCLE -->
     </tbody>
@@ -107,7 +107,8 @@
 
   <div class="col s12 offset-s6">
     <button class="col s6" value="calculate" onclick="calculate_date_hours()">calculate</button>
-    <button class="col s6"><%= link_to 'Wipe clean', shifts_path, method: :delete %></button>
+    <a class="waves-effect waves-light btn" rel="nofollow" data-method="delete" href="/shifts"><i class="material-icons left">cloud</i>Wipe clean</a>
+
   </div>
 
 <h5>Upload shifts</h5>
@@ -119,5 +120,6 @@
   <%= submit_tag 'Upload shifts'%>
 <% end %><br>
 
-<%= link_to 'Download csv', shifts_path(@shifts, format: :csv) %>
-<%= link_to 'Download xls', shifts_path(@shifts, format: :xls) %>
+<%#= link_to 'Download csv', shifts_path(@shifts, format: :csv) %>
+<%= link_to 'Excel', shifts_path(@shifts, format: :xls) %>
+<%= link_to 'PDF', shifts_path(@shifts, format: :pdf) %>
