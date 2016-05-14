@@ -49,7 +49,11 @@
 
     <tbody>
       <% index = 0 %>
-      <% @guards.each do |guard| %>
+      <% i = Site.all.length %>
+      <% i.times do |num|%>
+      <% id = num + 1%>
+      <% guards = Site.find(1).guards %>
+      <% guards.each do |guard| %>
         <% find_shifts(guard, @week_number) %>
 
         <tr id=<%= "tr-" + index.to_s  %> >
@@ -94,6 +98,8 @@
           <% index = index + 1 %>
 
       <% end %>
+
+      <% end %><!-- END SITES BUCLE -->
     </tbody>
   </table>
 

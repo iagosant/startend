@@ -9,9 +9,11 @@ class ShiftsController < ApplicationController
     @shifts = Shift.all
     @guards = Guard.all
 
+    @sites = Site.all
+
     respond_to do |format|
       format.html
-      format.xls 
+      format.xls
       format.csv { send_data @shifts.to_csv }
     end
 
