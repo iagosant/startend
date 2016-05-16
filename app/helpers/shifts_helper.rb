@@ -51,49 +51,100 @@ module ShiftsHelper
   end
 
   def find_shifts(guard, week_number, id)
-
     all_shifts = Shift.where(guard_id: guard.id, site_id: id) # SUGESTION: return all shift per guard and site
-    all_shifts = all_shifts.sort_by{|t| t.datetime}
-    flag = false
-    @week = Hash.new
-    if all_shifts.length != 0
+        all_shifts = all_shifts.sort_by{|t| t.datetime}
+        flag = false
+        @week = Hash.new
+        if all_shifts.length != 0
 
-      all_shifts.each do |shift|
-          datetime = shift.datetime
-          on_shift = shift.on_shift
-          day_week = shift.datetime.strftime('%w').to_i
-          shift_week_num = shift.datetime.strftime('%W')
-          time = time_round(shift.datetime.strftime('%H:%M'))
-          # THIS IF CHECK IF THE SHIFT IS BELONG TO THE CURRENT WEEK
-          if shift_week_num == week_number   
-              if on_shift
-                 @week[day_week] = [time,""]
-              elsif @week[day_week] == nil && @week.length != 0
+          all_shifts.each do |shift|
+              datetime = shift.datetime
+              on_shift = shift.on_shift
+              day_week = shift.datetime.strftime('%w').to_i == 0 ? 7 : shift.datetime.strftime('%w').to_i
+              shift_week_num = shift.datetime.strftime('%W')
+              time = time_round(shift.datetime.strftime('%H:%M'))
+              d_time = Time.new(0,1,1,shift.datetime.strftime('%H').to_i,shift.datetime.strftime('%M').to_i)
+              d_noon = Time.new(0,1,1,12,0)
+
+              flag_before = false
+              # THIS IF CHECK IF THE SHIFT IS BELONG TO THE CURRENT WEEK
+              if shift_week_num == week_number
+                if on_shift
+                     @week[day_week] = [time,""]
+                elsif @week[day_week] == nil
                   if @week[day_week-1] != nil
-                     if @week[day_week-1][1] == "" && @week[day_week-1][0] != ""
-                       @week[day_week-1][1] = time
-                     end
-                  elsif
-                       @week[day_week] = ["",time]
+                      if @week[day_week-1][1] == "" && @week[day_week-1][0] != ""
+                           @week[day_week-1][1] = time
+                           flag_before = true
+                      end
                   end
-               end
-          elsif (shift_week_num.to_i == week_number.to_i + 1) && (shift.datetime.strftime('%A') == 'Monday' ) && !flag
-             flag = true
-             if !on_shift && @week[0]!= nil
-               if @week[0][0]!= ""
-                 @week[0][1] = time
-               end
-             end
-          end   # IF END
-      end  # all_shifts.each do |shift| END
+                  if !flag_before && ( day_week != 1 || (day_week == 1 && ( Time.at(d_time) > Time.at(d_noon))))
+                      @week[day_week] = ["",time]
+                  end
+                elsif @week[day_week][1] == ""
+                    @week[day_week][1] = time
 
-    end # IF all_shifts.length != 0
-    if @week.length != 0
-      @week['site'] = all_shifts.first.site.codename
+                end
 
-    end
+              elsif (shift_week_num.to_i == week_number.to_i + 1) && (day_week == 1 ) && !flag
+                 flag = true
+                 if !on_shift && @week[7]!= nil
+                   if @week[7][0]!= ""
+                     @week[7][1] = time
+                   end
+                 end
+              end   # IF END
+          end  # all_shifts.each do |shift| END
 
-  end   # def END
+        end # IF all_shifts.length != 0
+        if @week.length != 0
+          @week['site'] = all_shifts.first.site.codename
+
+        end
+
+      end   # def END
+    # all_shifts = Shift.where(guard_id: guard.id, site_id: id) # SUGESTION: return all shift per guard and site
+    # all_shifts = all_shifts.sort_by{|t| t.datetime}
+    # flag = false
+    # @week = Hash.new
+    # if all_shifts.length != 0
+    #
+    #   all_shifts.each do |shift|
+    #       datetime = shift.datetime
+    #       on_shift = shift.on_shift
+    #       day_week = shift.datetime.strftime('%w').to_i
+    #       shift_week_num = shift.datetime.strftime('%W')
+    #       time = time_round(shift.datetime.strftime('%H:%M'))
+    #       # THIS IF CHECK IF THE SHIFT IS BELONG TO THE CURRENT WEEK
+    #       if shift_week_num == week_number
+    #           if on_shift
+    #              @week[day_week] = [time,""]
+    #           elsif @week[day_week] == nil && @week.length != 0
+    #               if @week[day_week-1] != nil
+    #                  if @week[day_week-1][1] == "" && @week[day_week-1][0] != ""
+    #                    @week[day_week-1][1] = time
+    #                  end
+    #               elsif
+    #                    @week[day_week] = ["",time]
+    #               end
+    #            end
+    #       elsif (shift_week_num.to_i == week_number.to_i + 1) && (shift.datetime.strftime('%A') == 'Monday' ) && !flag
+    #          flag = true
+    #          if !on_shift && @week[0]!= nil
+    #            if @week[0][0]!= ""
+    #              @week[0][1] = time
+    #            end
+    #          end
+    #       end   # IF END
+    #   end  # all_shifts.each do |shift| END
+    #
+    # end # IF all_shifts.length != 0
+    # if @week.length != 0
+    #   @week['site'] = all_shifts.first.site.codename
+    #
+    # end
+
+  # end   # def END
 
   # def find_shifts(guard, week_number, id)
   #
