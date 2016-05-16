@@ -1,5 +1,11 @@
 $(document).ready(function() {
   $('select').material_select();
+  $('input[type="submit"]').attr('disabled','disabled');
+$('input[type="file"]').change(function() {
+   if($(this).val() != '') {
+      $('input[type="submit"]').removeAttr('disabled');
+   }
+});
      });
   /******** FUNCTION MISLEY ***********/
   function calculate_date_hours(){
