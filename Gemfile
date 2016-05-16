@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 gem 'rails-erd'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
@@ -18,6 +17,7 @@ gem 'rails', '4.2.6'
     gem 'activerecord-reset-pk-sequence'
     gem 'hirb'
   end
+
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
