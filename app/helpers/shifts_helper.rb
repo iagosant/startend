@@ -65,7 +65,7 @@ module ShiftsHelper
           shift_week_num = shift.datetime.strftime('%W')
           time = time_round(shift.datetime.strftime('%H:%M'))
           # THIS IF CHECK IF THE SHIFT IS BELONG TO THE CURRENT WEEK
-          if shift_week_num == week_number
+          if shift_week_num == week_number   
               if on_shift
                  @week[day_week] = [time,""]
               elsif @week[day_week] == nil && @week.length != 0
