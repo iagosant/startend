@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.3.0'
+
 gem 'rails-erd'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
@@ -7,7 +9,7 @@ gem 'rails', '4.2.6'
   group :production do
     gem 'pg'
     gem 'activerecord-reset-pk-sequence'
-    # gem 'wicked_pdf'
+    gem 'wicked_pdf'
   end
 
   group :development do
@@ -18,7 +20,7 @@ gem 'rails', '4.2.6'
     gem 'hirb'
   end
 
-
+gem 'jquery-ui-rails'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
