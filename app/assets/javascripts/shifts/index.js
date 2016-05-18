@@ -1,46 +1,59 @@
 $(document).ready(function() {
   $('select').material_select();
-  $('input[type="submit"]').attr('disabled','disabled');
-$('input[type="file"]').change(function() {
-   if($(this).val() != '') {
-      $('input[type="submit"]').removeAttr('disabled');
-   }
+
+  calculate();
+  $('input.upload_button').on('change', function(){
+     if($(this).val() != '') {
+        $('#upload_a').removeClass('disabled');
+     } else {$('#upload_a').addClass('disabled');}
+  });
 });
-     });
+
   /******** FUNCTION MISLEY ***********/
-  function calculate_date_hours(){
-    var  total_week, i;
-    $("#listing-shifts tbody tr").each(function (index)
-    {  i=1;
-       total_week = 0;
-       while (i <= 7){
-         total_week = total_week + parseInt(calculate_hours(i,index));
-         i++;
-        }
-      $("#tr-"+index+" #total_week").text(convert_time_msecond(total_week) );
-    })
+  function calculate(){
+    $("#listing-shifts tbody tr").each(function (index){
+      calculate_hours_total(index);
+    });
   }
+  function calculate_hours_total(row){
+    var  total_week , total, i, h_on;
+
+      total_week = [0,0];
+      for(i=1;i<8;i++){
+        var time = convert_time_msecond(calculate_hours(i,row));
+        var h_on = time.split(":");
+        h_on[0]=(isNaN(parseInt(h_on[0])))?0:parseInt(h_on[0]);
+        h_on[1]=(isNaN(parseInt(h_on[1])))?0:parseInt(h_on[1]);
+        total_week[0] = total_week[0] + h_on[0];
+        total_week[1] = total_week[1] + h_on[1];
+      }
+        var text = (total_week[0] < 10 ? "0" + total_week[0] : total_week[0]) + ":" + (total_week[1] < 10 ? "0" + total_week[1] : total_week[1]) ;
+        $("#tr-"+row+" #total_week").text(text);
+    }
+
   function calculate_hours(day,index){
-    var h_on = 00,m_on =00,h_off= 00,m_off =00,
-        day_on = new Date(),
+    var day_on = new Date(),
         day_off = new Date(),
-        textOn = ($("#tr-"+index+" input[name='time"+day+"-on']").length > 0 ) ? $("#tr-"+index+" input[name='time"+day+"-on']").val() : $("#tr-"+index+" #"+day+"-on").text(),
-        textOff = ($("#tr-"+index+" input[name='time"+day+"-off']").length > 0) ? $("#tr-"+index+" input[name='time"+day+"-off']").val() : $("#tr-"+index+" #"+day+"-off").text();
+        diff = 0,
+        h_on = $("#tr-"+index+" input[name='time"+day+"-on']").val().split(":") ,
+        h_off = $("#tr-"+index+" input[name='time"+day+"-off']").val().split(":");
 
-    if (textOn != " ") {
-       h_on = textOn.substr(0, 2);
-       m_on = textOn.substr(3, 2);
-     }
-     if (textOff != " ") {
-       h_off = textOff.substr(0, 2);
-       m_off = textOff.substr(3, 2);
-     }
-      day_on.setHours(h_on, m_on, 0);
-      day_off.setHours(h_off, m_off, 0);
-      var diff = day_off - day_on;
-      $("#tr-"+index+" #"+day+"-total").text(convert_time_msecond(diff));
-       return diff;
+    if ((h_on.length > 1) && (h_off.length > 1)) {
+      for(i=0;i<3;i++){
+        h_on[i]=(isNaN(parseInt(h_on[i])))?0:parseInt(h_on[i])
+        h_off[i]=(isNaN(parseInt(h_off[i])))?0:parseInt(h_off[i])
+      }
+      day_on.setHours(h_on[0], h_on[1], 0);
+      day_off.setHours(h_off[0], h_off[1], 0);
 
+      diff = day_off - day_on;
+      if ( diff != 0 ){
+        $("#tr-"+index+" #"+day+"-total").text(convert_time_msecond(diff));
+      }
+
+    }
+    alert(diff);
+    return diff;
   }
 
   function convert_time_msecond(msecond){
@@ -48,7 +61,7 @@ $('input[type="file"]').change(function() {
       var msecPerHour = msecPerMinute * 60;
       var msecPerDay = msecPerHour * 24;
       // Calculate how many days the dif contains. Subtract that
-      var days = Math.floor(msecond / msecPerDay );
+      var days = Math.floor(msecond / msecPerDay ) ;
       msecond = msecond - (days * msecPerDay );
       // Calculate the hours, minutes, and seconds.
       var hours = Math.floor(msecond / msecPerHour );
@@ -58,6 +71,6 @@ $('input[type="file"]').change(function() {
       msecond = msecond - (minutes * msecPerMinute );
 
       var seconds = Math.floor(msecond / 1000 );
-
-      return (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) ;
+      var total_hours = days > 0 ? ( Math.abs(days) * 24 + Math.abs(hours) ) : hours;
+      return (total_hours < 10 ? "0" + total_hours : total_hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) ;
   }
