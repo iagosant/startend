@@ -22,6 +22,8 @@ class SearchesController < ApplicationController
 
     @shifts_by_date = Shift.where(:datetime => Time.at(target_date)..Time.at(target_date) + 1.days)
 
+    Search.delete_all
+
   end
 
   # GET /searches/1/edit

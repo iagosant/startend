@@ -97,32 +97,32 @@ FOR ABOVE WILL BE FOR @SEARCH, THE PARAMS WILL BE THE @SEARCH.DATETIME -->
                       <% end %>
                     <td><%= @week["site"] %> </td>
                     <!--  Monday shifts  <%= text_field_tag(:q) %>-->
-                    <td id="1-on"><%= @week[1] == nil ? (text_field_tag 'time1-on',"", id: 'time', class: 'time') : (text_field_tag 'time1-on', @week[1][0], id: 'time', class: 'time') %> </td>
-                    <td id="1-off"><%= @week[1] == nil ? (text_field_tag 'time1-off',"", id: 'time', class: 'time') : (text_field_tag 'time1-off', @week[1][1], id: 'time', class: 'time') %></td>
+                    <td id="1-on"><%= @week[1] == nil ? (text_field_tag 'time1-on',"", id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})" ) : (text_field_tag 'time1-on', @week[1][0], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})" )%> </td>
+                    <td id="1-off"><%= @week[1] == nil ? (text_field_tag 'time1-off',"", id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})" ) : (text_field_tag 'time1-off', @week[1][1], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})" ) %></td>
                     <td id="1-total" class="se-table-total"></td>
                     <!--  Tuesday shifts  -->
-                    <td id= "2-on"><%= @week[2] == nil  ? (text_field_tag 'time2-on',"", id: 'time', class: 'time') : (text_field_tag 'time2-on', @week[2][0], id: 'time', class: 'time') %> </td>
-                    <td id= "2-off"><%= @week[2] == nil  ? (text_field_tag 'time2-off'," ",id: 'time', class: 'time') : (text_field_tag 'time2-off', @week[2][1],id: 'time', class: 'time') %></td>
+                    <td id= "2-on"><%= @week[2] == nil  ? (text_field_tag 'time2-on',"", id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time2-on', @week[2][0], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
+                    <td id= "2-off"><%= @week[2] == nil  ? (text_field_tag 'time2-off'," ",id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time2-off', @week[2][1],id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
                     <td id= "2-total" class="se-table-total"></td>
                     <!--  Wednesday shifts  -->
-                    <td id= "3-on"><%= @week[3] == nil ? (text_field_tag 'time3-on',"", id: 'time', class: 'time')  : (text_field_tag 'time3-on', @week[3][0], id: 'time', class: 'time') %></td>
-                    <td id= "3-off"><%= @week[3] == nil  ? (text_field_tag 'time3-off',"", id: 'time', class: 'time') : (text_field_tag 'time3-off', @week[3][1], id: 'time', class: 'time') %></td>
+                    <td id= "3-on"><%= @week[3] == nil ? (text_field_tag 'time3-on',"", id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})")  : (text_field_tag 'time3-on', @week[3][0], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
+                    <td id= "3-off"><%= @week[3] == nil  ? (text_field_tag 'time3-off',"", id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time3-off', @week[3][1], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
                     <td id= "3-total" class="se-table-total"></td>
                     <!--  Thursday shifts  -->
-                    <td id= "4-on"><%= @week[4] == nil ? (text_field_tag 'time4-on',"", id: 'time', class: 'time') : (text_field_tag 'time4-on', @week[4][0], id: 'time', class: 'time') %></td>
-                    <td id= "4-off"><%= @week[4] == nil  ? (text_field_tag 'time4-off',"", id: 'time', class: 'time') : (text_field_tag 'time4-off', @week[4][1], id: 'time', class: 'time') %></td>
+                    <td id= "4-on"><%= @week[4] == nil ? (text_field_tag 'time4-on',"", id: 'time', class: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time4-on', @week[4][0], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
+                    <td id= "4-off"><%= @week[4] == nil  ? (text_field_tag 'time4-off',"", id: 'time', class: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time4-off', @week[4][1], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
                     <td id= "4-total" class="se-table-total"></td>
                     <!--  Friday shifts  -->
-                    <td id= "5-on"><%= @week[5] == nil ? (text_field_tag 'time5-on',"", id: 'time', class: 'time') : (text_field_tag 'time5-on', @week[5][0], id: 'time', class: 'time') %></td>
-                    <td id= "5-off"><%= @week[5] == nil ? (text_field_tag 'time5-off',"", id: 'time', class: 'time') : (text_field_tag 'time5-off', @week[5][1], id: 'time', class: 'time') %></td>
+                    <td id= "5-on"><%= @week[5] == nil ? (text_field_tag 'time5-on',"", id: 'time', class: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time5-on', @week[5][0], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
+                    <td id= "5-off"><%= @week[5] == nil ? (text_field_tag 'time5-off',"", id: 'time', class: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time5-off', @week[5][1], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
                     <td id= "5-total" class="se-table-total"></td>
                     <!--  Saturday shifts  -->
-                    <td id= "6-on"><%= @week[6] == nil ? (text_field_tag 'time6-on',"", id: 'time', class: 'time') : (text_field_tag 'time6-on',@week[6][0], id: 'time', class: 'time') %></td>
-                    <td id= "6-off"><%= @week[6] == nil ? (text_field_tag 'time6-off',"", id: 'time', class: 'time') : (text_field_tag 'time6-off', @week[6][1], id: 'time', class: 'time') %></td>
+                    <td id= "6-on"><%= @week[6] == nil ? (text_field_tag 'time6-on',"", id: 'time', class: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time6-on',@week[6][0], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
+                    <td id= "6-off"><%= @week[6] == nil ? (text_field_tag 'time6-off',"", id: 'time', class: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time6-off', @week[6][1], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
                     <td id= "6-total"class="se-table-total"></td>
                     <!--  Sunday shifts  -->
-                    <td id= "7-on"><%= @week[7] == nil ? (text_field_tag 'time7-on',"", id: 'time', class: 'time') : (text_field_tag 'time7-on', @week[7][0], id: 'time', class: 'time') %></td>
-                    <td id= "7-off"><%= @week[7] == nil  ? (text_field_tag 'time7-off',"", id: 'time', class: 'time') : (text_field_tag 'time7-off', @week[7][1], id: 'time', class: 'time') %></td>
+                    <td id= "7-on"><%= @week[7] == nil ? (text_field_tag 'time7-on',"", id: 'time', class: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time7-on', @week[7][0], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
+                    <td id= "7-off"><%= @week[7] == nil  ? (text_field_tag 'time7-off',"", id: 'time', class: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time7-off', @week[7][1], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
                     <td id= "7-total" class="se-table-total"></td>
                     <td id="total_week"> </td>
                 </tr>
@@ -137,15 +137,21 @@ FOR ABOVE WILL BE FOR @SEARCH, THE PARAMS WILL BE THE @SEARCH.DATETIME -->
       </div>
       <div class="col s12 m6">
         <%= form_tag shifts_path, multipart: true do %>
-        <%= file_field_tag :file, class: 'upload_button' %>
-        <a class="waves-effect waves-light btn left_buttons first_button"><i class="material-icons left">note_add</i><label for="file">Choose file</label></a>
-        <%= javascript_include_tag "shifts/index" %>
-        <a class="waves-effect waves-light btn left_buttons"><i class="material-icons left">call_made</i><%= submit_tag 'Upload shifts'%></a>
+          <a class="waves-effect waves-light btn left_buttons first_button">
+            <i class="material-icons left">note_add</i>
+            <label for="file">Choose file</label>
+            <%= file_field_tag :file, class: 'upload_button' %>
+          </a>
+          <%= javascript_include_tag "shifts/index" %>
+          <a class="waves-effect waves-light btn left_buttons disabled" id="upload_a">
+            <i class="material-icons left">call_made</i>
+            <%= submit_tag 'Upload shifts'%>
+          </a>
         <% end %>
       </div>
       <div class="col s12 m6">
         <a class="waves-effect waves-light btn right_buttons" rel="nofollow" data-method="delete" href="/shifts"><i class="material-icons left">clear_all</i>Clear table</a>
-        <a class="waves-effect waves-light btn right_buttons first_button" value="calculate" onclick="calculate_date_hours()"><i class="material-icons left">schedule</i>calculate Hrs</a>
+        <a class="waves-effect waves-light btn right_buttons first_button" value="calculate" onclick="calculate()"><i class="material-icons left">schedule</i>calculate Hrs</a>
       </div>
       <div class="download_links col s12">
         <%#= link_to 'Download csv', shifts_path(@shifts, format: :csv) %>
