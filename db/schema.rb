@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160513143257) do
+ActiveRecord::Schema.define(version: 20160517212331) do
 
   create_table "guards", force: :cascade do |t|
     t.string   "first_name"
@@ -26,14 +26,19 @@ ActiveRecord::Schema.define(version: 20160513143257) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "searches", force: :cascade do |t|
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.datetime "search_date"
+  end
+
   create_table "shifts", force: :cascade do |t|
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "guard_id"
     t.integer  "site_id"
-    t.integer  "schedule_id"
     t.datetime "datetime"
-    t.boolean  "on_shift",    default: false
+    t.boolean  "on_shift",   default: false
   end
 
   create_table "sites", force: :cascade do |t|
