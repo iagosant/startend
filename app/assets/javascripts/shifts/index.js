@@ -1,7 +1,7 @@
 $(document).ready(function() {
   $('select').material_select();
   calculate();
-  $('input.upload_button').on('change', function(){ 
+  $('input.upload_button').on('change', function(){
      if($(this).val() != '') {
         $('#upload_a').removeClass('disabled');
      } else {$('#upload_a').addClass('disabled');}
@@ -50,7 +50,6 @@ $(document).ready(function() {
       }
 
     }
-    alert(diff);
     return diff;
   }
 
