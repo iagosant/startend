@@ -5,7 +5,7 @@ class SitesController < ApplicationController
   # GET /sites.json
   def index
     @sites = Site.all
-    byebug
+
   end
 
   # GET /sites/1

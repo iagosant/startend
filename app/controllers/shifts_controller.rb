@@ -6,10 +6,13 @@ class ShiftsController < ApplicationController
   # GET /shifts.json
   def index
 
+    @search = Search.new
+
     @shifts = Shift.all
+
     @guards = Guard.all
 
-    @sites = Site.all
+    @shift = Shift.new
 
     respond_to do |format|
       format.html
@@ -70,7 +73,7 @@ class ShiftsController < ApplicationController
   # DELETE /shifts/1.json
   def destroy
     @shift.destroy
-    
+
     respond_to do |format|
       format.html { redirect_to shifts_url, notice: 'Shift was successfully destroyed.' }
       format.json { head :no_content }
@@ -105,7 +108,8 @@ class ShiftsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shift_params
-      params.fetch(:shift, {}).permit(:file)
-    end
 
+      params.fetch(:shift, {}).permit(:file, :search_date)
+
+    end
 end
