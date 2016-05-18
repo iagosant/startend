@@ -15,11 +15,12 @@ class SearchesController < ApplicationController
 
   # GET /searches/new
   def new
+
     @search = Search.find(params[:id])
+
     target_date = @search.search_date
-    byebug
-    @shifts_by_date = Shift.where(:datetime => Time.at(target_date)..Time.at(target_date) + 13.days)
-    byebug
+
+    @shifts_by_date = Shift.where(:datetime => Time.at(target_date)..Time.at(target_date) + 1.days)
 
   end
 
