@@ -1,6 +1,15 @@
 class ShiftsController < ApplicationController
   before_action :set_shift, only: [:show, :edit, :update, :destroy]
   helper ShiftsHelper
+  respond_to :json, :html
+
+  def search
+    date = params[:date].to_time
+    site = params[:site]
+    @shifts_by_date = Shift.where(:datetime => Time.at(date)..Time.at(date) + 7.days)
+    
+    respond_with(@shifts_by_date, :include => :status)
+  end
 
   # GET /shifts
   # GET /shifts.json

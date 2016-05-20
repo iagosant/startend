@@ -22,18 +22,33 @@ $(document).ready(function() {
 // }
    });
 
- $( "#datepicker" ).change(function(){
-  var firstDay = $(this).val();
-  alert(firstDay)
-  });
-  calculate();
-  $('input.upload_button').on('change', function(){
-     if($(this).val() != '') {
-        $('#upload_a').removeClass('disabled');
-     } else {$('#upload_a').addClass('disabled');}
-  });
-});
+   $( "#datepicker" ).change(function(){
+     if ($(this).val()!=""){
+       var firstDay = $(this).val().split("-"),
+           firstDay = new Date(firstDay[0],firstDay[1],firstDay[2],0,0,0),
+           site = $('.select-dropdown').val();
 
+        alert(site);
+        $.ajax({
+          type: "GET",
+          url: "shifts/shifts",
+          dataType: "json",
+          data: {'date': firstDay, 'site': site},
+          success:function(result){
+
+            $(".divider").append("<li data-id="+result+"></li>");
+            }
+          })
+        }
+      });
+   calculate();
+   $('input.upload_button').on('change', function(){
+
+     if($(this).val() != '') {
+       $('#upload_a').removeClass('disabled');
+     } else {$('#upload_a').addClass('disabled');}
+   });
+ });
   /******** FUNCTION MISLEY ***********/
   function calculate(){
     $("#listing-shifts tbody tr").each(function (index){
@@ -78,7 +93,6 @@ $(document).ready(function() {
         $("#tr-"+index+" #"+day+"-total").text("");
       }
     }
-
 
     return diff;
   }

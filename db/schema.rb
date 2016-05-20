@@ -33,12 +33,13 @@ ActiveRecord::Schema.define(version: 20160517212331) do
   end
 
   create_table "shifts", force: :cascade do |t|
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "guard_id"
     t.integer  "site_id"
+    t.integer  "schedule_id"
     t.datetime "datetime"
-    t.boolean  "on_shift",   default: false
+    t.boolean  "on_shift",    default: false
   end
 
   create_table "sites", force: :cascade do |t|

@@ -1,14 +1,25 @@
 Rails.application.routes.draw do
   resources :searches
   resources :guards
+  # resources :shifts do
+  #   collection { post :import }
+  #   get :download_shifts
+  #   get :search
+  # end
+
   resources :shifts do
     collection { post :import }
     get :download_shifts
-  end
+    collection do
+      get '/shifts', to: 'shifts#search', as: 'search'
+    end
+end
+
 
   resources :users
   resources :schedules
   resources :sites
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   post 'shifts/new' => 'shifts#new'
