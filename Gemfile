@@ -18,6 +18,7 @@ gem 'rails', '4.2.6'
     gem 'wkhtmltopdf-binary'
     gem 'activerecord-reset-pk-sequence'
     gem 'hirb'
+    gem 'responders', '~> 2.0' 
   end
 
 gem 'jquery-ui-rails'

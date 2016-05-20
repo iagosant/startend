@@ -1,6 +1,7 @@
 $(document).ready(function() {
   $('select').material_select();
 
+
    $( "#datepicker" ).datepicker({
      dateFormat: 'yy-mm-dd'
 //      ,
@@ -43,7 +44,6 @@ $(document).ready(function() {
       });
    calculate();
    $('input.upload_button').on('change', function(){
-
      if($(this).val() != '') {
        $('#upload_a').removeClass('disabled');
      } else {$('#upload_a').addClass('disabled');}
@@ -92,8 +92,8 @@ $(document).ready(function() {
       } else {
         $("#tr-"+index+" #"+day+"-total").text("");
       }
-    }
 
+    }
     return diff;
   }
 
