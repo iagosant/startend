@@ -35,6 +35,7 @@ class SitesController < ApplicationController
         format.html { render :new }
         format.json { render json: @site.errors, status: :unprocessable_entity }
       end
+      format.js
     end
   end
 

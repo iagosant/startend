@@ -1,42 +1,31 @@
 $(document).ready(function() {
   $('select').material_select();
 
-  $('input[type="submit"]').attr('disabled','disabled');
-  $('input[type="file"]').change(function() {
-   if($(this).val() != '') {
-      $('input[type="submit"]').removeAttr('disabled');
-   }
-  });
-
-  $(function() {
-     $( "#datepicker" ).datepicker({
-       dateFormat: 'yy-mm-dd'
-  //      ,
-  //      onClose: function(strDate, datepicker) {
-  //   // According to the docs this situation occurs when
-  //   // the dialog closes without the user making a selection
-  //   if(strDate == "") {
-  //     return;
-  //   }
-  //
-  //   // According to the docs this refers to the input
-  //   // Some digging in jquery-ujs on github make it
-  //   // look like triggering the 'submit.rails' event
-  //   // on the form will cause the normal unobtrusive
-  //   // js helpers to post the form.
-  //   // What's not clear is if the input element has the
-  //   // updated value at this point.
-  //   $(this).parent().trigger('submit.rails')
-  // }
-     });
+   $( "#datepicker" ).datepicker({
+     dateFormat: 'yy-mm-dd'
+//      ,
+//      onClose: function(strDate, datepicker) {
+//   // According to the docs this situation occurs when
+//   // the dialog closes without the user making a selection
+//   if(strDate == "") {
+//     return;
+//   }
+//
+//   // According to the docs this refers to the input
+//   // Some digging in jquery-ujs on github make it
+//   // look like triggering the 'submit.rails' event
+//   // on the form will cause the normal unobtrusive
+//   // js helpers to post the form.
+//   // What's not clear is if the input element has the
+//   // updated value at this point.
+//   $(this).parent().trigger('submit.rails')
+// }
    });
-   $( "#datepicker" ).change(function(){
-    var firstDay = $(this).val();
-    alert(firstDay)
-    });
+
+ $( "#datepicker" ).change(function(){
+  var firstDay = $(this).val();
+  alert(firstDay)
   });
-
-
   calculate();
   $('input.upload_button').on('change', function(){
      if($(this).val() != '') {
@@ -85,10 +74,12 @@ $(document).ready(function() {
       diff = day_off - day_on;
       if ( diff != 0 ){
         $("#tr-"+index+" #"+day+"-total").text(convert_time_msecond(diff));
+      } else {
+        $("#tr-"+index+" #"+day+"-total").text("");
       }
-
     }
-    alert(diff);
+
+
     return diff;
   }
 
