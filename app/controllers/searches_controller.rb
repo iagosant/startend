@@ -20,9 +20,9 @@ class SearchesController < ApplicationController
 
     target_date = @search.search_date
 
-    @shifts_by_date = Shift.where(:datetime => Time.at(target_date)..Time.at(target_date) + 1.days)
+    # @shifts_by_date = Shift.where(:datetime => Time.at(target_date)..Time.at(target_date) + 1.days)
 
-    Search.delete_all
+    # Search.delete_all
 
   end
 

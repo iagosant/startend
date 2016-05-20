@@ -1,50 +1,54 @@
 $(document).ready(function() {
   $('select').material_select();
 
-  $('input[type="submit"]').attr('disabled','disabled');
-  $('input[type="file"]').change(function() {
-   if($(this).val() != '') {
-      $('input[type="submit"]').removeAttr('disabled');
-   }
-  });
 
-  $(function() {
-     $( "#datepicker" ).datepicker({
-       dateFormat: 'yy-mm-dd'
-  //      ,
-  //      onClose: function(strDate, datepicker) {
-  //   // According to the docs this situation occurs when
-  //   // the dialog closes without the user making a selection
-  //   if(strDate == "") {
-  //     return;
-  //   }
-  //
-  //   // According to the docs this refers to the input
-  //   // Some digging in jquery-ujs on github make it
-  //   // look like triggering the 'submit.rails' event
-  //   // on the form will cause the normal unobtrusive
-  //   // js helpers to post the form.
-  //   // What's not clear is if the input element has the
-  //   // updated value at this point.
-  //   $(this).parent().trigger('submit.rails')
-  // }
-     });
+   $( "#datepicker" ).datepicker({
+     dateFormat: 'yy-mm-dd'
+//      ,
+//      onClose: function(strDate, datepicker) {
+//   // According to the docs this situation occurs when
+//   // the dialog closes without the user making a selection
+//   if(strDate == "") {
+//     return;
+//   }
+//
+//   // According to the docs this refers to the input
+//   // Some digging in jquery-ujs on github make it
+//   // look like triggering the 'submit.rails' event
+//   // on the form will cause the normal unobtrusive
+//   // js helpers to post the form.
+//   // What's not clear is if the input element has the
+//   // updated value at this point.
+//   $(this).parent().trigger('submit.rails')
+// }
    });
+
    $( "#datepicker" ).change(function(){
-    var firstDay = $(this).val();
-    alert(firstDay)
-    });
-  });
+     if ($(this).val()!=""){
+       var firstDay = $(this).val().split("-"),
+           firstDay = new Date(firstDay[0],firstDay[1],firstDay[2],0,0,0),
+           site = $('.select-dropdown').val();
 
+        alert(site);
+        $.ajax({
+          type: "GET",
+          url: "shifts/shifts",
+          dataType: "json",
+          data: {'date': firstDay, 'site': site},
+          success:function(result){
 
-  calculate();
-  $('input.upload_button').on('change', function(){
+            $(".divider").append("<li data-id="+result+"></li>");
+            }
+          })
+        }
+      });
+   calculate();
+   $('input.upload_button').on('change', function(){
      if($(this).val() != '') {
-        $('#upload_a').removeClass('disabled');
+       $('#upload_a').removeClass('disabled');
      } else {$('#upload_a').addClass('disabled');}
-  });
-});
-
+   });
+ });
   /******** FUNCTION MISLEY ***********/
   function calculate(){
     $("#listing-shifts tbody tr").each(function (index){
@@ -85,10 +89,11 @@ $(document).ready(function() {
       diff = day_off - day_on;
       if ( diff != 0 ){
         $("#tr-"+index+" #"+day+"-total").text(convert_time_msecond(diff));
+      } else {
+        $("#tr-"+index+" #"+day+"-total").text("");
       }
 
     }
-    alert(diff);
     return diff;
   }
 
