@@ -10,16 +10,17 @@ gem 'rails', '4.2.6'
     gem 'pg'
     gem 'activerecord-reset-pk-sequence'
     gem 'wicked_pdf'
+    gem 'wkhtmltopdf-binary'
   end
 
-  group :development do
-    gem 'sqlite3'
-    gem 'wicked_pdf'
-    gem 'wkhtmltopdf-binary'
-    gem 'activerecord-reset-pk-sequence'
-    gem 'hirb'
-    gem 'responders', '~> 2.0' 
-  end
+  # group :development do
+  #   gem 'sqlite3'
+  #   gem 'wicked_pdf'
+  #   gem 'wkhtmltopdf-binary'
+  #   gem 'activerecord-reset-pk-sequence'
+  #   gem 'hirb'
+  #   gem 'responders', '~> 2.0'
+  # end
 
 gem 'jquery-ui-rails'
 # Use SCSS for stylesheets
