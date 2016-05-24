@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :searches
   resources :guards
   # resources :shifts do
   #   collection { post :import }
@@ -11,7 +10,7 @@ Rails.application.routes.draw do
     collection { post :import }
     get :download_shifts
     collection do
-      get '/shifts', to: 'shifts#search', as: 'search'
+      post '/found', to: 'shifts#found', as: 'found'
     end
 end
 

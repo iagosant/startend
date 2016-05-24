@@ -1,44 +1,37 @@
 $(document).ready(function() {
+
   $('select').material_select();
-
-
-   $( "#datepicker" ).datepicker({
-     dateFormat: 'yy-mm-dd'
-//      ,
-//      onClose: function(strDate, datepicker) {
-//   // According to the docs this situation occurs when
-//   // the dialog closes without the user making a selection
-//   if(strDate == "") {
-//     return;
-//   }
-//
-//   // According to the docs this refers to the input
-//   // Some digging in jquery-ujs on github make it
-//   // look like triggering the 'submit.rails' event
-//   // on the form will cause the normal unobtrusive
-//   // js helpers to post the form.
-//   // What's not clear is if the input element has the
-//   // updated value at this point.
-//   $(this).parent().trigger('submit.rails')
-// }
+  $( "#datepicker" ).datepicker({
+     dateFormat: 'yy-mm-dd',
+     disabled: true
+   });
+  $('#site_select').on('change',function(){
+     if ($('#site_select').val() != ""){
+       $("#datepicker" ).datepicker('enable');
+     } else {
+       $("#datepicker" ).datepicker('enable');
+       $("#table-shift").css('display','none');
+       $("#datepicker").datepicker('setDate', null);
+     }
    });
 
-   $( "#datepicker" ).change(function(){
-     if ($(this).val()!=""){
-       var firstDay = $(this).val().split("-"),
-           firstDay = new Date(firstDay[0],firstDay[1],firstDay[2],0,0,0),
-           site = $('.select-dropdown').val();
+   $("input#datepicker").on('change',function(){
 
-        alert(site);
+    if ($(this).val() != ""){
+       var firstDay = $(this).val(),
+           site = $('#site_select').val();
+
+        // alert(site);
         $.ajax({
-          type: "GET",
-          url: "shifts/shifts",
+          type: "POST",
+          url: "shifts/found",
           dataType: "json",
           data: {'date': firstDay, 'site': site},
           success:function(result){
-
-            $(".divider").append("<li data-id="+result+"></li>");
-            }
+            alert("entro");
+            $("#table-shift").css('display','block');
+            $("#table-shift").append("<%= Shift.all.length %>");
+          }
           })
         }
       });

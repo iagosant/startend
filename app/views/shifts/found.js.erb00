@@ -1,0 +1,2 @@
+$('#table-shift').html("<%= j (render 'found') %>");
+$('#table-shift').slideDown(350);
