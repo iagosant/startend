@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :searches
   resources :guards
   # resources :shifts do
   #   collection { post :import }
