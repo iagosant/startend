@@ -2,11 +2,28 @@ class ShiftsController < ApplicationController
   before_action :set_shift, only: [:show, :edit, :update, :destroy]
   helper ShiftsHelper
 
+  respond_to :json, :xml, :html
+
+  def found
+    date = params[:date].to_time
+    site = params[:site]
+    site_id = Site.find_by(codename: params[:site]).id
+
+    @shifts_by_date = Shift.where(:datetime => Time.at(date)..Time.at(date) + 1.days, :site_id => site_id)
+    # respond_to do |format|
+    #      format.html {redirect_to customers_url}
+    #      format.js {}
+    #  end
+  render :json => {:data => @shifts_by_date}
+    # respond_with(@shifts_by_date)
+  end
+  def name_site
+      "#{Site.name}"
+  end
+
   # GET /shifts
   # GET /shifts.json
   def index
-
-    @search = Search.new
 
     @shifts = Shift.all
 
@@ -17,6 +34,7 @@ class ShiftsController < ApplicationController
     respond_to do |format|
       format.html
       format.xls
+      format.js {}
       format.csv { send_data @shifts.to_csv }
       format.pdf do
         render :pdf => 'shifts_index'
