@@ -5,6 +5,16 @@
     <div class="row">
         <div class="col s12">
 
+
+    <%= form_for @search, url: new_search_path(@search), remote: true do |f| %>
+    <%= f.label :search_date %>:
+    <%= f.text_field :search_date  %>
+    <%#= f.text_field :search_date, :dateFormat => "yy-mm-dd" %>
+    <%#= f.hidden_field :seach_date, { :value => @search.search_date } %>
+    <%=  link_to 'run search', new_search_path, :params => params[:search_date] %>
+    <%#= f.submit 'search' %>
+    <% end %>
+
 <!--    MAKE A DATESEARCH COLUMN IN SEACHES MODEL AND THE FORM
 FOR ABOVE WILL BE FOR @SEARCH, THE PARAMS WILL BE THE @SEARCH.DATETIME -->
            <p id="notice"><%= notice %></p>

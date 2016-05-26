@@ -1,6 +1,7 @@
 class ShiftsController < ApplicationController
   before_action :set_shift, only: [:show, :edit, :update, :destroy]
   helper ShiftsHelper
+
   respond_to :json, :xml, :html
 
   def found
@@ -19,6 +20,7 @@ class ShiftsController < ApplicationController
   def name_site
       "#{Site.name}"
   end
+
   # GET /shifts
   # GET /shifts.json
   def index
