@@ -99,9 +99,7 @@ module ShiftsHelper
         end # IF all_shifts.length != 0
         if @week.length != 0
           @week['site'] = all_shifts.first.site.codename
-
         end
-
       end   # def END
     # all_shifts = Shift.where(guard_id: guard.id, site_id: id) # SUGESTION: return all shift per guard and site
     # all_shifts = all_shifts.sort_by{|t| t.datetime}

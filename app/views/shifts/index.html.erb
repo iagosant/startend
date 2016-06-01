@@ -1,48 +1,241 @@
-<% content_for :javascripts do %>
-<%= javascript_include_tag 'shifts/index' %>
-<% end %>
 <div class="section">
-    <div class="row">
-        <div class="col s12">
-
-
-    <%= form_for @search, url: new_search_path(@search), remote: true do |f| %>
-    <%= f.label :search_date %>:
-    <%= f.text_field :search_date  %>
-    <%#= f.text_field :search_date, :dateFormat => "yy-mm-dd" %>
-    <%#= f.hidden_field :seach_date, { :value => @search.search_date } %>
-    <%=  link_to 'run search', new_search_path, :params => params[:search_date] %>
-    <%#= f.submit 'search' %>
-    <% end %>
-
-<!--    MAKE A DATESEARCH COLUMN IN SEACHES MODEL AND THE FORM
-FOR ABOVE WILL BE FOR @SEARCH, THE PARAMS WILL BE THE @SEARCH.DATETIME -->
-           <p id="notice"><%= notice %></p>
-           <h5>Listing Shifts</h5>
-        </div>
+  <div class="row">
+    <div class="col s12">
+      <!--    MAKE A DATESEARCH COLUMN IN SEACHES MODEL AND THE FORM
+      FOR ABOVE WILL BE FOR @SEARCH, THE PARAMS WILL BE THE @SEARCH.DATETIME -->
+      <p id="notice"><%= notice %></p>
+      <h5>Listing Shifts</h5>
     </div>
     <div class="row">
-      <%= form_for(@shift) do |f| %>
         <div class="input-field col s12 m3">
            <label for="select">Select Site</label>
            <%= collection_select(nil, 'site_select', Site.all, :codename, :name, {:prompt=>true}, {:id=>'site_select'}) %>
         </div>
          <div class="input-field col s12 m2">
-
-             <input type="text" name="datepicker" id = "datepicker">
+           <input type="text" name="datepicker" id = "datepicker">
          </div>
          <div class="input-field col s12 m2">
              <a class="waves-effect waves-light btn">Show schedules</a>
          </div>
-       <% end %>
     </div>
-</div>
- <div class="divider"></div>
-<div class="section ">
-  <div id="table-shift">
-    <% if @shifts_by_date != nil %>
-      <!-- <%= render @guard %> -->
-    <% end %>
+    <div class="input-field col s12 m2">
+      <input type="text" name="datepicker" id = "datepicker">
+    </div>
+    <div class="input-field col s12 m2">
+      <a class="waves-effect waves-light btn">Show schedules</a>
+    </div>
+
   </div>
 </div>
+<div class="divider"></div>
+<div class="section ">
+  <div id="table-shift">
+    <div class="row">
+<<<<<<< HEAD
+      <div class="col s12">
+        <table class="striped" id="listing-shifts">
+          <thead>
+            <tr class="se-table-th ">
+              <th data-field="name"  colspan=""></th>
+              <th data-field="post"  rowspan=""></th>
+              <th data-field="monday" id="date-1" colspan="3"> </th>
+              <th data-field="tuesday" id="date-2" colspan="3"></th>
+              <th data-field="wednesday" id="date-3" colspan="3"></th>
+              <th data-field="thursday" id="date-4" colspan="3"></th>
+              <th data-field="friday" id="date-5" colspan="3"></th>
+              <th data-field="saturday" id="date-6" colspan="3"></th>
+              <th data-field="sunday" id="date-7" colspan="3"></th>
+              <th ></th>
+            </tr>
+            <tr >
+              <th colspan="">Guard </th>
+              <th >Post</th>
+              <th class="center-align">In</th>
+              <th class="center-align">Out</th>
+              <th class="center-align se-table-total">Total</th>
+              <th class="center-align">In</th>
+              <th class="center-align">Out</th>
+              <th class="center-align se-table-total">Total</th>
+              <th class="center-align">In</th>
+              <th class="center-align">Out</th>
+              <th class="center-align se-table-total">Total</th>
+              <th class="center-align">In</th>
+              <th class="center-align">Out</th>
+              <th class="center-align se-table-total">Total</th>
+              <th class="center-align">In</th>
+              <th class="center-align">Out</th>
+              <th class="center-align se-table-total">Total</th>
+              <th class="center-align">In</th>
+              <th class="center-align">Out</th>
+              <th class="center-align se-table-total" >Total</th>
+              <th class="center-align">In</th>
+              <th class="center-align">Out</th>
+              <th class="center-align  se-table-total">Total</th>
+              <th class="center-align ">W.Total</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tbody>
+              <% index = 0 %>
+              <% site_num = 1 %>
+              <% site_num.times do |num|%>
+              <% id = num + 1%>
+              <% guards = Site.find(id).guards.uniq %>
+              <% guards.each do |guard| %>
+              <% find_shifts(guard, @week_number, id) %>
+              <% if @week != nil %>
+
+              <tr id=<%= "tr-" + index.to_s  %> >
+                <td colspan=""><% if guard.first_name != nil %>
+                  <% name = guard.first_name + " " + guard.last_name %>
+                  <%= name %></td>
+                  <% end %>
+                  <td><%= @week["site"] %> </td>
+                  <!--  Monday shifts  <%= text_field_tag(:q) %>-->
+                  <td id="1-on"><%= @week[1] == nil ? (text_field_tag 'time1-on',"", id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})" ) : (text_field_tag 'time1-on', @week[1][0], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})" )%> </td>
+                  <td id="1-off"><%= @week[1] == nil ? (text_field_tag 'time1-off',"", id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})" ) : (text_field_tag 'time1-off', @week[1][1], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})" ) %></td>
+                  <td id="1-total" class="se-table-total"></td>
+                  <!--  Tuesday shifts  -->
+                  <td id= "2-on"><%= @week[2] == nil  ? (text_field_tag 'time2-on',"", id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time2-on', @week[2][0], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
+                  <td id= "2-off"><%= @week[2] == nil  ? (text_field_tag 'time2-off'," ",id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time2-off', @week[2][1],id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
+                  <td id= "2-total" class="se-table-total"></td>
+                  <!--  Wednesday shifts  -->
+                  <td id= "3-on"><%= @week[3] == nil ? (text_field_tag 'time3-on',"", id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})")  : (text_field_tag 'time3-on', @week[3][0], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
+                  <td id= "3-off"><%= @week[3] == nil  ? (text_field_tag 'time3-off',"", id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time3-off', @week[3][1], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
+                  <td id= "3-total" class="se-table-total"></td>
+                  <!--  Thursday shifts  -->
+                  <td id= "4-on"><%= @week[4] == nil ? (text_field_tag 'time4-on',"", id: 'time', class: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time4-on', @week[4][0], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
+                  <td id= "4-off"><%= @week[4] == nil  ? (text_field_tag 'time4-off',"", id: 'time', class: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time4-off', @week[4][1], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
+                  <td id= "4-total" class="se-table-total"></td>
+                  <!--  Friday shifts  -->
+                  <td id= "5-on"><%= @week[5] == nil ? (text_field_tag 'time5-on',"", id: 'time', class: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time5-on', @week[5][0], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
+                  <td id= "5-off"><%= @week[5] == nil ? (text_field_tag 'time5-off',"", id: 'time', class: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time5-off', @week[5][1], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
+                  <td id= "5-total" class="se-table-total"></td>
+                  <!--  Saturday shifts  -->
+                  <td id= "6-on"><%= @week[6] == nil ? (text_field_tag 'time6-on',"", id: 'time', class: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time6-on',@week[6][0], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
+                  <td id= "6-off"><%= @week[6] == nil ? (text_field_tag 'time6-off',"", id: 'time', class: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time6-off', @week[6][1], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
+                  <td id= "6-total"class="se-table-total"></td>
+                  <!--  Sunday shifts  -->
+                  <td id= "7-on"><%= @week[7] == nil ? (text_field_tag 'time7-on',"", id: 'time', class: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time7-on', @week[7][0], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
+                  <td id= "7-off"><%= @week[7] == nil  ? (text_field_tag 'time7-off',"", id: 'time', class: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") : (text_field_tag 'time7-off', @week[7][1], id: 'time', class: 'time', onchange: "calculate_hours_total(#{index.to_s})") %></td>
+                  <td id= "7-total" class="se-table-total"></td>
+                  <td id="total_week"> </td>
+                </tr>
+
+                <% index = index + 1 %>
+                <% end %>
+                <% end %><!-- END GUARD BUCLE -->
+                <% end %><!-- END SITES BUCLE -->
+              </tbody>
+            </table>
+            <div class="test"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m6">
+            <%= form_tag shifts_path, multipart: true do %>
+            <a class="waves-effect waves-light btn left_buttons first_button">
+              <i class="material-icons left">note_add</i>
+              <label for="file">Choose file</label>
+              <%= file_field_tag :file, class: 'upload_button' %>
+            </a>
+            <%= javascript_include_tag "shifts/index" %>
+            <a class="waves-effect waves-light btn left_buttons disabled" id="upload_a">
+              <i class="material-icons left">call_made</i>
+              <%= submit_tag 'Upload shifts'%>
+            </a>
+            <% end %>
+          </div>
+          <div class="col s12 m6">
+            <a class="waves-effect waves-light btn right_buttons" rel="nofollow" data-method="delete" href="/shifts"><i class="material-icons left">clear_all</i>Clear table</a>
+            <a class="waves-effect waves-light btn right_buttons first_button" value="calculate" onclick="calculate()"><i class="material-icons left">schedule</i>calculate Hrs</a>
+          </div>
+          <div class="download_links col s12">
+            <%#= link_to 'Download csv', shifts_path(@shifts, format: :csv) %>
+            <%= link_to 'Excel', shifts_path(@shifts, format: :xls) %>
+            <%= link_to 'PDF', shifts_path(@shifts, format: :pdf) %>
+          </div>
+
+        </div>
+      </div>
+    </div>
+=======
+         <div class="col s12">
+          <table class="striped" id="listing-shifts">
+            <thead>
+              <tr class="se-table-th ">
+                <th data-field="name"  colspan=""></th>
+                <th data-field="post"  rowspan=""></th>
+                <th data-field="monday" id="date-1" colspan="3"> </th>
+                <th data-field="tuesday" id="date-2" colspan="3"></th>
+                <th data-field="wednesday" id="date-3" colspan="3"></th>
+                <th data-field="thursday" id="date-4" colspan="3"></th>
+                <th data-field="friday" id="date-5" colspan="3"></th>
+                <th data-field="saturday" id="date-6" colspan="3"></th>
+                <th data-field="sunday" id="date-7" colspan="3"></th>
+                <th ></th>
+              </tr>
+              <tr >
+                <th colspan="">Guard </th>
+                <th >Post</th>
+                <th class="center-align">In</th>
+                <th class="center-align">Out</th>
+                <th class="center-align se-table-total">Total</th>
+                <th class="center-align">In</th>
+                <th class="center-align">Out</th>
+                <th class="center-align se-table-total">Total</th>
+                <th class="center-align">In</th>
+                <th class="center-align">Out</th>
+                <th class="center-align se-table-total">Total</th>
+                <th class="center-align">In</th>
+                <th class="center-align">Out</th>
+                <th class="center-align se-table-total">Total</th>
+                <th class="center-align">In</th>
+                <th class="center-align">Out</th>
+                <th class="center-align se-table-total">Total</th>
+                <th class="center-align">In</th>
+                <th class="center-align">Out</th>
+                <th class="center-align se-table-total" >Total</th>
+                <th class="center-align">In</th>
+                <th class="center-align">Out</th>
+                <th class="center-align  se-table-total">Total</th>
+                <th class="center-align ">W.Total</th>
+              </tr>
+            </thead>
+
+            <tbody>
+            </tbody>
+          </table>
+          <div class="test"></div>
+          </div>
+          </div>
 </div>
+<div class="row">
+  <div class="col s12 m6">
+    <%= form_tag shifts_path, multipart: true do %>
+    <a class="waves-effect waves-light btn left_buttons first_button">
+      <i class="material-icons left">note_add</i>
+      <label for="file">Choose file</label>
+      <%= file_field_tag :file, class: 'upload_button' %>
+    </a>
+    <%= javascript_include_tag "shifts/index" %>
+    <a class="waves-effect waves-light btn left_buttons disabled" id="upload_a">
+      <i class="material-icons left">call_made</i>
+      <%= submit_tag 'Upload shifts'%>
+    </a>
+    <% end %>
+  </div>
+  <div class="col s12 m6">
+    <a class="waves-effect waves-light btn right_buttons" rel="nofollow" data-method="delete" href="/shifts"><i class="material-icons left">clear_all</i>Clear table</a>
+    <a class="waves-effect waves-light btn right_buttons first_button" value="calculate" onclick="calculate()"><i class="material-icons left">schedule</i>calculate Hrs</a>
+  </div>
+  <div class="download_links col s12">
+    <%#= link_to 'Download csv', shifts_path(@shifts, format: :csv) %>
+    <%= link_to 'Excel', shifts_path(@shifts, format: :xls) %>
+    <%= link_to 'PDF', shifts_path(@shifts, format: :pdf) %>
+  </div>
+
+</div>
+</div>
+>>>>>>> b511a1292c6dec023ad0f1478c076eb60e890879
