@@ -5,44 +5,91 @@ $(document).ready(function() {
      dateFormat: 'yy-mm-dd',
      disabled: true
    });
+
   $('#site_select').on('change',function(){
      if ($('#site_select').val() != ""){
        $("#datepicker" ).datepicker('enable');
      } else {
        $("#datepicker" ).datepicker('enable');
+     }
        $("#table-shift").css('display','none');
        $("#datepicker").datepicker('setDate', null);
-     }
-   });
 
+   });
    $("input#datepicker").on('change',function(){
 
-    if ($(this).val() != ""){
-       var firstDay = $(this).val(),
-           site = $('#site_select').val();
+     if ($(this).val() != ""){
+        var firstDay = $(this).val(),
+            site = $('#site_select').val();
 
-        // alert(site);
         $.ajax({
-          type: "POST",
-          url: "shifts/found",
-          dataType: "json",
-          data: {'date': firstDay, 'site': site},
-          success:function(result){
-            alert("entro");
-            $("#table-shift").css('display','block');
-            $("#table-shift").append("<%= Shift.all.length %>");
-          }
-          })
-        }
-      });
+            url: "shifts/found",
+            type: "POST",
+            dataType: "json",
+            data: {'date': firstDay, 'site': site},
+            complete: function() {},
+            success: function(data, textStatus) {
+
+                if (data != ""){
+                  $('#table-shift tbody').html("");
+                  $('#table-shift').css('display','block');
+                  day_per_week(firstDay);
+                  var table = $("#table-shift tbody");
+                  for(i=0;i<data.length;i++){
+                    var html = '<tr id="tr-'+i.toString()+'">';
+                    html +='<td>'+data[i]["guard"]+'</td>';
+                    html +='<td>'+data[i]["site"]+'</td>';
+                    for(j=1;j<8;j++){
+
+                      if (jQuery.type(data[i][j]) === "undefined"){
+                        on_data = "";
+                        off_data = "";
+                      }else{
+                        on_data = jQuery.type(data[i][j][0])=== "undefined"? "":data[i][j][0];
+                        off_data = jQuery.type(data[i][j][1])=== "undefined"? "":data[i][j][1];
+                      }
+                      html += '<td id="'+j+'-on"><input type="text" name="time'+j+'-on" id="time" class="time" onchange="calculate_hours_total('+i.toString()+')" value='+on_data+'></td>';
+                      html += '<td id="'+j+'-off"><input type="text" name="time'+j+'-off" id="time" class="time" onchange="calculate_hours_total('+i.toString()+')" value='+off_data+'></td>';
+                      html += '<td id="'+j+'-total" class="se-table-total"></td>';
+                    }
+                    html +='<td id="total_week"></td>';
+                    html +='</tr>';
+                    $(table).append(html);
+                  }
+                } else {
+                  $('#table-shift').css('display','none');
+                }
+              },
+              error: function() {
+                alert("Ajax error!")
+              }
+       });
+     } else {
+       $("#table-shift").css('display','none');
+     }
+   })
    calculate();
    $('input.upload_button').on('change', function(){
      if($(this).val() != '') {
        $('#upload_a').removeClass('disabled');
      } else {$('#upload_a').addClass('disabled');}
    });
- });
+ })
   /******** FUNCTION MISLEY ***********/
+  function day_per_week(firtsday){
+    var fdate = firtsday.split("-"),
+    fdate = new Date(fdate[0],fdate[1]-1,fdate[2],0,0,0),
+    week = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    day_w = fdate.getDay(),
+    day_0 = fdate.getDate() - day_w,
+    i, date, day;
+
+    for(i=1;i<8;i++){
+      day = day_0 + i;
+      date = fdate.getMonth() + 1 + "/" + day + "/" + fdate.getFullYear();
+      $('#date-'+i).html(week[i-1] + " " + date);
+    }
+  }
   function calculate(){
     $("#listing-shifts tbody tr").each(function (index){
       calculate_hours_total(index);
