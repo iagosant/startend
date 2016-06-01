@@ -14,27 +14,35 @@ $(document).ready(function() {
        $("#datepicker").datepicker('setDate', null);
      }
    });
-
    $("input#datepicker").on('change',function(){
 
-    if ($(this).val() != ""){
-       var firstDay = $(this).val(),
-           site = $('#site_select').val();
+     if ($(this).val() != ""){
+        var firstDay = $(this).val(),
+            site = $('#site_select').val(),
+            fdate = $(this).val().split("-"),
+            fdate = new Date(fdate[0],fdate[1]-1,fdate[2],0,0,0),
+            days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+            day_num = fdate.getDay();
 
-        // alert(site);
-        $.ajax({
-          type: "POST",
-          url: "shifts/found",
-          dataType: "json",
-          data: {'date': firstDay, 'site': site},
-          success:function(result){
-            alert("entro");
-            $("#table-shift").css('display','block');
-            $("#table-shift").append("<%= Shift.all.length %>");
-          }
-          })
-        }
-      });
+       $.ajax({
+            url: "shifts/found",
+            type: "POST",
+            dataType: "json",
+            data: {'date': firstDay, 'site': site},
+            complete: function() {},
+            success: function(data, textStatus) {
+                if (data != ""){
+                  // alert(data[0]['guard_id']);
+                  $('#table-shift').css('display','block');
+                  $('#date-1').html(days[day_num] + " " + firstDay);
+                }
+
+              },
+              error: function() {
+                alert("Ajax error!")
+              }
+       });
+     }})
    calculate();
    $('input.upload_button').on('change', function(){
      if($(this).val() != '') {
@@ -43,6 +51,9 @@ $(document).ready(function() {
    });
  });
   /******** FUNCTION MISLEY ***********/
+  function day_per_week(firtsday){
+
+  }
   function calculate(){
     $("#listing-shifts tbody tr").each(function (index){
       calculate_hours_total(index);
