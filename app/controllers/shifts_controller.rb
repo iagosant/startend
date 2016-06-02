@@ -1,6 +1,6 @@
 class ShiftsController < ApplicationController
   before_action :set_session, only: [:index, :show, :edit, :update, :destroy]
-  # before_action :require_logged_in
+  before_action :require_logged_in
   # before_action :set_shift, only: [:show, :edit, :update, :destroy]
   helper ShiftsHelper
 
