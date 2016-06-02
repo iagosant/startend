@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_action :require_logged_in
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   attr_accessor :email, :name, :password, :password_confirmation
   # validates_presence_of :password, :on => :create, :message => "cant' be blank"
@@ -29,7 +28,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    # byebug
+
     @user = User.new(user_params)
     respond_to do |format|
       if @user.save

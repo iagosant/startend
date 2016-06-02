@@ -1,6 +1,6 @@
 class ShiftsController < ApplicationController
   before_action :set_session, only: [:index, :show, :edit, :update, :destroy]
-  before_action :require_logged_in
+  # before_action :require_logged_in
   # before_action :set_shift, only: [:show, :edit, :update, :destroy]
   helper ShiftsHelper
 
@@ -122,9 +122,7 @@ class ShiftsController < ApplicationController
   def index
 
     @shifts = Shift.all
-
     @guards = Guard.all
-
     @shift = Shift.new
 
     respond_to do |format|
@@ -138,7 +136,6 @@ class ShiftsController < ApplicationController
         render_to_string('shifts/index.html.erb', layout: false))
       end
     end
-
   end
 
   # GET /shifts/1
@@ -148,9 +145,7 @@ class ShiftsController < ApplicationController
 
   # GET /shifts/new
   def new
-
     @shift = Shift.new
-
   end
 
   # GET /shifts/1/edit
@@ -160,11 +155,9 @@ class ShiftsController < ApplicationController
   # POST /shifts
   # POST /shifts.json
   def create
-
   #import redirects to import method in this(shifts) controller
     import
     @shift = Shift.new(shift_params)
-
   end
 
 
