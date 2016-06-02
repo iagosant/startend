@@ -1,14 +1,10 @@
 class ShiftsController < ApplicationController
   before_action :set_shift, only: [:show, :edit, :update, :destroy]
   helper ShiftsHelper
-<<<<<<< HEAD
+
 
   respond_to :json, :xml, :html
 
-=======
-  # respond_to :json, :xml, :html
-  # Functions looking for Guards and their week shedule
->>>>>>> b511a1292c6dec023ad0f1478c076eb60e890879
   def found
     date = params[:date].to_time
     site = params[:site]
