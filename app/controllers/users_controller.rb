@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  attr_accessor :email, :name, :password, :password_confirmation
+  attr_accessor :email, :password, :password_confirmation
   # validates_presence_of :password, :on => :create, :message => "cant' be blank"
   # validates_presence_of :email
   # validates_uniqueness_of :email
