@@ -1,70 +1,91 @@
 $(document).ready(function() {
-
   $('select').material_select();
   $( "#datepicker" ).datepicker({
-    dateFormat: 'yy-mm-dd',
-    disabled: true
-  });
 
-  $('#site_select').on('change',function(){
-    if ($('#site_select').val() != ""){
-      $("#datepicker" ).datepicker('enable');
-    } else {
-      $("#datepicker" ).datepicker('enable');
-    }
-    $("#table-shift").css('display','none');
-    $("#datepicker").datepicker('setDate', null);
-  });
-  $("input#datepicker").on('change',function(){
+     dateFormat: 'yy-mm-dd',
+     disabled: false
+   });
+   $('#site_select').on('change',function(){
+    //  alert($('#site_select').val());
+    //  if ($('#site_select').val() != ""){
+    //    $("#datepicker" ).datepicker('enable');
+    //  } else {
+    //    $("#datepicker" ).datepicker('enable');
+    //  }
+       $("#table-shift").css('display','none');
+       $("#datepicker").datepicker('setDate', null);
+     });
+   $("input#datepicker").on('change',function(){
+     if ($(this).val() != ""){
+        var firstDay = $(this).val(),
+            site = $('#site_select').val();
+          $.ajax({
+            url: "shifts/found",
+            type: "POST",
+            dataType: "json",
+            data: {'date': firstDay, 'site': site},
+            complete: function() {},
+            success: function(data, textStatus) {
+              if (data != ""){
+                  $('#table-shift tbody').html("");
+                  $('#table-shift').css('display','block');
+                  day_per_week(firstDay);
+                  var table = $("#table-shift tbody");
+                  for(i=0;i<data.length;i++){
+                    var html = '<tr id="tr-'+i.toString()+'">';
+                    html +='<td>'+data[i]["guard"]+'</td>';
+                    html +='<td>'+data[i]["site"]+'</td>';
+                    for(j=1;j<8;j++){
+                      if (jQuery.type(data[i][j]) === "undefined"){
+                        on_data = "";
+                        off_data = "";
+                      }else{
+                        on_data = jQuery.type(data[i][j][0])=== "undefined"? "":data[i][j][0];
+                        off_data = jQuery.type(data[i][j][1])=== "undefined"? "":data[i][j][1];
+                      }
+                      html += '<td id="'+j+'-on"><input type="text" name="time'+j+'-on" id="time" class="time" onchange="calculate_hours_total('+i.toString()+')" value='+on_data+'></td>';
+                      html += '<td id="'+j+'-off"><input type="text" name="time'+j+'-off" id="time" class="time" onchange="calculate_hours_total('+i.toString()+')" value='+off_data+'></td>';
+                      html += '<td id="'+j+'-total" class="se-table-total"></td>';
+                    }
+                    html +='<td id="total_week"></td>';
+                    html +='</tr>';
+                    $(table).append(html);
+                  }
+                   calculate();
+                } else {
+                  $('#table-shift').css('display','none');
 
-    if ($(this).val() != ""){
-      var firstDay = $(this).val(),
-      site = $('#site_select').val();
-
-      $.ajax({
-        url: "shifts/found",
-        type: "POST",
-        dataType: "json",
-        data: {'date': firstDay, 'site': site},
-        complete: function() {},
-        success: function(data, textStatus) {
-
-          if (data != ""){
-            $('#table-shift tbody').html("");
-            $('#table-shift').css('display','block');
-            day_per_week(firstDay);
-            var table = $("#table-shift tbody");
-            for(i=0;i<data.length;i++){
-              var html = '<tr id="tr-'+i.toString()+'">';
-              html +='<td>'+data[i]["guard"]+'</td>';
-              html +='<td>'+data[i]["site"]+'</td>';
-              for(j=1;j<8;j++){
-
-                if (jQuery.type(data[i][j]) === "undefined"){
-                  on_data = "";
-                  off_data = "";
-                }else{
-                  on_data = jQuery.type(data[i][j][0])=== "undefined"? "":data[i][j][0];
-                  off_data = jQuery.type(data[i][j][1])=== "undefined"? "":data[i][j][1];
                 }
                 html += '<td id="'+j+'-on"><input type="text" name="time'+j+'-on" id="time" class="time" onchange="calculate_hours_total('+i.toString()+')" value='+on_data+'></td>';
                 html += '<td id="'+j+'-off"><input type="text" name="time'+j+'-off" id="time" class="time" onchange="calculate_hours_total('+i.toString()+')" value='+off_data+'></td>';
                 html += '<td id="'+j+'-total" class="se-table-total"></td>';
               }
-              html +='<td id="total_week"></td>';
-              html +='</tr>';
-              $(table).append(html);
-            }
-          } else {
-            $('#table-shift').css('display','none');
-          }
-        },
-        error: function() {
-          alert("Ajax error!")
-        }
-      });
-  } else {
-    $("#table-shift").css('display','none');
+
+       });
+     } else {
+       $("#table-shift").css('display','none');
+     }
+   })
+   $('input.upload_button').on('change', function(){
+     if($(this).val() != '') {
+       $('#upload_a').removeClass('disabled');
+     } else {$('#upload_a').addClass('disabled');}
+   });
+ })
+  /******** FUNCTION MISLEY ***********/
+  function day_per_week(firtsday){
+    var fdate = firtsday.split("-"),
+    fdate = new Date(fdate[0],fdate[1]-1,fdate[2],0,0,0),
+    week = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    day_w = fdate.getDay(),
+    day_0 = fdate.getDate() - day_w,
+    i, date, day;
+    for(i=1;i<8;i++){
+      day = day_0 + i;
+      date = fdate.getMonth() + 1 + "/" + day + "/" + fdate.getFullYear();
+      $('#date-'+i).html(week[i-1] + " " + date);
+    }
+
   }
 })
 calculate();
@@ -88,49 +109,59 @@ function day_per_week(firtsday){
     date = fdate.getMonth() + 1 + "/" + day + "/" + fdate.getFullYear();
     $('#date-'+i).html(week[i-1] + " " + date);
   }
-}
-function calculate(){
-  $("#listing-shifts tbody tr").each(function (index){
-    calculate_hours_total(index);
-  });
-}
-function calculate_hours_total(row){
-  var  total_week , total, i, h_on;
 
-  total_week = [0,0];
-  for(i=1;i<8;i++){
-    var time = convert_time_msecond(calculate_hours(i,row));
-    var h_on = time.split(":");
-    h_on[0]=(isNaN(parseInt(h_on[0])))?0:parseInt(h_on[0]);
-    h_on[1]=(isNaN(parseInt(h_on[1])))?0:parseInt(h_on[1]);
-    total_week[0] = total_week[0] + h_on[0];
-    total_week[1] = total_week[1] + h_on[1];
+  function calculate_hours_total(row){
+    var  total_week , total, i, h_on, h_dec;
+    total_week = [0,0];
+    for(i=1;i<8;i++){
+      var time = convert_time_msecond(calculate_hours(i,row));
+      var h_on = time.split(":");
+      h_on[0]=(isNaN(parseInt(h_on[0])))?0:parseInt(h_on[0]);
+      h_on[1]=(isNaN(parseInt(h_on[1])))?0:parseInt(h_on[1]);
+      total_week[0] = total_week[0] + h_on[0];
+      total_week[1] = total_week[1] + h_on[1];
+    }
+    h_dec = total_week[1] / 60 + total_week[0];
+    var text = (total_week[0] < 10 ? "0" + total_week[0] : total_week[0]) + ":" + (total_week[1] < 10 ? "0" + total_week[1] : total_week[1]) ;
+    $("#tr-"+row+" #total_week").text(h_dec);
   }
-  var text = (total_week[0] < 10 ? "0" + total_week[0] : total_week[0]) + ":" + (total_week[1] < 10 ? "0" + total_week[1] : total_week[1]) ;
-  $("#tr-"+row+" #total_week").text(text);
-}
-
-function calculate_hours(day,index){
-  var day_on = new Date(),
-  day_off = new Date(),
-  diff = 0,
-  h_on = $("#tr-"+index+" input[name='time"+day+"-on']").val().split(":") ,
-  h_off = $("#tr-"+index+" input[name='time"+day+"-off']").val().split(":");
-
-  if ((h_on.length > 1) && (h_off.length > 1)) {
-    for(i=0;i<3;i++){
-      h_on[i]=(isNaN(parseInt(h_on[i])))?0:parseInt(h_on[i])
-      h_off[i]=(isNaN(parseInt(h_off[i])))?0:parseInt(h_off[i])
+  function calculate_hours(day,index){
+    var day_on = new Date(),
+        day_off = new Date(),
+        diff = 0,
+        h_on = $("#tr-"+index+" input[name='time"+day+"-on']").val().split(":") ,
+        h_off = $("#tr-"+index+" input[name='time"+day+"-off']").val().split(":");
+      if ((h_on.length > 1) && (h_off.length > 1)) {
+      for(i=0;i<3;i++){
+        h_on[i]=(isNaN(parseInt(h_on[i])))?0:parseInt(h_on[i])
+        h_off[i]=(isNaN(parseInt(h_off[i])))?0:parseInt(h_off[i])
+      }
+      day_on.setHours(h_on[0], h_on[1], 0);
+      day_off.setHours(h_off[0], h_off[1], 0);
+      diff = day_off - day_on;
+      if ( diff != 0 ){
+        $("#tr-"+index+" #"+day+"-total").text(convert_time_msecond(diff));
+      } else {
+        $("#tr-"+index+" #"+day+"-total").text("");
+      }
     }
-    day_on.setHours(h_on[0], h_on[1], 0);
-    day_off.setHours(h_off[0], h_off[1], 0);
-
-    diff = day_off - day_on;
-    if ( diff != 0 ){
-      $("#tr-"+index+" #"+day+"-total").text(convert_time_msecond(diff));
-    } else {
-      $("#tr-"+index+" #"+day+"-total").text("");
-    }
+    return diff;
+  }
+  function convert_time_msecond(msecond){
+      var msecPerMinute = 1000 * 60;
+      var msecPerHour = msecPerMinute * 60;
+      var msecPerDay = msecPerHour * 24;
+      // Calculate how many days the dif contains. Subtract that
+      var days = Math.floor(msecond / msecPerDay ) ;
+      msecond = msecond - (days * msecPerDay );
+      // Calculate the hours, minutes, and seconds.
+      var hours = Math.floor(msecond / msecPerHour );
+      msecond = msecond - (hours * msecPerHour );
+      var minutes = Math.floor(msecond / msecPerMinute );
+      msecond = msecond - (minutes * msecPerMinute );
+      var seconds = Math.floor(msecond / 1000 );
+      var total_hours = days > 0 ? ( Math.abs(days) * 24 + Math.abs(hours) ) : hours;
+      return (total_hours < 10 ? "0" + total_hours : total_hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) ;
 
   }
   return diff;

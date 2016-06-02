@@ -2,13 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 #table-shift th{
-   font-size: 0.9rem;
+  font-size: 0.9rem;
 }
-
 #table-shift tbody{
-   font-size: 0.8rem;
+  font-size: 0.8rem;
 }
-
 input#time {
   padding: 0!important;
   font-size: 1.5em;
@@ -19,39 +17,31 @@ input#time {
   font-size: 0.8rem!important;
   line-height: .8rem;
 }
-
-
 div.container{
   width: 100%;
 }
-
 .upload_button{
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
-
 a.left_buttons{
   float: left;
 }
-
 label{
   font-size: 14.8px !important;
   // color: #2C3539 !important;
 }
-
 a.right_buttons{
   float:right;
   color: white !important;
 }
-
 div.download_links{
   margin-top: 30px;
 }
-
 a.first_button{
   margin-right: 5px;
 }
