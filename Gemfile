@@ -15,12 +15,12 @@ gem 'rails', '4.2.6'
   end
 
   group :development do
-    gem 'sqlite3'
-    gem 'wicked_pdf'
-    gem 'wkhtmltopdf-binary'
-    gem 'activerecord-reset-pk-sequence'
-    gem 'hirb'
-    gem 'bcrypt', '~> 3.1.7'
+    # gem 'sqlite3'
+    # gem 'wicked_pdf'
+    # gem 'wkhtmltopdf-binary'
+    # gem 'activerecord-reset-pk-sequence'
+    # gem 'hirb'
+    # gem 'bcrypt', '~> 3.1.7'
   end
 
 gem 'responders', '~> 2.0'
