@@ -19,6 +19,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    render :partial => 'users/_user_partial.html.erb'
   end
 
   # GET /users/1/edit
