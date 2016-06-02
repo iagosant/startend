@@ -11,6 +11,7 @@ gem 'rails', '4.2.6'
     gem 'activerecord-reset-pk-sequence'
     gem 'wicked_pdf'
     gem 'wkhtmltopdf-binary'
+    gem 'bcrypt', '~> 3.1.7'
   end
 
   group :development do
@@ -19,6 +20,7 @@ gem 'rails', '4.2.6'
     gem 'wkhtmltopdf-binary'
     gem 'activerecord-reset-pk-sequence'
     gem 'hirb'
+    gem 'bcrypt', '~> 3.1.7'
   end
 
 gem 'responders', '~> 2.0'

@@ -12,10 +12,17 @@ Rails.application.routes.draw do
     collection do
       post '/found', to: 'shifts#found', as: 'found'
     end
-end
+  end
 
 
+  get 'sign_up' => 'users#new', :as => 'sign_up'
+  root :to => 'login#new'
   resources :users
+
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  get '/logout' => 'sessions#destroy'
+
   resources :schedules
   resources :sites
 

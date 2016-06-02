@@ -1,5 +1,10 @@
 class UsersController < ApplicationController
+  before_action :require_logged_in
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  attr_accessor :email, :name, :password, :password_confirmation
+  # validates_presence_of :password, :on => :create, :message => "cant' be blank"
+  # validates_presence_of :email
+  # validates_uniqueness_of :email
 
   # GET /users
   # GET /users.json
@@ -24,11 +29,11 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    # byebug
     @user = User.new(user_params)
-
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to :back, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -70,6 +75,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :role)
+      params.require(:user).permit(:email, :password, :password_confirmation)
     end
 end

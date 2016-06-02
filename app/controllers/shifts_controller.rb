@@ -1,5 +1,7 @@
 class ShiftsController < ApplicationController
-  before_action :set_shift, only: [:show, :edit, :update, :destroy]
+  before_action :set_session, only: [:index, :show, :edit, :update, :destroy]
+  before_action :require_logged_in
+  # before_action :set_shift, only: [:show, :edit, :update, :destroy]
   helper ShiftsHelper
 
 
@@ -185,7 +187,6 @@ class ShiftsController < ApplicationController
   # DELETE /shifts/1.json
   def destroy
     @shift.destroy
-
     respond_to do |format|
       format.html { redirect_to shifts_url, notice: 'Shift was successfully destroyed.' }
       format.json { head :no_content }
@@ -194,7 +195,6 @@ class ShiftsController < ApplicationController
   end
 
   def remove_all
-
     Shift.delete_all
     Shift.reset_pk_sequence
     Guard.delete_all
@@ -203,7 +203,6 @@ class ShiftsController < ApplicationController
     Site.reset_pk_sequence
     flash[:notice] = "All shift data has been cleared!"
     redirect_to shifts_path
-
   end
 
   def import
@@ -213,15 +212,17 @@ class ShiftsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_shift
 
+    def set_session
+      @session = session[:user_id]
+    end
+
+    def set_shift
       @shift = Shift.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shift_params
-
       params.fetch(:shift, {}).permit(:file, :search_date)
-
     end
 end
