@@ -1,19 +1,23 @@
 $(document).ready(function() {
+   $("#xlsExport").click(function () {
+      var uri = $("#listing-shifts").battatech_excelexport({
+          containerid: "listing-shifts"
+         , datatype: 'table'
+         , returnUri: true
+         , encoding: "UTF-8"
+      });
+   $(this).attr('download', 'ExportToExcel.xls').attr('href', uri).attr('target', '_blank');
+  });
+
   $('select').material_select();
   $( "#datepicker" ).datepicker({
      dateFormat: 'yy-mm-dd',
      disabled: false
    });
    $('#site_select').on('change',function(){
-    //  alert($('#site_select').val());
-    //  if ($('#site_select').val() != ""){
-    //    $("#datepicker" ).datepicker('enable');
-    //  } else {
-    //    $("#datepicker" ).datepicker('enable');
-    //  }
-       $("#table-shift").css('display','none');
-       $("#datepicker").datepicker('setDate', null);
-     });
+     $("#table-shift").css('display','none');
+     $("#datepicker").datepicker('setDate', null);
+   });
    $("input#datepicker").on('change',function(){
      if ($(this).val() != ""){
         var firstDay = $(this).val(),

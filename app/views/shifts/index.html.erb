@@ -23,7 +23,7 @@
   <div id="table-shift">
     <div class="row">
       <div class="col s12">
-        <table class="striped" id="listing-shifts">
+        <table class="striped" id="listing-shifts" >
           <thead>
             <tr class="se-table-th ">
               <th data-field="name"  colspan=""></th>
@@ -78,7 +78,6 @@
         <label for="file">Choose file</label>
         <%= file_field_tag :file, class: 'upload_button' %>
       </a>
-      <%= javascript_include_tag "shifts/index" %>
       <a class="waves-effect waves-light btn left_buttons disabled" id="upload_a">
         <i class="material-icons left">call_made</i>
         <%= submit_tag 'Upload shifts'%>
@@ -91,8 +90,9 @@
     </div>
     <div class="download_links col s12">
       <%#= link_to 'Download csv', shifts_path(@shifts, format: :csv) %>
-      <%= link_to 'Excel', shifts_path(@shifts, format: :xls) %>
+      <%#= link_to 'Excel', shifts_path(@shifts, format: :xls) %>
       <%= link_to 'PDF', shifts_path(@shifts, format: :pdf) %>
+      <a class="" id="xlsExport" href="#" download="">Excel</a>
     </div>
   </div>
 </div>

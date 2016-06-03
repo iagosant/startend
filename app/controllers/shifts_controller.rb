@@ -1,7 +1,6 @@
 class ShiftsController < ApplicationController
   before_action :set_shift, only: [:show, :edit, :update, :destroy]
   helper ShiftsHelper
-  # respond_to :json, :xml, :html
   # Functions looking for Guards and their week shedule
   def found
     date = params[:date].to_time
@@ -33,42 +32,6 @@ class ShiftsController < ApplicationController
          end # END sites.each
        end # END shifts_by_date.length
     end # END  Shift.length != 0
-  # def found
-  #   date = params[:date].to_time
-  #   site = params[:site]
-  #   week = []
-  #   day_0 = date.strftime('%d').to_i - (date.strftime('%w').to_i-1)
-  #   date_m = (date.strftime('%Y-')+date.strftime('%m-')+day_0.to_s).to_time
-  #   if Shift.all.length != 0
-  #     if site!= ""
-  #       site_id = Site.find_by(codename: params[:site]).id
-  #       shifts_by_date = Shift.where(:datetime => Time.at(date_m)..Time.at(date_m) + 8.days, :site_id => site_id)
-  #       if shifts_by_date.all.length != 0
-  #         guards = shifts_by_date.select("guard_id").uniq
-  #         week_number = date_m.strftime('%W');
-  #         count = 0
-  #         guards.each do |guard|
-  #           week_per_guard = find_shifts(guard.guard_id, week_number, shifts_by_date)
-  #           if week_per_guard != ""
-  #             week[count] = week_per_guard
-  #             count += 1
-  #           end
-  #         end # END guards.each
-  #       end # END shifts_by_date.length
-  #     else
-  #       shifts_by_date = Shift.where(:datetime => Time.at(date_m)..Time.at(date_m) + 8.days)
-  #       if shifts_by_date.all.length != 0
-  #         sites = shifts_by_date.select("site_id").uniq
-  #         sites.each do |site|
-  #           week_per_guard = find_shifts(guard.guard_id, week_number, shifts_by_date)
-  #           if week_per_guard != ""
-  #             week[count] = week_per_guard
-  #             count += 1
-  #           end
-  #         end # END sites.each
-  #       end # END shifts_by_date.all.length != 0
-  #     end # END site!= ""
-  #   end # END  Shift.length != 0
     respond_to do |format|
       format.html { redirect_to shifts_path, notice: 'Shifts_by_date was successfully created.' }
       format.json { render json: week }
