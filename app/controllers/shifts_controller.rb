@@ -1,6 +1,9 @@
 class ShiftsController < ApplicationController
-  before_action :set_shift, only: [:show, :edit, :update, :destroy]
+  before_action :set_session, only: [:index, :show, :edit, :update, :destroy]
+  before_action :require_logged_in
+  # before_action :set_shift, only: [:show, :edit, :update, :destroy]
   helper ShiftsHelper
+
   # Functions looking for Guards and their week shedule
   def found
     date = params[:date].to_time
@@ -110,6 +113,7 @@ class ShiftsController < ApplicationController
   def name_site
       "#{Site.name}"
   end
+
   # GET /shifts
   # GET /shifts.json
   def index
@@ -186,6 +190,11 @@ class ShiftsController < ApplicationController
   end
   private
     # Use callbacks to share common setup or constraints between actions.
+
+    def set_session
+      @session = session[:user_id]
+    end
+
     def set_shift
       @shift = Shift.find(params[:id])
     end

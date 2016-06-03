@@ -12,17 +12,26 @@ Rails.application.routes.draw do
     collection do
       post '/found', to: 'shifts#found', as: 'found'
     end
-end
+  end
 
 
+  get 'sign_up' => 'users#new', :as => 'sign_up'
+  root :to => 'sessions#new'
   resources :users
+
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  get '/logout' => 'sessions#destroy'
+
   resources :schedules
   resources :sites
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   post 'shifts/new' => 'shifts#new'
+
   delete 'shifts' => 'shifts#remove_all'
+
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
