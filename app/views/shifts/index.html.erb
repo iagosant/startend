@@ -87,10 +87,10 @@
       <a class="waves-effect waves-light btn right_buttons first_button" value="calculate" onclick="calculate()"><i class="material-icons left">schedule</i>calculate Hrs</a>
     </div>
     <div class="download_links col s12">
-      <%#= link_to 'Download csv', shifts_path(@shifts, format: :csv) %>
-      <%#= link_to 'Excel', shifts_path(@shifts, format: :xls) %>
-      <%= link_to 'PDF', shifts_path(@shifts, format: :pdf) %>
-      <a class="" id="xlsExport" href="#" download="">Excel</a>
+      <%#= link_to 'PDF', shifts_path(@shifts, format: :pdf), class: 'col s12 m6 s2' %>
+      <a class="waves-effect waves-light btn left_buttons disabled" id="xlsExport" download="">
+        Download Excel
+      </a>
     </div>
   </div>
 </div>
