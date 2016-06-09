@@ -92,5 +92,8 @@
         Download Excel
       </a>
     </div>
+    <div class="col s12 m12 s12 signed_user">
+      Signed in as <%= link_to current_user.email, edit_user_path(current_user) %> | <%= link_to "Logout", '/logout' %>
+    </div>
   </div>
 </div>
