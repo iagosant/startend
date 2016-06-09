@@ -174,16 +174,7 @@ class ShiftsController < ApplicationController
       Shift.reset_pk_sequence
     end
   end
-  def remove_all
-    Shift.delete_all
-    Shift.reset_pk_sequence
-    Guard.delete_all
-    Guard.reset_pk_sequence
-    Site.delete_all
-    Site.reset_pk_sequence
-    flash[:notice] = "All shift data has been cleared!"
-    redirect_to shifts_path
-  end
+
   def import
     Shift.import(params[:file])
       redirect_to shifts_path, notice: "Shifts uploaded succesfully"
