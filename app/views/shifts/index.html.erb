@@ -7,7 +7,7 @@
   </div>
   <div class="row">
     <div class="input-field col s12 m3">
-       <%= collection_select(nil, 'site_select', Site.all, :codename, :name, {:prompt=>'All Sites'}, {:id=>'site_select'}) %>
+      <%= collection_select(nil, 'site_select', Site.all, :codename, :name, {:prompt=>'All Sites'}, {:id=>'site_select'}) %>
     </div>
     <div class="input-field col s12 m2">
       <input type="text" name="datepicker" id = "datepicker">
