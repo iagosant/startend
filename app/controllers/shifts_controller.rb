@@ -118,7 +118,7 @@ class ShiftsController < ApplicationController
   # GET /shifts
   # GET /shifts.json
   def index
-    authorize @user
+    # authorize @user
     @shifts = Shift.all
     @guards = Guard.all
     @shift = Shift.new
@@ -148,7 +148,7 @@ class ShiftsController < ApplicationController
   # POST /shifts
   # POST /shifts.json
   def create
-    authorize @user
+    # authorize @user
   #import redirects to import method in this(shifts) controller
     import
     @shift = Shift.new(shift_params)
