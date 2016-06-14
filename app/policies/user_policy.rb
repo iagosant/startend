@@ -2,13 +2,11 @@ class UserPolicy
   attr_reader :current, :model
 
   def initialize(current, model)
-    byebug
     @logged_user = current
     @user = model
   end
 
   def index?
-    byebug
     @logged_user.role == "master"
   end
 

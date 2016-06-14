@@ -15,7 +15,6 @@ class User < ActiveRecord::Base
   def set_default_role
     #  byebug
     self.role ||= :employee
-    byebug
   end
 
 end

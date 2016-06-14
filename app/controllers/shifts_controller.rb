@@ -1,7 +1,7 @@
 class ShiftsController < ApplicationController
   before_action :set_session, only: [:index, :show, :edit, :update, :destroy]
-  before_action :require_logged_in
-  before_action :set_current_user
+  # before_action :require_logged_in
+  # before_action :set_current_user
   # before_action :set_shift, only: [:show, :edit, :update, :destroy]
   helper ShiftsHelper
 
@@ -178,9 +178,8 @@ class ShiftsController < ApplicationController
   end
 
   def import
-
     Shift.import(params[:file])
-      redirect_to shifts_path, notice: "Shifts uploaded succesfully"
+    redirect_to shifts_path, notice: "Shifts uploaded succesfully"
   end
   private
     # Use callbacks to share common setup or constraints between actions.

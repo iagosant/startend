@@ -36,4 +36,10 @@ sorted_csv.each do |row|
   site_id: Site.find_by(name: site_name).id,
   datetime: datetime, on_shift: on_off)
 
+  User.create(first_name: 'misley',
+              last_name: 'misley', role: 0,
+              created_at: nil, updated_at: nil,
+              email: 'm_rodriguez@pro-secur.com',
+              password_digest: 'misley',
+              password: 'misley')
 end
