@@ -1,3 +1,8 @@
+#SHIFT controller is linked to UserPolicy,
+#not to this ShiftPolicy.
+#To modify ShiftController permissions
+#go to UserPolicy.
+
 class ShiftPolicy
   attr_reader :current, :model
 
