@@ -148,6 +148,7 @@ class ShiftsController < ApplicationController
   # POST /shifts
   # POST /shifts.json
   def create
+    authorize @user
   #import redirects to import method in this(shifts) controller
     import
     @shift = Shift.new(shift_params)
