@@ -7,14 +7,14 @@ class UserPolicy
   end
 
   def index?
-    @logged_user.role == "employee"
+    @logged_user.role == "master"
   end
 
   def show?
     @logged_user.role == "master" || @logged_user == @user
   end
   def create?
-    @logged_user.role == "manager"
+    @logged_user.role == "master"
   end
 
   def edit?
