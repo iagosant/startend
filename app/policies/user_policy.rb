@@ -13,7 +13,7 @@ class UserPolicy
   def show?
     @logged_user.role == "master" || @logged_user == @user
   end
-  def destroy?
+  def create?
     @logged_user.role == "master"
   end
 

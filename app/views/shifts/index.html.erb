@@ -66,11 +66,13 @@
           <tbody>
           </tbody>
         </table>
+
       </div>
     </div>
   </div>
+
   <div class="row">
-    <div class="col s12 m6">
+    <div class="col s12 m12">
       <%= form_tag shifts_path, multipart: true do %>
       <a class="waves-effect waves-light btn left_buttons first_button">
         <i class="material-icons left">note_add</i>
@@ -82,18 +84,18 @@
         <%= submit_tag 'Upload shifts'%>
       </a>
       <% end %>
-    </div>
-    <div class="col s12 m6">
-      <a class="waves-effect waves-light btn right_buttons first_button" value="calculate" onclick="calculate()"><i class="material-icons left">schedule</i>calculate Hrs</a>
-    </div>
-    <div class="download_links col s12">
-      <%#= link_to 'PDF', shifts_path(@shifts, format: :pdf), class: 'col s12 m6 s2' %>
       <a class="waves-effect waves-light btn left_buttons disabled" id="xlsExport" download="">
         Download Excel
       </a>
     </div>
+    <!-- <div class="col s12 m6">
+      <a class="waves-effect waves-light btn right_buttons first_button" value="calculate" onclick="calculate()"><i class="material-icons left">schedule</i>calculate Hrs</a>
+    </div>
+    <div class="download_links col s12"> -->
+      <%#= link_to 'PDF', shifts_path(@shifts, format: :pdf), class: 'col s12 m6 s2' %>
+    </div>
     <div class="col s12 m12 s12 signed_user">
-      Signed in as <%= link_to current_user.email, edit_user_path(current_user) %> | <%= link_to "Logout", '/logout' %>
+      Logged in as <%= link_to current_user.email, edit_user_path(current_user) %> | <%= link_to "Logout", '/logout' %>
     </div>
   </div>
 </div>

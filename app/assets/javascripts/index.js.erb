@@ -1,5 +1,7 @@
 $(document).ready(function() {
+
   $("#xlsExport").click(function (){
+
       var uri = $("#listing-shifts").battatech_excelexport({
           containerid: "listing-shifts"
          , datatype: 'table'
@@ -8,6 +10,7 @@ $(document).ready(function() {
     });
   $(this).attr('download', 'ExportToExcel.xls').attr('href', uri).attr('target', '_blank');
   });
+
   $('select').material_select();
   $( "#datepicker" ).datepicker({
     dateFormat: 'yy-mm-dd',
@@ -45,8 +48,11 @@ $(document).ready(function() {
                         on_data = jQuery.type(data[i][j][0])=== "undefined"? "":data[i][j][0];
                         off_data = jQuery.type(data[i][j][1])=== "undefined"? "":data[i][j][1];
                       }
-                      html += '<td id="'+j+'-on"><input type="text" name="time'+j+'-on" id="time" class="time" onchange="calculate_hours_total('+i.toString()+')" value='+on_data+'></td>';
-                      html += '<td id="'+j+'-off"><input type="text" name="time'+j+'-off" id="time" class="time" onchange="calculate_hours_total('+i.toString()+')" value='+off_data+'></td>';
+                      var on = "'"+j.toString()+"-on'",
+                          off = "'"+j.toString()+"-off'";
+
+                      html += '<td id="'+j+'-on"><input type="text" name="time'+j+'-on" id="time" class="time" onchange="hours_change('+i.toString()+',this,'+on+')" value='+on_data+'><span style="display:none">'+on_data+'</span></td>';
+                      html += '<td id="'+j+'-off"><input type="text" name="time'+j+'-off" id="time" class="time" onchange="hours_change('+i.toString()+',this,'+off+')" value='+off_data+'><span style="display:none">'+off_data+'</span></td>';
                       html += '<td id="'+j+'-total" class="se-table-total"></td>';
                     }
                     html +='<td id="total_week"></td>';
@@ -73,6 +79,11 @@ $(document).ready(function() {
    });
 });
 /******** FUNCTION MISLEY ***********/
+function hours_change(rowindex,e,tdindex){ alert('#tr-'+rowindex+' #'+tdindex+' span');
+  $('#tr-'+rowindex+' #'+tdindex+' span').html(e.value);
+  calculate_hours_total(rowindex);
+
+}
 function day_per_week(firtsday){
   var fdate = firtsday.split("-"),
   fdate = new Date(fdate[0],fdate[1]-1,fdate[2],0,0,0),
@@ -104,7 +115,7 @@ function calculate_hours_total(row){
 function calculate_hours(day,index){
   var day_on = new Date(),
       day_off = new Date(),
-      diff = 0,
+      diff = 0, total_hours,
       h_on = $("#tr-"+index+" input[name='time"+day+"-on']").val().split(":") ,
       h_off = $("#tr-"+index+" input[name='time"+day+"-off']").val().split(":");
     if ((h_on.length > 1) && (h_off.length > 1)) {
@@ -115,12 +126,9 @@ function calculate_hours(day,index){
       day_on.setHours(h_on[0], h_on[1], 0);
       day_off.setHours(h_off[0], h_off[1], 0);
       diff = day_off - day_on;
-      if ( diff != 0 ){
-        $("#tr-"+index+" #"+day+"-total").text(convert_time_msecond(diff));
-      } else {
-        $("#tr-"+index+" #"+day+"-total").text("");
-      }
     }
+    total_hours = diff!= 0 ? convert_time_msecond(diff): "";
+    $("#tr-"+index+" #"+day+"-total").text(total_hours);
     return diff;
 }
 function convert_time_msecond(msecond){
@@ -143,4 +151,14 @@ function calculate(){
   $("#listing-shifts tbody tr").each(function (index){
     calculate_hours_total(index);
   });
+}
+ function convert_table(){
+   alert("entro");
+    // $("#listing-shifts tbody tr").each(function (index){
+
+        $("#listing-shifts tbody tr:eq(0)").clone().appendTo("#listing-shifts-export tbody");
+
+      // $("this").clone().appendTo("#listing-shifts-export tbody");
+    // });
+
 }

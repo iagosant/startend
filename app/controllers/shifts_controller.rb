@@ -2,7 +2,7 @@ class ShiftsController < ApplicationController
   before_action :set_session, only: [:index, :show, :edit, :update, :destroy]
   # before_action :require_logged_in
   # before_action :set_current_user
-  # before_action :set_shift, only: [:show, :edit, :update, :destroy]
+  before_action :set_shift, only: [:show, :edit, :update, :destroy]
   helper ShiftsHelper
 
   # Functions looking for Guards and their week shedule
@@ -118,7 +118,7 @@ class ShiftsController < ApplicationController
   # GET /shifts
   # GET /shifts.json
   def index
-    authorize @user
+    # authorize @user
     @shifts = Shift.all
     @guards = Guard.all
     @shift = Shift.new
@@ -148,6 +148,7 @@ class ShiftsController < ApplicationController
   # POST /shifts
   # POST /shifts.json
   def create
+    # authorize @user
   #import redirects to import method in this(shifts) controller
     import
     @shift = Shift.new(shift_params)
@@ -155,6 +156,7 @@ class ShiftsController < ApplicationController
   # PATCH/PUT /shifts/1
   # PATCH/PUT /shifts/1.json
   def update
+
     respond_to do |format|
       if @shift.update(shift_params)
         format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
