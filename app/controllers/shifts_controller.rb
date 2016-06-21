@@ -1,8 +1,8 @@
 class ShiftsController < ApplicationController
   before_action :set_session, only: [:index, :show, :edit, :update, :destroy]
-  before_action :require_logged_in
-  before_action :set_current_user
-  # before_action :set_shift, only: [:show, :edit, :update, :destroy]
+  # before_action :require_logged_in
+  # before_action :set_current_user
+  before_action :set_shift, only: [:show, :edit, :update, :destroy]
   helper ShiftsHelper
 
   # Functions looking for Guards and their week shedule
@@ -10,8 +10,10 @@ class ShiftsController < ApplicationController
     date = params[:date].to_time
     # site = params[:site]
     week = []
-    day_0 = date.strftime('%d').to_i - (date.strftime('%w').to_i-1)
-    date_m = (date.strftime('%Y-')+date.strftime('%m-')+day_0.to_s).to_time
+    # day_0 = date.strftime('%d').to_i - (date.strftime('%w').to_i-1)
+    # date_m = (date.strftime('%Y-')+date.strftime('%m-')+day_0.to_s).to_time
+    date_m = Time.at(date) - (date.strftime('%w').to_i-1).days
+    byebug
     if Shift.all.length != 0
       if params[:site]!= ""
         site_id = Site.find_by(codename: params[:site]).id
@@ -156,6 +158,7 @@ class ShiftsController < ApplicationController
   # PATCH/PUT /shifts/1
   # PATCH/PUT /shifts/1.json
   def update
+
     respond_to do |format|
       if @shift.update(shift_params)
         format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
@@ -179,9 +182,8 @@ class ShiftsController < ApplicationController
   end
 
   def import
-
     Shift.import(params[:file])
-      redirect_to shifts_path, notice: "Shifts uploaded succesfully"
+    redirect_to shifts_path, notice: "Shifts uploaded succesfully"
   end
   private
     # Use callbacks to share common setup or constraints between actions.

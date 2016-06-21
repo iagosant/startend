@@ -16,6 +16,7 @@ class ShiftPolicy
   end
 
   def show?
+    byebug
     @logged_user.role == "master" || @logged_user == @user
   end
   def destroy?
