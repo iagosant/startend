@@ -10,8 +10,10 @@ class ShiftsController < ApplicationController
     date = params[:date].to_time
     # site = params[:site]
     week = []
-    day_0 = date.strftime('%d').to_i - (date.strftime('%w').to_i-1)
-    date_m = (date.strftime('%Y-')+date.strftime('%m-')+day_0.to_s).to_time
+    # day_0 = date.strftime('%d').to_i - (date.strftime('%w').to_i-1)
+    # date_m = (date.strftime('%Y-')+date.strftime('%m-')+day_0.to_s).to_time
+    date_m = Time.at(date) - (date.strftime('%w').to_i-1).days
+    byebug
     if Shift.all.length != 0
       if params[:site]!= ""
         site_id = Site.find_by(codename: params[:site]).id

@@ -14,7 +14,8 @@ $(document).ready(function() {
   $('select').material_select();
   $( "#datepicker" ).datepicker({
     dateFormat: 'yy-mm-dd',
-    disabled: false
+    disabled: false,
+    buttonText: "Choose date"
    });
    $('#site_select').on('change',function(){
      $("#table-shift").css('display','none');
@@ -89,11 +90,12 @@ function day_per_week(firtsday){
   fdate = new Date(fdate[0],fdate[1]-1,fdate[2],0,0,0),
   week = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
   day_w = fdate.getDay(),
-  day_0 = fdate.getDate() - day_w,
   i, date, day;
+  fdate.setDate(fdate.getDate()-parseInt(day_w));
+
   for(i=1;i<8;i++){
-    day = day_0 + i;
-    date = fdate.getMonth() + 1 + "/" + day + "/" + fdate.getFullYear();
+    fdate.setDate(fdate.getDate()+parseInt(1));
+    date = fdate.getMonth() + 1 + "/" + fdate.getDate() + "/" + fdate.getFullYear();
     $('#date-'+i).html(week[i-1] + " " + date);
   }
 }
@@ -151,14 +153,4 @@ function calculate(){
   $("#listing-shifts tbody tr").each(function (index){
     calculate_hours_total(index);
   });
-}
- function convert_table(){
-   alert("entro");
-    // $("#listing-shifts tbody tr").each(function (index){
-
-        $("#listing-shifts tbody tr:eq(0)").clone().appendTo("#listing-shifts-export tbody");
-
-      // $("this").clone().appendTo("#listing-shifts-export tbody");
-    // });
-
 }
