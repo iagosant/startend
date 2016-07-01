@@ -1,27 +1,29 @@
 $(document).ready(function() {
 
   $("#xlsExport").click(function (){
-
+    if (!$("#xlsExport").hasClass( "disabled" )){
       var uri = $("#listing-shifts").battatech_excelexport({
-          containerid: "listing-shifts"
-         , datatype: 'table'
-         , returnUri: true
-         , encoding: "UTF-8"
-    });
-  $(this).attr('download', 'ExportToExcel.xls').attr('href', uri).attr('target', '_blank');
+        containerid: "listing-shifts"
+        , datatype: 'table'
+        , returnUri: true
+        , encoding: "UTF-8"
+      });
+      $(this).attr('download', 'ExportToExcel.xls').attr('href', uri).attr('target', '_blank');
+    }
   });
 
   $('select').material_select();
   $( "#datepicker" ).datepicker({
     dateFormat: 'yy-mm-dd',
-    disabled: false,
-    buttonText: "Choose date"
+    disabled: false
    });
+
    $('#site_select').on('change',function(){
-     $("#table-shift").css('display','none');
-     $("#datepicker").datepicker('setDate', null);
+     $('#table-shift').css('display','none');
+     $('#xlsExport').addClass("disabled");
+     $('#datepicker').datepicker('setDate', null);
    });
-   $("input#datepicker").on('change',function(){
+   $('input#datepicker').on('change',function(){
      if ($(this).val() != ""){
         var firstDay = $(this).val(),
             site = $('#site_select').val();
@@ -32,15 +34,18 @@ $(document).ready(function() {
             data: {'date': firstDay, 'site': site},
             complete: function() {},
             success: function(data, textStatus) {
+
               if (data != ""){
                   $('#table-shift tbody').html("");
                   $('#table-shift').css('display','block');
+                  $('#xlsExport').removeClass("disabled");
                   day_per_week(firstDay);
-                  var table = $("#table-shift tbody");
+                  var table = $('#table-shift tbody');
                   for(i=0;i<data.length;i++){
                     var html = '<tr id="tr-'+i.toString()+'">';
                     html +='<td>'+data[i]["guard"]+'</td>';
                     html +='<td>'+data[i]["site"]+'</td>';
+                    alert(data[i]);
                     for(j=1;j<8;j++){
                       if (jQuery.type(data[i][j]) === "undefined"){
                         on_data = "";
@@ -63,6 +68,7 @@ $(document).ready(function() {
                   calculate();
                 } else {
                   $('#table-shift').css('display','none');
+                  $("#xlsExport").addClass("disabled");
                 }
                 },
                  error: function(){
@@ -70,7 +76,7 @@ $(document).ready(function() {
                  }
         });
      } else {
-       $("#table-shift").css('display','none');
+      //  $("#table-shift").css('display','none');
      }
    })
    $('input.upload_button').on('change', function(){

@@ -12,6 +12,7 @@
   <% end %>
 
   <div class="field">
+    <%= f.select :first_name, options_for_select( [],:selected => 'Rosa'), {}, { :class => 'span3' } %>
     <%= f.label :first_name %><br>
     <%= f.text_field :first_name %>
   </div>
