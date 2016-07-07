@@ -3,6 +3,7 @@ class ShiftsController < ApplicationController
   # before_action :require_logged_in
   # before_action :set_current_user
   before_action :set_shift, only: [:show, :edit, :update, :destroy]
+  before_action :current_user, only: [:show]
   helper ShiftsHelper
 
   # Functions looking for Guards and their week shedule
@@ -184,10 +185,6 @@ class ShiftsController < ApplicationController
   end
   private
     # Use callbacks to share common setup or constraints between actions.
-
-    def set_current_user
-      @user = current_user
-    end
 
     def set_session
       @session = session[:user_id]
