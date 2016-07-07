@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       # If the user exists AND the password entered is correct.
 
       if user && user.authenticate(params[:password])
-        byebug
+
         # Save the user id inside the browser cookie. This is how we keep the user
         # logged in when they navigate around our website.
 

@@ -12,23 +12,22 @@ class ShiftPolicy
   end
 
   def index?
-    @logged_user.role == "master"
+    @logged_user.role == "employee"
   end
 
   def show?
-    byebug
-    @logged_user.role == "master" || @logged_user == @user
+    @logged_user.role == "employee" || @logged_user == @user
   end
   def destroy?
-    @logged_user.role == "master"
+    @logged_user.role == "employee"
   end
 
   def edit?
-    @logged_user.role == "master"
+    @logged_user.role == "employee"
   end
 
   def update?
-    @logged_user.role == "master"
+    @logged_user.role == "employee"
   end
 
 end

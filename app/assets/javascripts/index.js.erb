@@ -45,7 +45,7 @@ $(document).ready(function() {
                     var html = '<tr id="tr-'+i.toString()+'">';
                     html +='<td>'+data[i]["guard"]+'</td>';
                     html +='<td>'+data[i]["site"]+'</td>';
-                    alert(data[i]);
+                    // alert(data[i]);
                     for(j=1;j<8;j++){
                       if (jQuery.type(data[i][j]) === "undefined"){
                         on_data = "";
@@ -86,7 +86,8 @@ $(document).ready(function() {
    });
 });
 /******** FUNCTION MISLEY ***********/
-function hours_change(rowindex,e,tdindex){ alert('#tr-'+rowindex+' #'+tdindex+' span');
+function hours_change(rowindex,e,tdindex){
+  // alert('#tr-'+rowindex+' #'+tdindex+' span');
   $('#tr-'+rowindex+' #'+tdindex+' span').html(e.value);
   calculate_hours_total(rowindex);
 
