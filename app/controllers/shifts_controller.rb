@@ -119,7 +119,6 @@ class ShiftsController < ApplicationController
   # GET /shifts
   # GET /shifts.json
   def index
-    byebug
     # authorize @user
     @shifts = Shift.all
     @guards = Guard.all
