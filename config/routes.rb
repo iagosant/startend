@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+
+  get 'password_resets/new'
+
+  get 'password_resets/edit'
+
   resources :guards
   # resources :shifts do
   #   collection { post :import }
@@ -25,7 +30,8 @@ Rails.application.routes.draw do
 
   resources :schedules
   resources :sites
-
+  resources :password_resets, only: [:new, :create, :edit, :update]
+  resources :account_activations, only: [:edit]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   post 'shifts/new' => 'shifts#new'

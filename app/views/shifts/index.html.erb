@@ -86,14 +86,12 @@
         Download Excel
       </a>
     </div>
-    <!-- <div class="col s12 m6">
-      <a class="waves-effect waves-light btn right_buttons first_button" value="calculate" onclick="calculate()"><i class="material-icons left">schedule</i>calculate Hrs</a>
-    </div>
-    <div class="download_links col s12"> -->
-      <%#= link_to 'PDF', shifts_path(@shifts, format: :pdf), class: 'col s12 m6 s2' %>
     </div>
     <div class="col s12 m12 s12 signed_user">
       Logged in as <%= link_to current_user.email, edit_user_path(current_user) %> | <%= link_to "Logout", '/logout' %>
+    </div>
+    <div class="col s12 m6 right-align border-right">
+      <%= link_to "New user", new_user_path %>
     </div>
   </div>
 </div>

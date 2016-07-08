@@ -1,8 +1,7 @@
 module SessionsHelper
-  
+
   def log_in(user)
     session[:user_id] = user.id
-    byebug
   end
 
   # Returns the current logged-in user (if any).
@@ -16,4 +15,21 @@ module SessionsHelper
   def logged_in?
     !current_user.nil?
   end
+
+  # Logs out the current user.
+  def log_out
+    forget(current_user)
+    sessons.delete(:user_id)
+    sessons.delete(:team_id)
+    @current_user = nil
+    @current_team = nil
+  end
+
+  def forget(user)
+    user.forget
+    cookies.delete(:user_id)
+    cookies.delete(:remember_token)
+  end
+
+
 end
