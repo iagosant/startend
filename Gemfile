@@ -23,6 +23,7 @@ gem 'rails', '4.2.6'
     gem 'hirb'
     gem 'bcrypt', '~> 3.1.7'
     gem 'pundit'
+    gem 'figaro'
   end
 
 gem 'responders', '~> 2.0'

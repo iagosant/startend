@@ -3,7 +3,8 @@ class ShiftsController < ApplicationController
   # before_action :require_logged_in
   # before_action :set_current_user
   before_action :set_shift, only: [:show, :edit, :update, :destroy]
-  before_action :current_user, only: [:show]
+  before_action :current_user, only: [:show, :index]
+  before_action :require_logged_in
   helper ShiftsHelper
 
   # Functions looking for Guards and their week shedule
@@ -118,6 +119,7 @@ class ShiftsController < ApplicationController
   # GET /shifts
   # GET /shifts.json
   def index
+    byebug
     # authorize @user
     @shifts = Shift.all
     @guards = Guard.all
