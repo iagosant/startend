@@ -13,6 +13,7 @@ gem 'rails', '4.2.6'
     gem 'wkhtmltopdf-binary'
     gem 'bcrypt', '~> 3.1.7'
     gem 'pundit'
+    gem 'rails_12factor'
   end
 
   group :development do
