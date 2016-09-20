@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   resources :sites
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :account_activations, only: [:edit]
+  resources :courses
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   post 'shifts/new' => 'shifts#new'

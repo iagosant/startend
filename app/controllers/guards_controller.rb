@@ -3,9 +3,9 @@ class GuardsController < ApplicationController
 
   # GET /guards
   # GET /guards.json
-  @shift= Shift.all
+
   def index
-    @guards = Guard.all
+    @guards = Guard.all.sort_by { |a| [ a.last_name] }
   end
 
   # GET /guards/1

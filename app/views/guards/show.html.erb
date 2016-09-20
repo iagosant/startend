@@ -9,6 +9,32 @@
   <strong>Last name:</strong>
   <%= @guard.last_name %>
 </p>
+<p>
+  <strong>Site:</strong>
+  <% @guard.sites.each do |site| %>
+  <%= site.name %>
+  <% end %>
+</p>
+<p>
+  <strong>Schedule:</strong>
+  <%=  %>
+</p>
+<p>
+  <strong>Course:</strong>
+  <%=  %>
+</p>
+<p>
+  <strong>Completion:</strong>
+  <%=  %>
+</p>
+<p>
+  <strong>License:</strong>
+  <%=  %>
+</p>
+<p>
+  <strong>Expiration:</strong>
+  <%=  %>
+</p>
 
 <%= link_to 'Edit', edit_guard_path(@guard) %> |
 <%= link_to 'Back', guards_path %>
