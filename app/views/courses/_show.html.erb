@@ -1,0 +1,15 @@
+<ul>
+
+<h4><%= @course.subject %></h4>
+<!-- <li><%#= @course.instructor %></li> -->
+<li><p><%= @course.description %></p></li>
+
+<% if @course.guards.nil? %>
+<ul>
+<%=  @course.guards.each do |guard| %>
+  <li>guard.name</li>
+  <% end %>
+</ul>
+<% end %>
+
+</ul>

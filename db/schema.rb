@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160920193004) do
+ActiveRecord::Schema.define(version: 20160921200022) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "subject"
@@ -23,10 +23,12 @@ ActiveRecord::Schema.define(version: 20160920193004) do
   end
 
   create_table "courses_guards", id: false, force: :cascade do |t|
-    t.integer "course_id",                 null: false
-    t.integer "guard_id",                  null: false
-    t.boolean "completed", default: false, null: false
+    t.integer "course_id", null: false
+    t.integer "guard_id",  null: false
   end
+
+  add_index "courses_guards", ["course_id", "guard_id"], name: "index_courses_guards_on_course_id_and_guard_id"
+  add_index "courses_guards", ["guard_id", "course_id"], name: "index_courses_guards_on_guard_id_and_course_id"
 
   create_table "guards", force: :cascade do |t|
     t.string   "first_name"

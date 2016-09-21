@@ -1,0 +1,23 @@
+
+<%= form_for(@course) do |f| %>
+
+<div class="row">
+<%= f.label :subject %>
+<%= f.text_field :subject %>
+</div>
+
+<div class="row">
+<%= f.label :instructor %>
+<%= f.text_field :instructor_id %>
+</div>
+
+<div class="row">
+<%= f.label :description %>
+<%= f.text_field :description %>
+</div>
+
+<div class="actions">
+  <%= f.submit %>
+</div>
+
+<% end %>

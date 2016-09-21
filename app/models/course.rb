@@ -1,3 +1,3 @@
 class Course < ActiveRecord::Base
-  belongs_to :guard
+  has_many :guards
 end
