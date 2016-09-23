@@ -2,7 +2,8 @@ class Guard < ActiveRecord::Base
   validates_uniqueness_of :first_name, scope: [:last_name]
   has_many :shifts
   has_many :sites, through: :shifts
-  has_many :courses
+  has_many :trainings
+  has_many :courses, through: :trainings
   before_validation :set_fullname, only: [:save]
 
 

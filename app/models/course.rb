@@ -1,3 +1,4 @@
 class Course < ActiveRecord::Base
-  has_many :guards
+  has_many :trainings
+  has_many :guards, through: :trainings
 end

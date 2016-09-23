@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160921200022) do
+ActiveRecord::Schema.define(version: 20160923220844) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "subject"
@@ -19,16 +19,7 @@ ActiveRecord::Schema.define(version: 20160921200022) do
     t.integer  "instructor_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.integer  "guard_id"
   end
-
-  create_table "courses_guards", id: false, force: :cascade do |t|
-    t.integer "course_id", null: false
-    t.integer "guard_id",  null: false
-  end
-
-  add_index "courses_guards", ["course_id", "guard_id"], name: "index_courses_guards_on_course_id_and_guard_id"
-  add_index "courses_guards", ["guard_id", "course_id"], name: "index_courses_guards_on_guard_id_and_course_id"
 
   create_table "guards", force: :cascade do |t|
     t.string   "first_name"
@@ -64,6 +55,17 @@ ActiveRecord::Schema.define(version: 20160921200022) do
     t.datetime "updated_at", null: false
     t.string   "codename"
   end
+
+  create_table "trainings", force: :cascade do |t|
+    t.boolean  "completed",  default: false
+    t.integer  "course_id"
+    t.integer  "guard_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "trainings", ["course_id"], name: "index_trainings_on_course_id"
+  add_index "trainings", ["guard_id"], name: "index_trainings_on_guard_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
