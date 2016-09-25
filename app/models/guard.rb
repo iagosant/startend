@@ -4,6 +4,7 @@ class Guard < ActiveRecord::Base
   has_many :sites, through: :shifts
   has_many :trainings
   has_many :courses, through: :trainings
+  has_many :completed_courses, through: :trainings, :source => :course
   before_validation :set_fullname, only: [:save]
 
 

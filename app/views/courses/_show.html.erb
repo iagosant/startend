@@ -1,15 +1,23 @@
 <ul>
 
-<h4><%= @course.subject %></h4>
-<!-- <li><%#= @course.instructor %></li> -->
-<li><p><%= @course.description %></p></li>
+  <h4><%= @course.subject %></h4>
+  <!-- <li><%#= @course.instructor %></li> -->
+  <li><p><%= @course.description %></p></li>
 
-<% if @course.guards.nil? %>
-<ul>
-<%=  @course.guards.each do |guard| %>
-  <li>guard.name</li>
+  <% unless @course.guards.nil? %>
+  <ul>
+    <h4>Guards Enrolled:</h4>
+    <%  @course.guards.each do |guard| %>
+    <li><% if Training.find_by(guard_id: guard.id, course_id: @course.id).completed = false %>
+      <li><%= guard.first_name %> <%= guard.last_name %></li>
+      <%= "not completed" %>
+      <% else %>
+      <li><%= guard.first_name %> <%= guard.last_name %></li>
+      <%= "completed "%>
+      <% end %>
+    </li>
+    <% end %>
+  </ul>
   <% end %>
-</ul>
-<% end %>
 
 </ul>
