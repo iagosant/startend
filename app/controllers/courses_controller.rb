@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
 
   before_action :set_course, only: [:destroy, :update, :show]
-  before_action :training_status, only: [:index, :show]
+  before_action :training_status, only: [:show]
 
   def index
     @courses = Course.all
@@ -38,12 +38,11 @@ class CoursesController < ApplicationController
     @completed_by = Array.new
     @not_completed_by = Array.new
     @course.guards.each do |guard|
-      t_status = Training.find_by(guard_id: guard.id, course_id: @course.id)
-
-      if t_stauts = false
-        @not_completed_by << guard
-      else
+      t_status = Training.find_by(guard_id: guard.id, course_id: @course.id).completed
+      if t_status == true
         @completed_by << guard
+      elsif t_status == false
+        @not_completed_by << guard
       end
     end
   end

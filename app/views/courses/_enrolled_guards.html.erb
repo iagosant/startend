@@ -1,0 +1,10 @@
+
+<%= form_for([@course], :remote => true) do |f| %>
+<div class="row">
+  <ul>
+    <% @course.guards.each do |guard| %>
+    <li><%= guard.first_name %> <%= guard.last_name %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
