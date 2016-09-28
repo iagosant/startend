@@ -1,7 +1,8 @@
 class CoursesController < ApplicationController
-
+  include CoursesHelper
   before_action :set_course, only: [:destroy, :update, :show]
   before_action :training_status, only: [:show]
+  before_action :set_training, only: [:complete_training]
 
   def index
     @courses = Course.all
@@ -34,23 +35,41 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
   end
 
+  def set_training
+    @training = Training.find_by(guard_id: params[:guard_id], course_id: params[:course_id])
+  end
+
   def training_status
     @completed_by = Array.new
     @not_completed_by = Array.new
     @course.guards.each do |guard|
-      t_status = Training.find_by(guard_id: guard.id, course_id: @course.id).completed
-      if t_status == true
+      t_status = Training.find_by(guard_id: guard.id, course_id: @course.id).completed_at
+      if t_status != nil
         @completed_by << guard
-      elsif t_status == false
+      elsif t_status.nil?
         @not_completed_by << guard
       end
+    end
+  end
+
+#   def completed?
+#     byebug
+#   !completed_at.blank?
+# end
+
+
+  def complete_training
+    @training.update(completed_at: Time.now)
+    respond_to do |format|
+      format.html {  redirect_to @course, notice: "Training marked as completed" }
+      format.js
     end
   end
 
   private
 
   def course_params
-    params.require(:course).permit(:subject, :instructor_id, :description, :id)
+    params.require(:course).permit(:subject, :course_id, :guard_id, :instructor_id, :description, :id)
   end
 
 end

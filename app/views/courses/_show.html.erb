@@ -5,7 +5,7 @@
   <% unless @course.guards.empty? %>
   <ul><h4>Completed:</h4>
       <li>
-      <div class="tasks" id="training_completed">
+      <div class="training" id="training_completed">
         <%= render @completed_by %>
       </div>
       </li>
@@ -13,7 +13,7 @@
 
     <ul><h4>Pending:</h4>
       <li>
-      <div class="tasks" id="training_pending">
+      <div class="training" id="training_pending">
         <%= render partial: 'guards/guard', collection: @not_completed_by %>
       </div>
       </li>

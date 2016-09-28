@@ -1,2 +1,8 @@
+<ul id='training_status_<%= guard.id %>'>
 
-  <li><%= guard.first_name %> <%= guard.last_name %></li>
+<%= form_for @course, url: complete_training_course_path(:guard_id => guard.id, :course_id => @course.id), remote: true do |f| %>
+<%= check_box_tag "completed[#{guard.id}]", "#{guard.id}", @course.completed?(guard.id), :name => "guard_id", disabled: @course.completed?(guard.id) %>
+<%= label_tag "completed_#{guard.id}", "#{guard.first_name} #{guard.last_name}"%>
+<%= f.submit "Completed" %>
+<% end %>
+</ul>

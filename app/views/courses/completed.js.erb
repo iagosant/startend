@@ -1,0 +1,6 @@
+<% if @course.completed? %>
+  $('#training_status_<%= guard.id %>').appendTo('#training_completed');
+  $('input#completed_<%= guard.id %>').attr('disabled','disabled');
+<% else %>
+  $('#edit_task_<%= @task.id %>').appendTo('#training_pending');
+<% end %>
